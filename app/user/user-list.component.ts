@@ -2,7 +2,6 @@ import {Component, OnInit} from 'angular2/core';
 import {UserCardComponent} from './user-card.component';
 import {UserService} from "./user.service";
 import {User} from "./user";
-import {OnInit} from 'angular2/core'
 
 @Component({
     selector: 'user-list',
