@@ -1,5 +1,8 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {UserCardComponent} from './user-card.component';
+import {UserService} from "./user.service";
+import {User} from "./user";
+import {OnInit} from 'angular2/core'
 
 @Component({
     selector: 'user-list',
@@ -17,36 +20,28 @@ import {UserCardComponent} from './user-card.component';
             [class.hidden]="selectedUser != user"
             ></user-card>
         </div>
-
-
     </div>
     `,
-    directives: [UserCardComponent]
+    directives: [UserCardComponent],
+    providers: [UserService]
 })
-export class UserListComponent {
-    public userList = [{
-        name: "ХаБоЗа",
-        lastname: "СаБрНд",
-        profession: "Балабол, Бекенд, android",
-        phone: "+7(000)018-23-16",
-        email: "jatumba@pro.ru"
-    }, {
-        name: "ХаБоЗа",
-        lastname: "СаБрНд",
-        proffesion: "Балабол, Бекенд, android",
-        phone: "+7(000)018-23-16",
-        email: "jatumba@pro.ru"
-    }, {
-        name: "ХаБоЗа",
-        lastname: "СаБрНд",
-        proffesion: "Балабол, Бекенд, android",
-        phone: "+7(000)018-23-16",
-        email: "jatumba@pro.ru"
-    }];
+export class UserListComponent implements OnInit {
+    public userList: User[];
 
     public selectedUser = "";
+
+    constructor(private _userService: UserService) {}
 
     onSelect(user) {
         this.selectedUser = user;
     }
+
+    getUserList() {
+        this._userService.getUserList().then((userList: User[]) => this.userList = userList)
+    }
+
+    ngOnInit():any {
+        this.getUserList();
+    }
+
 }
