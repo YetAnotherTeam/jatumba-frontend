@@ -1,10 +1,9 @@
 import {Component, OnInit} from 'angular2/core';
 
 @Component({
-    selector: 'user-list',
+    selector: 'editor',
     template: `
     <div>
-        
         тест
     </div>
     `,

@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {UserListComponent} from './user/user-list.component';
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
-import {User} from "./user/User";
+import {User} from "./user/user";
 import {EditorComponent} from "./editor/editor.component";
 
 @Component({
