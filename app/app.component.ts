@@ -3,6 +3,8 @@ import {UserListComponent} from './user/user-list.component';
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {User} from "./user/user";
 import {EditorComponent} from "./editor/editor.component";
+import {LoginComponent} from "./auth/login.component";
+import {RegisterComponent} from "./auth/register.component";
 
 @Component({
     selector: 'my-app',
@@ -20,25 +22,9 @@ import {EditorComponent} from "./editor/editor.component";
 })
 @RouteConfig([
     {path:'/user-list', name: 'UserList', component: UserListComponent},
-    {path:'/editor', name: 'Editor',       component: EditorComponent}
+    {path:'/editor', name: 'Editor', component: EditorComponent},
+    {path:'/settings', name: 'Settings', component: EditorComponent},
+    {path:'/login', name: 'Login', component: LoginComponent},
+    {path:'/register', name: 'Register', component: RegisterComponent}
 ])
-export class AppComponent {
-    public headMenu = {
-        editor : {
-            name: "Редактор",
-            url: "/editor"
-        },
-        settings : {
-            name: "Настройки",
-            url: "/settings"
-        },
-        authorization : {
-            name: "Авторизация",
-            url: "/login"
-        },
-        userList : {
-            name: "Коллектив",
-            url: "/user-list"
-        }
-    };
-}
+export class AppComponent {}
