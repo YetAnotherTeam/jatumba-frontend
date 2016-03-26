@@ -31,7 +31,7 @@ export class AuthService {
     }
 
     login(username:string, password:string) {
-        return this._http.post(this.href + '/user/sign_up/', JSON.stringify({
+        return this._http.post(this.href + 'user/sign_up/', JSON.stringify({
                 username: username,
                 password: password
             }), this.getHeaders())
