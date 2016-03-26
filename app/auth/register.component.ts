@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
 import 'rxjs/Rx';
 import {Http, ConnectionBackend} from "angular2/http";
@@ -32,15 +32,13 @@ export class RegisterComponent implements OnInit {
 
     public selectedUser = "";
 
-    constructor(private _authService: AuthService) {
+    constructor(private _authService: AuthService, private _router: Router) {
     }
 
     register() {
         let self = this;
-        this._authService.register(this._login, this._password).subscribe(function(data){
-            localStorage.setItem('access_token', data['session']['access_token']);
-            localStorage.setItem('refresh_token', data['session']['refresh_token']);
-            self._authService.auth = true;
+        this._authService.register(this._login, this._password).add(function() {
+            self._router.navigate(['UserList'])
         });
     }
 

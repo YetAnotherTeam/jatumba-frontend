@@ -23,6 +23,11 @@ export class AuthService {
             password: password
         }), this.getHeaders())
             .map(res => res.json())
+            .subscribe(function(data){
+                console.log('data', data);
+                localStorage.setItem('access_token', data['session']['access_token']);
+                localStorage.setItem('refresh_token', data['session']['refresh_token']);
+            })
     }
 
     login(username:string, password:string) {
@@ -31,6 +36,11 @@ export class AuthService {
                 password: password
             }), this.getHeaders())
             .map(res => res.json())
+            .subscribe(function(data){
+                console.log('data', data);
+                localStorage.setItem('access_token', data['session']['access_token']);
+                localStorage.setItem('refresh_token', data['session']['refresh_token']);
+            })
     }
 
     isAuth() {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
 @Component({
     selector: 'login',
@@ -27,16 +27,14 @@ export class LoginComponent implements OnInit {
 
     private _password = "";
 
-    constructor(private _authService: AuthService) {}
+    constructor(private _authService: AuthService, private _router: Router) {}
 
     ngOnInit() {}
 
     login() {
         let self = this;
-        this._authService.login(this._login, this._password).subscribe(function(data){
-            localStorage.setItem('access_token', data['session']['access_token']);
-            localStorage.setItem('refresh_token', data['session']['refresh_token']);
-            self._authService.auth = true;
+        this._authService.login(this._login, this._password).add(function() {
+            self._router.navigate(['UserList'])
         });
     }
 
