@@ -14,6 +14,7 @@ import {AuthService} from "./auth/auth.service";
       <nav>
         <a *ngIf="isAuth" [routerLink]="['UserList']">Коллектив</a>
         <a *ngIf="isAuth" [routerLink]="['Editor']">Редактор</a>
+        <a *ngIf="!isAuth" [routerLink]="['Login']">Логин</a>
       </nav>
       <div>
         <router-outlet></router-outlet>
