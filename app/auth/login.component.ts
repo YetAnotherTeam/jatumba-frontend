@@ -32,9 +32,11 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     login() {
+        let self = this;
         this._authService.login(this._login, this._password).subscribe(function(data){
             localStorage.setItem('access_token', data['session']['access_token']);
             localStorage.setItem('refresh_token', data['session']['refresh_token']);
+            self._authService.auth = true;
         });
     }
 

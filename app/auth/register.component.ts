@@ -36,13 +36,14 @@ export class RegisterComponent implements OnInit {
     }
 
     register() {
+        let self = this;
         this._authService.register(this._login, this._password).subscribe(function(data){
-            console.log(data);
             localStorage.setItem('access_token', data['session']['access_token']);
             localStorage.setItem('refresh_token', data['session']['refresh_token']);
+            self._authService.auth = true;
         });
     }
-    
+
     ngOnInit() {
 
     }
