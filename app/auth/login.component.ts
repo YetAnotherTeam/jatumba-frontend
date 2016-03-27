@@ -1,6 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
+import {AppComponent} from "../app.component";
 @Component({
     selector: 'login',
     template: `
@@ -29,7 +30,12 @@ export class LoginComponent implements OnInit {
 
     constructor(private _authService: AuthService, private _router: Router) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        var self = this;
+        this._authService.isAuth().add(function() {
+            // self._router.navigate(['UserList'])
+        })
+    }
 
     login() {
         let self = this;
