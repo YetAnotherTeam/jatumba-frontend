@@ -6,7 +6,7 @@ import {AppComponent} from "../app.component";
     selector: 'login',
     template: `
 <h2>Авторизация</h2>
-    <form>
+    <form style="margin-left: 240px">
         <div>
             <label for="login">Логин</label>
             <input type="text" id="login" name="login" [(ngModel)]="_login">
@@ -15,9 +15,9 @@ import {AppComponent} from "../app.component";
             <label for="password">Пароль</label>
             <input type="text" id="password" name="password" [(ngModel)]="_password">
         </div>
+        <button (click)="login()">Авторизоваться</button>
+        <a [routerLink]="['Register']">Регистрация</a>
     </form>
-    <button (click)="login()">Авторизоваться</button>
-    <a [routerLink]="['Register']">Регистрация</a>
     `,
     directives: [ROUTER_DIRECTIVES],
     providers: [AuthService]

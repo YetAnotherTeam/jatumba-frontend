@@ -9,7 +9,7 @@ import {Http, ConnectionBackend} from "angular2/http";
 <h2>Регистрация</h2>
 
     <button [routerLink]="['Login']">Назад</button> <!-- Не нашел способа сделать Router.back()-->
-    <form>
+    <form style="margin-left: 240px">
         <div>
             <label for="login">Логин</label>
             <input type="text" id="login" name="login" [(ngModel)]="_login">
