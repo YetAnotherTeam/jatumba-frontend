@@ -4,23 +4,10 @@ import {AuthService} from "./auth.service";
 import {AppComponent} from "../app.component";
 @Component({
     selector: 'login',
-    template: `
-<h2>Авторизация</h2>
-    <form>
-        <div>
-            <label for="login">Логин</label>
-            <input type="text" id="login" name="login" [(ngModel)]="_login">
-        </div>
-        <div>
-            <label for="password">Пароль</label>
-            <input type="text" id="password" name="password" [(ngModel)]="_password">
-        </div>
-    </form>
-    <button (click)="login()">Авторизоваться</button>
-    <a [routerLink]="['Register']">Регистрация</a>
-    `,
+    templateUrl: '/app/auth/login.component.html',
+    styleUrls: ['app/auth/login-register.component.css'],
     directives: [ROUTER_DIRECTIVES],
-    providers: [AuthService]
+    providers: [AuthService],
 })
 export class LoginComponent implements OnInit {
 

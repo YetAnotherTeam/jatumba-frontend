@@ -57,9 +57,9 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit():any {
-        if (!AppComponent.isAuth) {
-            this._router.navigate(['Login']);
-        }
+        // if (!AppComponent.isAuth) {
+        //     this._router.navigate(['Login']);
+        // }
         this.getUserList();
     }
 

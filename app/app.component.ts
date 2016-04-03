@@ -1,44 +1,32 @@
 import {Component, OnInit} from 'angular2/core';
 import {UserListComponent} from './user/user-list.component';
-import {RouteConfig, ROUTER_DIRECTIVES, AuxRoute} from "angular2/router";
+import {RouteConfig, ROUTER_DIRECTIVES, AuxRoute, Router} from "angular2/router";
 import {User} from "./user/user";
 import {EditorComponent} from "./editor/editor.component";
 import {LoginComponent} from "./auth/login.component";
 import {RegisterComponent} from "./auth/register.component";
 import {AuthService} from "./auth/auth.service";
+import {NavBarComponent} from "./components/nav-bar.component";
+import {PageTitleComponent} from "./components/page-title.component";
 
 @Component({
     selector: 'my-app',
     template: `
-<!--*ngIf="AppComponent.isAuth"-->
-       <header *ngIf="__isAuth">
-        <nav>
-            <!-- <div class="container"> -->
-                <div class="nav-wrapper">
-                    <!-- <a class="page-title">Users</a> -->
-                    <form>
-                    <div class="input-field">
-                      <input id="search" type="search" required>
-                      <label for="search"><i class="material-icons">search</i></label>
-                      <i class="material-icons">close</i>
-                    </div>
-                  </form>
+        <nav-bar
+            [routeName]="_pageTitle"></nav-bar>
+        <div id="wrapper">
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <page-title
+                        [title]="_pageTitle"></page-title>
+                    <div class="row">
+                        <router-outlet></router-outlet>
+                     </div>
                 </div>
-            <!-- </div> -->
-        </nav>
-        <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
-          <ul id="nav-mobile" class="side-nav fixed">
-            <!-- li class="logo"><a id="logo-container" href="#" class="brand-logo">
-                <img src="logo.png" width="200px" height="200px"> -->
-            <li class="center-align">JatTeam</li>
-            <li class="bold"><a [routerLink]="['Editor']" class="waves-effect waves-teal">Tracks</a></li>
-            <li class="bold active"><a [routerLink]="['UserList']" class="waves-effect waves-teal">Users</a></li>
-            <!--<li class="bold"><a href="#bands" class="waves-effect waves-teal">Bands</a></li>-->
-          </ul>
-    </header>  
-    <router-outlet></router-outlet>     
+            </div>
+         </div>
     `,
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, NavBarComponent, PageTitleComponent],
     providers: [AuthService]
 })
 @RouteConfig([
@@ -53,10 +41,14 @@ export class AppComponent implements OnInit {
 
     private __isAuth: boolean;
 
+    private _pageTitle: string;
 
 
-    constructor(private _authService: AuthService) {
+
+    constructor(private _authService: AuthService, private _router: Router) {
         this.__isAuth = false;
+        _router.subscribe((val) => this._pageTitle = val);
+
     }
 
     ngOnInit() {

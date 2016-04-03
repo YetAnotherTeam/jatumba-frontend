@@ -5,22 +5,8 @@ import 'rxjs/Rx';
 import {Http, ConnectionBackend} from "angular2/http";
 @Component({
     selector: 'login',
-    template: `
-<h2>Регистрация</h2>
-
-    <button [routerLink]="['Login']">Назад</button> <!-- Не нашел способа сделать Router.back()-->
-    <form>
-        <div>
-            <label for="login">Логин</label>
-            <input type="text" id="login" name="login" [(ngModel)]="_login">
-        </div>
-        <div>
-            <label for="password">Пароль</label>
-            <input type="text" id="password" name="password" [(ngModel)]="_password">
-        </div>
-        <button (click)="register()">Зарегистрироваться</button>
-    </form> 
-   `,
+    templateUrl: '/app/auth/register.component.html',
+    styleUrls: ['app/auth/login-register.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [AuthService]
 })
