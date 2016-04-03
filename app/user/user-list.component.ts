@@ -4,6 +4,7 @@ import {UserService} from "./user.service";
 import {User} from "./user";
 import {Router} from "angular2/router";
 import {AppComponent} from "../app.component";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
     selector: 'user-list',
@@ -46,7 +47,14 @@ export class UserListComponent implements OnInit {
 
     public selectedUser = "";
 
-    constructor(private _userService: UserService, private _router: Router) {}
+    constructor(private _userService: UserService, private _router: Router, private _authService: AuthService) {
+        var self = this;
+        this._authService.isAuth().then(function(isAuth) {
+            if (!isAuth) {
+                self._router.navigate(['Login']);
+            }
+        })
+    }
 
     onSelect(user) {
         this.selectedUser = user;
@@ -57,9 +65,7 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit():any {
-        // if (!AppComponent.isAuth) {
-        //     this._router.navigate(['Login']);
-        // }
+
         this.getUserList();
     }
 

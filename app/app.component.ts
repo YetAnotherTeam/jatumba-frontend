@@ -13,6 +13,7 @@ import {PageTitleComponent} from "./components/page-title.component";
     selector: 'my-app',
     template: `
         <nav-bar
+            *ngIf="_pageTitle != '' && _pageTitle != 'register'"
             [routeName]="_pageTitle"></nav-bar>
         <div id="wrapper">
             <div id="page-wrapper">
@@ -37,26 +38,15 @@ import {PageTitleComponent} from "./components/page-title.component";
     {path:'/register', name: 'Register', component: RegisterComponent}
 ])
 export class AppComponent implements OnInit {
-    static isAuth: boolean;
-
-    private __isAuth: boolean;
 
     private _pageTitle: string;
-
-
-
+    
     constructor(private _authService: AuthService, private _router: Router) {
-        this.__isAuth = false;
         _router.subscribe((val) => this._pageTitle = val);
-
     }
 
     ngOnInit() {
-        this._authService.isAuth();
-        var self = this;
-        setInterval(function(){
-            self.__isAuth = AppComponent.isAuth
-        },1000)
+
     }
 
 }

@@ -15,13 +15,18 @@ export class LoginComponent implements OnInit {
 
     private _password = "";
 
-    constructor(private _authService: AuthService, private _router: Router) {}
+    constructor(private _authService: AuthService, private _router: Router) {
+        var self = this;
+        this._authService.isAuth().then(function(isAuth) {
+            if (isAuth) {
+                self._router.navigate(['UserList'])
+            }
+        })
+    }
 
     ngOnInit() {
-        var self = this;
-        this._authService.isAuth().add(function() {
-            // self._router.navigate(['UserList'])
-        })
+
+
     }
 
     login() {

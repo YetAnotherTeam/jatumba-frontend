@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 
 @Component({
     selector: 'page-title',
-    templateUrl: '/app/components/page-title.html',
+    templateUrl: '/app/components/page-title.component.html',
     directives: [],
     providers: [],
     inputs: ["title"]

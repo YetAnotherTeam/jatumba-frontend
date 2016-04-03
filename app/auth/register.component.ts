@@ -19,17 +19,21 @@ export class RegisterComponent implements OnInit {
     public selectedUser = "";
 
     constructor(private _authService: AuthService, private _router: Router) {
+        var self = this;
+        this._authService.isAuth().then(function(isAuth) {
+            if (isAuth) {
+                self._router.navigate(['UserList'])
+            }
+        })
     }
 
     register() {
         let self = this;
-        this._authService.register(this._login, this._password).add(function() {
+        this._authService.register(this._login, this._password).subscribe(function() {
             self._router.navigate(['UserList'])
         });
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit(){}
 
 }
