@@ -26,12 +26,11 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
 
-
     }
 
     login() {
         let self = this;
-        this._authService.login(this._login, this._password).add(function() {
+        this._authService.login(this._login, this._password).subscribe(function() {
             self._router.navigate(['UserList'])
         });
     }
