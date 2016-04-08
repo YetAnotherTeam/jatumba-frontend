@@ -30,7 +30,11 @@ export class AuthService {
                 localStorage.setItem('refresh_token', data['session']['refresh_token']);
                 localStorage.setItem('user', JSON.stringify(data['user']));
                 return data;
-            })
+            },
+            error => {
+                return {'error': error['username']}
+            }
+        )
     }
 
     login(username:string, password:string) {

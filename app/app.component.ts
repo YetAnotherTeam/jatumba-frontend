@@ -1,5 +1,6 @@
 import {Component, OnInit} from 'angular2/core';
 import {UserListComponent} from './user/user-list.component';
+import {UserCardComponent} from './user/user-card.component';
 import {RouteConfig, ROUTER_DIRECTIVES, AuxRoute, Router} from "angular2/router";
 import {User} from "./user/user";
 import {EditorComponent} from "./editor/editor.component";
@@ -31,7 +32,8 @@ import {PageTitleComponent} from "./components/page-title.component";
     providers: [AuthService]
 })
 @RouteConfig([
-    {path:'/user-list', name: 'UserList', component: UserListComponent},
+    {path:'/user', name: 'UserList', component: UserListComponent},
+    {path:'/user/:id', name: 'UserDetail', component: UserCardComponent},
     {path:'/editor', name: 'Editor', component: EditorComponent},
     {path:'/settings', name: 'Settings', component: EditorComponent},
     {path:'/', name: 'Login', component: LoginComponent },

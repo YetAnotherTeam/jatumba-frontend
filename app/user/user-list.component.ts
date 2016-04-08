@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {UserCardComponent} from './user-card.component';
 import {UserService} from "./user.service";
 import {User} from "./user";
-import {Router} from "angular2/router";
+import {Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {AppComponent} from "../app.component";
 import {AuthService} from "../auth/auth.service";
 
@@ -17,11 +17,13 @@ import {AuthService} from "../auth/auth.service";
     <div>
         
         <div *ngFor="#user of userList">
-            <a class="collection-item" href="#">
-                <p>{{user.name}} <br>
-                    {{user.lastname}}
-                </p>
+            <a class="collection-item" [routerLink]="['UserDetail', {'id': user.id}]">
+                <strong>{{user.username}}</strong> <br>
             </a>
+             <p>
+                    {{user.first_name}} {{user.last_name}}
+             </p>
+
             <!--<div style="color: blue;"-->
             <!--(click)="onSelect(user)"-->
             <!--[class.hidden]="selectedUser == user"-->
@@ -39,7 +41,7 @@ import {AuthService} from "../auth/auth.service";
 </div>
 </main>
     `,
-    directives: [UserCardComponent],
+    directives: [UserCardComponent, ROUTER_DIRECTIVES],
     providers: [UserService]
 })
 export class UserListComponent implements OnInit {
@@ -60,13 +62,12 @@ export class UserListComponent implements OnInit {
         this.selectedUser = user;
     }
 
-    getUserList() {
-        this._userService.getUserList().then((userList: User[]) => this.userList = userList)
+    list() {
+        this._userService.list().subscribe((userList: User[]) => this.userList = userList)
     }
 
     ngOnInit():any {
-
-        this.getUserList();
+        this.list();
     }
 
 }
