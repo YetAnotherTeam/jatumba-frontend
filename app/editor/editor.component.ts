@@ -15,6 +15,8 @@ export class EditorComponent implements OnInit {
     public instrumentList: Instrument[];
     public trackList: Track[];
 
+    public bpm: number;
+
     private emptySectorList = [];
 
     constructor(private _router: Router, private _authService: AuthService, private _editorService: EditorService) {
@@ -30,6 +32,9 @@ export class EditorComponent implements OnInit {
 
     ngOnInit() {
         var self = this;
+
+        this.bpm = 90;
+
         for (let i = 0; i < 32; i++) {
             this.emptySectorList.push('empty');
         }
@@ -60,6 +65,15 @@ export class EditorComponent implements OnInit {
             instrument: this.instrumentList.filter(item => item.active)[0],
             sectorList: this.emptySectorList.slice()
         })
+    }
+    
+    addSound(track: Track, index) {
+        let instrument: Instrument = this.instrumentList.filter(item => item.active)[0];
+        for (let i in instrument.soundList) {
+            if (instrument.soundList[i].active) {
+                track.sectorList[index] = instrument.soundList[i].name
+            }
+        }
     }
 
     mappingSoundValToType(string) {

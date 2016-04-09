@@ -27,8 +27,9 @@ mdl-layout--fixed-header">
                     <button class="btn round" title="Тип"><i class="type-4"></i></button>
                     <span class="bpm-wrapper">
                         <span>BPM:</span>
-                        <input type="text" value="90" class="inp bpm">
+                        <input type="text" [(ngModel)]="bpm" class="inp bpm">
                     </span>
+                    <button>Play</button>
                 </div>
                 <div class="work-tabs-wrapper">
                     <!-- work tabs -->
@@ -40,7 +41,8 @@ mdl-layout--fixed-header">
                             </div>
                             <div class="sector">
                                 <ul>
-                                    <li *ngFor="#sector of track.sectorList">
+                                    <li *ngFor="#sector of track.sectorList; #i = index"
+                                        (click)="addSound(track,i)">
                                         <i [class]="mappingSoundValToType(sector)"></i>
                                     </li>
                                 </ul>
