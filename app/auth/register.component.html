@@ -10,6 +10,7 @@
                 <input type="text" id="Username" [(ngModel)]="_login" required="required"/>
                 <label for="Username">Имя пользователя</label>
                 <div class="bar"></div>
+                {{username_error}}
             </div>
             <div class="input-container">
                 <input type="password" id="Password" [(ngModel)]="_password" required="required"/>

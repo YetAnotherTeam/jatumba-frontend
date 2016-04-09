@@ -16,7 +16,10 @@ export class RegisterComponent implements OnInit {
 
     private _password = "";
 
+    private username_error;
+
     public selectedUser = "";
+
 
     constructor(private _authService: AuthService, private _router: Router) {
         var self = this;
@@ -31,6 +34,8 @@ export class RegisterComponent implements OnInit {
         let self = this;
         this._authService.register(this._login, this._password).subscribe(function() {
             self._router.navigate(['UserList'])
+        }, function(error) {
+            this.username_error = error;
         });
     }
 

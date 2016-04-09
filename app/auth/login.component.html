@@ -16,11 +16,13 @@
                 <label for="Password">Пароль</label>
                 <div class="bar"></div>
             </div>
+            {{login_error}}
             <div class="button-container">
                 <button (click)="login()"><span>Поехали</span></button>
             </div>
             <div class="footer"><a [routerLink]="['Register']">Регистрация</a></div>
         </form>
+        <button (click)="onVkAuthButton()" type="button" class="btn btn-primary">Вход через VK</button>
     </div>
     <!--<div class="card alt">-->
         <!--<div class="toggle"></div>-->

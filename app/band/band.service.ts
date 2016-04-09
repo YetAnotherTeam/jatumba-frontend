@@ -20,11 +20,11 @@ export class UserService {
     }
 
     get(id: number) {
-        return this._http.get(this.href + 'band/' + id, this.getHeaders()).map(res => res.json())
+        return this._http.get(this.href + 'band/' + id + '/', this.getHeaders()).map(res => res.json())
     }
 
     update(band: Band) {
-        return this._http.patch(this.href + 'band/' + band.id, JSON.stringify({
+        return this._http.patch(this.href + 'band/' + band.id + '/', JSON.stringify({
             name: band.name,
             description: band.description
         }), this.getHeaders())
@@ -39,9 +39,9 @@ export class UserService {
             .map(res => res.json())
     }
 
-    //members_list(band_id: number) {
-    //    return this._http.get()
-    //}
+    members_list(band_id: number) {
+        return this._http.get(this.href + 'member/?band=' + band_id + '/', this.getHeaders()).map(res => res.json())
+    }
 
     private getHeaders() {
         return {headers: this._headers}

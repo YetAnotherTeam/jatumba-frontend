@@ -9,6 +9,7 @@ export class AuthService {
 
     private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
 
+    //private href = "http://localhost:8888/api/";
     private _auth: boolean = false;
 
 
@@ -50,7 +51,30 @@ export class AuthService {
                 localStorage.setItem('refresh_token', data['session']['refresh_token']);
                 localStorage.setItem('user', JSON.stringify(data['user']));
                 return data;
-            })
+            },
+            error => {
+                return {'error' : error['error']}
+            }
+        )
+    }
+
+    vkAuth(token: string) {
+        return this._http.post(this.href + 'sign_up/vk/', JSON.stringify({
+            token: token
+        }), this.getHeaders())
+            .map(res => res.json())
+            .do(data => {
+                console.log('data', data);
+                this._auth = true;
+                localStorage.setItem('access_token', data['session']['access_token']);
+                localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                localStorage.setItem('user', JSON.stringify(data['user']));
+                return data;
+            },
+                error => {
+                return {'error' : error['error']}
+            }
+        )
     }
 
     isAuth() {
