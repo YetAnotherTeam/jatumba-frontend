@@ -3,7 +3,7 @@
 </div>
 <div class="container">
     <div class="card"></div>
-    <div class="card">
+    <div class="card" [hidden]="login_controller.hide_login">
         <h1 class="title">Авторизация</h1>
         <form>
             <div class="input-container">
@@ -16,18 +16,27 @@
                 <label for="Password">Пароль</label>
                 <div class="bar"></div>
             </div>
-            {{login_error}}
+            <div>
+                {{login_error}}
+            </div>
             <div class="button-container">
                 <button (click)="login()"><span>Поехали</span></button>
             </div>
             <div class="footer"><a [routerLink]="['Register']">Регистрация</a></div>
+            <div class="footer"><a (click)="onVkAuthButton()">Вход через VK</a></div>
+            <div class="footer"><a (click)="onFbAuthButton()">Вход через FB</a></div>
         </form>
     </div>
-    <button (click)="onVkAuthButton()" type="button" class="btn btn-primary">Вход через VK</button>
-    <button (click)="onFbAuthButton()" type="button" class="btn btn-primary">Вход через FB</button>
-    <input [(ngModel)]="social_username">
-    <button (click)="onVkRegisterButton()" type="button" class="btn btn-primary">Регистрация через ВК</button>
-    <button (click)="onFbRegisterButton()" type="button" class="btn btn-primary">Регистрация через FB</button>
+    <div class="card" [hidden]="!login_controller.hide_login">
+        <h3 class="title">Введите желаемое имя пользователя</h3>
+        <div class="input-container">
+            <input [(ngModel)]="social_username" id="social_username" required="required"/>
+            <label for="social_username">Имя пользователя</label>
+            <div class="bar"></div>
+        </div>
+        <div class="button-container" [hidden]="!login_controller.show_vk_register"><button (click)="onVkRegisterButton()"  type="button" class="btn btn-primary">Вход</button></div>
+        <div class="button-container" [hidden]="!login_controller.show_fb_register"><button (click)="onFbRegisterButton()" type="button" class="btn btn-primary">Вход</button></div>
+    </div>
     <!--<div class="card alt">-->
         <!--<div class="toggle"></div>-->
         <!--<h1 class="title">Register-->

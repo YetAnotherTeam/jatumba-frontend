@@ -10,7 +10,6 @@ import {AppComponent} from "../app.component";
     providers: [AuthService],
 })
 export class LoginComponent implements OnInit {
-
     private _login = "";
 
     private _password = "";
@@ -18,6 +17,12 @@ export class LoginComponent implements OnInit {
     private login_error = "";
 
     private social_username = "";
+
+    private login_controller = {
+        hide_login: false,
+        show_fb_register: false,
+        show_vk_register: false
+    };
 
     constructor(private _authService: AuthService, private _router: Router) {
         var self = this;
@@ -56,7 +61,13 @@ export class LoginComponent implements OnInit {
                 account => {
                     self._router.navigate(['UserList'])
             },
-                e => this.login_error = 'Ошибка при авторизации'
+                e => {
+                this.login_error = 'Ошибка при авторизации';
+                if (e.status == 404) {
+                    self.login_controller.hide_login = true;
+                    self.login_controller.show_fb_register = true;
+                }
+            }
         )
     }
 
@@ -77,7 +88,13 @@ export class LoginComponent implements OnInit {
                 account => {
                 self._router.navigate(['UserList'])
             },
-                e => this.login_error = 'Ошибка при авторизации'
+                e => {
+                    this.login_error = 'Ошибка при авторизации';
+                    if (e.status == 404) {
+                        self.login_controller.hide_login = true;
+                        self.login_controller.show_fb_register = true;
+                    }
+                }
         )
     }
 
@@ -85,14 +102,24 @@ export class LoginComponent implements OnInit {
         let self = this;
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.vk.access_token;
-        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']))
+        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
+            this.login_error = 'Ошибка при авторизации';
+            if (e.status == 400) {
+                self.login_error = "Имя пользователя уже занято";
+            }
+        })
     }
 
     onFbRegisterButton() {
         let self = this;
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.facebook.access_token;
-        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']))
+        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
+            this.login_error = 'Ошибка при авторизации';
+            if (e.status == 400) {
+                self.login_error = "Имя пользователя уже занято";
+            }
+        })
     }
 
     login() {

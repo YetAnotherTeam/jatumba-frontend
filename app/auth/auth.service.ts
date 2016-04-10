@@ -53,7 +53,7 @@ export class AuthService {
                 return data;
             },
             error => {
-                return {'error' : error['error']}
+                return error
             }
         )
     }
@@ -73,7 +73,7 @@ export class AuthService {
                 return data;
             },
                 error => {
-                return {'error' : error['error']}
+                return error
             }
         )
     }
@@ -93,7 +93,7 @@ export class AuthService {
                 return data;
             },
                 error => {
-                return {'error' : error['error']}
+                return error
             }
         )
     }
