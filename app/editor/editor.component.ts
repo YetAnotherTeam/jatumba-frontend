@@ -106,7 +106,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.trackList.push({
             id: this.trackList[this.trackList.length - 1].id + 1,
             instrument: this.activeInstrument,
-            sectorList: this._createEmptyTrack();
+            sectorList: this._createEmptyTrack()
         })
     }
     
