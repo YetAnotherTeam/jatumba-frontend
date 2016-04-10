@@ -58,9 +58,30 @@ export class AuthService {
         )
     }
 
-    vkAuth(token: string) {
+    vkAuth(token: string, username?:string) {
         return this._http.post(this.href + 'sign_up/vk/', JSON.stringify({
-            token: token
+            token: token,
+            username: username
+        }), this.getHeaders())
+            .map(res => res.json())
+            .do(data => {
+                console.log('data', data);
+                this._auth = true;
+                localStorage.setItem('access_token', data['session']['access_token']);
+                localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                localStorage.setItem('user', JSON.stringify(data['user']));
+                return data;
+            },
+                error => {
+                return {'error' : error['error']}
+            }
+        )
+    }
+
+    fbAuth(token: string, username?:string) {
+        return this._http.post(this.href + 'sign_up/fb/', JSON.stringify({
+            token: token,
+            username: username
         }), this.getHeaders())
             .map(res => res.json())
             .do(data => {

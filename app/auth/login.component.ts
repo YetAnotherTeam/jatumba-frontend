@@ -15,7 +15,9 @@ export class LoginComponent implements OnInit {
 
     private _password = "";
 
-    private login_error;
+    private login_error = "";
+
+    private social_username = "";
 
     constructor(private _authService: AuthService, private _router: Router) {
         var self = this;
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         hello.init({
-                vk: '5406655'
+                vk: '5406655',
+                facebook: '214029838968901'
             },
             {
                 redirect_uri: 'http://localhost:3000/',
@@ -36,16 +39,16 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    onVkAuthButton(provider: string) {
+    onVkAuthButton() {
         var scope = 'offline, email';
 
         hello('vk').login({
             response_type: 'token',
             scope: scope
-        }, auth => this.onSocialAuth(auth.network, auth.authResponse.access_token));
+        }, auth => this.onVkAuth(auth.authResponse.access_token));
     }
 
-    onSocialAuth(provider: string, token: string) {
+    onVkAuth(token: string) {
         let self = this;
         this._authService
             .vkAuth(token)
@@ -55,6 +58,41 @@ export class LoginComponent implements OnInit {
             },
                 e => this.login_error = 'Ошибка при авторизации'
         )
+    }
+
+    onFbAuthButton() {
+        var scope = 'email';
+
+        hello('facebook').login({
+            response_type: 'token',
+            scope: scope
+        }, auth => this.onFbAuth(auth.authResponse.access_token));
+    }
+
+    onFbAuth(token: string) {
+        let self = this;
+        this._authService
+            .fbAuth(token)
+            .subscribe(
+                account => {
+                self._router.navigate(['UserList'])
+            },
+                e => this.login_error = 'Ошибка при авторизации'
+        )
+    }
+
+    onVkRegisterButton() {
+        let self = this;
+        var hello_object = JSON.parse(localStorage.getItem('hello'));
+        var token = hello_object.vk.access_token;
+        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']))
+    }
+
+    onFbRegisterButton() {
+        let self = this;
+        var hello_object = JSON.parse(localStorage.getItem('hello'));
+        var token = hello_object.facebook.access_token;
+        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']))
     }
 
     login() {

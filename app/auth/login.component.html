@@ -22,8 +22,12 @@
             </div>
             <div class="footer"><a [routerLink]="['Register']">Регистрация</a></div>
         </form>
-        <button (click)="onVkAuthButton()" type="button" class="btn btn-primary">Вход через VK</button>
     </div>
+    <button (click)="onVkAuthButton()" type="button" class="btn btn-primary">Вход через VK</button>
+    <button (click)="onFbAuthButton()" type="button" class="btn btn-primary">Вход через FB</button>
+    <input [(ngModel)]="social_username">
+    <button (click)="onVkRegisterButton()" type="button" class="btn btn-primary">Регистрация через ВК</button>
+    <button (click)="onFbRegisterButton()" type="button" class="btn btn-primary">Регистрация через FB</button>
     <!--<div class="card alt">-->
         <!--<div class="toggle"></div>-->
         <!--<h1 class="title">Register-->
