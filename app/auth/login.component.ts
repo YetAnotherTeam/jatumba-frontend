@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
                     self._router.navigate(['UserList'])
             },
                 e => {
-                this.login_error = 'Ошибка при авторизации';
+                console.log(e);
                 if (e.status == 404) {
                     self.login_controller.hide_login = true;
                     self.login_controller.show_fb_register = true;
