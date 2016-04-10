@@ -3,9 +3,10 @@ import {Instrument} from "./instrument.model";
 export interface Track {
     id : number,
     instrument: Instrument,
-    sectorList: Array<Object>
+    sectorList: sector[] // 32 звука
 }
 
-interface SectorList {
-    wave: Array<string> // lo,hi,mid - звуки 32 штуки
+interface sector {
+    val: string // название/изображение звука (общее)
+    sound: string // название звука (конкретное для данного инструмента)
 }

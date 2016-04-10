@@ -8,34 +8,54 @@ mdl-layout--fixed-header">
             <a class="mdl-navigation__link"
                *ngFor="#instrument of instrumentList"
                [ngClass]="{
-               'mdl-navigation__link--current': instrument.active
+                   'mdl-navigation__link--current': instrument.active
                }"
                (click)="changeActiveInstrument(instrument)"
                [attr.data-instrument-id]="instrument.id"
             >{{instrument.name}}</a>
-            <button>Создать дорожку</button>
+            <button (click)="createTrack()">Создать дорожку</button>
         </nav>
     </div>
     <main class="mdl-layout__content">
         <div class="page-content">
             <div class="main">
-                <div class="work-menu">
+                <div class="work-menu" *ngIf="activeInstrument">
                     <span class="title">Добавить:</span>
-                    <button class="btn round" title="Тип"><i class="type-1"></i></button>
-                    <button class="btn round" title="Тип"><i class="type-2"></i></button>
-                    <button class="btn round active" title="Тип"><i class="type-3"></i></button>
-                    <button class="btn round" title="Тип"><i class="type-4"></i></button>
+                    <button class="btn round"
+                            title="Тип"
+                            *ngFor="#sound of activeInstrument.soundList"
+                            [ngClass]="{
+                                'active': sound.active
+                            }"
+                            (click)="changeActiveSound(sound.name)"
+                    >
+                        <i [class]="mappingSoundValToType(sound.name)"></i>
+                    </button>
+                    <!--<button class="btn round" title="Тип"><i class="type-2"></i></button>-->
+                    <!--<button class="btn round active" title="Тип"><i class="type-3"></i></button>-->
+                    <!--<button class="btn round" title="Тип"><i class="type-4"></i></button>-->
                     <span class="bpm-wrapper">
                         <span>BPM:</span>
                         <input type="text" [(ngModel)]="bpm" class="inp bpm">
                     </span>
-                    <button>Play</button>
+                    <button
+                            *ngIf="!isPlay"
+                            (click)="play()"
+                    >Play</button>
+                    <button
+                            *ngIf="isPlay"
+                            (click)="stop()"
+                    >Stop</button>
                 </div>
                 <div class="work-tabs-wrapper">
                     <!-- work tabs -->
                     <div class="work-tabs">
-                        <div class="play" style="left:40px;"></div>
-                        <div class="track" *ngFor="#track of trackList">
+                        <div class="play" [style.transform]="linePosition" style="left:90px;"></div>
+                        <div class="track"
+                             *ngFor="#track of trackList"
+                             [ngClass]="{
+                                'active': track.instrument == activeInstrument
+                             }">
                             <div class="name">
                                 <div [attr.alt]="track.instrument.name">{{track.instrument.name}}</div>
                             </div>
@@ -43,7 +63,7 @@ mdl-layout--fixed-header">
                                 <ul>
                                     <li *ngFor="#sector of track.sectorList; #i = index"
                                         (click)="addSound(track,i)">
-                                        <i [class]="mappingSoundValToType(sector)"></i>
+                                        <i [class]="mappingSoundValToType(sector.val)"></i>
                                     </li>
                                 </ul>
                             </div>

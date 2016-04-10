@@ -1,7 +1,7 @@
 export interface Instrument {
     id : number,
     name : string,
-    soundList: SoundArray,
+    soundList: Sound[],
     active: boolean
 }
 
