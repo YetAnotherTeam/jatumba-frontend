@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, NgZone} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
 import {AppComponent} from "../app.component";
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         show_vk_register: false
     };
 
-    constructor(private _authService: AuthService, private _router: Router) {
+    constructor(private _authService: AuthService, private _router: Router, private _ngZone: NgZone) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (isAuth) {
@@ -62,10 +62,8 @@ export class LoginComponent implements OnInit {
                     self._router.navigate(['UserList'])
             },
                 e => {
-                console.log(e);
                 if (e.status == 404) {
-                    self.login_controller.hide_login = true;
-                    self.login_controller.show_fb_register = true;
+                    self.toggleSocialInput('vk');
                 }
             }
         )
@@ -89,19 +87,30 @@ export class LoginComponent implements OnInit {
                 self._router.navigate(['UserList'])
             },
                 e => {
-                    this.login_error = 'Ошибка при авторизации';
                     if (e.status == 404) {
-                        self.login_controller.hide_login = true;
-                        self.login_controller.show_fb_register = true;
+                        self.toggleSocialInput('fb');
                     }
                 }
         )
     }
 
+    toggleSocialInput(provider: string) {
+        this._ngZone.run(() => {
+            this.login_controller.hide_login = true;
+            if (provider == 'vk') {
+                this.login_controller.show_vk_register = true;
+            } else if (provider == 'fb') {
+                this.login_controller.show_fb_register = true;
+            }
+        })
+    }
+
     onVkRegisterButton() {
         let self = this;
+        console.log('pre');
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.vk.access_token;
+        console.log('after');
         this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
             this.login_error = 'Ошибка при авторизации';
             if (e.status == 400) {
