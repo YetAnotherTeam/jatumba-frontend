@@ -8,6 +8,7 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'user-card',
     template: `
+    <main>
     <div>
         <div>name: {{user.name}}</div>
         <div>lastname: {{user.lastname}}</div>
@@ -15,6 +16,7 @@ import {AuthService} from "../auth/auth.service";
         <div>phone: {{user.phone}}</div>
         <div>email: {{user.email}}</div>
     </div>
+    </main>
     `,
     inputs: ["user", "visible"],
     providers: [UserService]

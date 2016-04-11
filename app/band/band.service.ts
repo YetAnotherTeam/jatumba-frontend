@@ -4,7 +4,7 @@ import {AppComponent} from "../app.component";
 import {Band} from "./band";
 
 @Injectable()
-export class UserService {
+export class BandService {
     private _headers: Headers;
 
     private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
