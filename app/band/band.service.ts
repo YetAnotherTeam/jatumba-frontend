@@ -40,7 +40,7 @@ export class BandService {
     }
 
     members_list(band_id: number) {
-        return this._http.get(this.href + 'member/?band=' + band_id + '/', this.getHeaders()).map(res => res.json())
+        return this._http.get(this.href + 'member/?band=' + band_id, this.getHeaders()).map(res => res.json())
     }
 
     private getHeaders() {

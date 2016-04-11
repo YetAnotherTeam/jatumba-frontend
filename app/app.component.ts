@@ -2,6 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {UserListComponent} from './user/user-list.component';
 import {UserCardComponent} from './user/user-card.component';
 import {BandListComponent} from './band/band-list.component';
+import {BandDetailComponent} from './band/band-detail.component';
 import {RouteConfig, ROUTER_DIRECTIVES, AuxRoute, Router} from "angular2/router";
 import {User} from "./user/user";
 import {EditorComponent} from "./editor/editor.component";
@@ -36,6 +37,7 @@ import {PageTitleComponent} from "./components/page-title.component";
     {path:'/users', name: 'UserList', component: UserListComponent},
     {path:'/users/:id', name: 'UserDetail', component: UserCardComponent},
     {path:'/bands', name: 'BandList', component: BandListComponent},
+    {path:'/bands/:id', name: 'BandDetail', component: BandDetailComponent},
     {path:'/editor', name: 'Editor', component: EditorComponent},
     {path:'/settings', name: 'Settings', component: EditorComponent},
     {path:'/', name: 'Login', component: LoginComponent },

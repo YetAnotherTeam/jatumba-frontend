@@ -11,7 +11,7 @@ System.register(['angular2/core', "./band.service", "angular2/router", "../auth/
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, band_service_1, router_1, auth_service_1;
-    var BandListComponent;
+    var BandDetailComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -27,38 +27,50 @@ System.register(['angular2/core', "./band.service", "angular2/router", "../auth/
                 auth_service_1 = auth_service_1_1;
             }],
         execute: function() {
-            BandListComponent = (function () {
-                function BandListComponent(_bandService, _router, _authService) {
+            BandDetailComponent = (function () {
+                function BandDetailComponent(_bandService, _router, _authService, params, _ngZone) {
                     this._bandService = _bandService;
                     this._router = _router;
                     this._authService = _authService;
+                    this._ngZone = _ngZone;
+                    this.visible = false;
                     var self = this;
                     this._authService.isAuth().then(function (isAuth) {
                         if (!isAuth) {
                             self._router.navigate(['Login']);
                         }
                     });
+                    this.id = +params.get('id');
                 }
-                BandListComponent.prototype.list = function () {
+                BandDetailComponent.prototype.get_band_info = function () {
                     var _this = this;
-                    this._bandService.list().subscribe(function (bandList) { return _this.bandList = bandList; });
+                    this._bandService.get(this.id).subscribe(function (band) {
+                        _this._ngZone.run(function () {
+                            _this.band = band;
+                        });
+                    });
+                    this._bandService.members_list(this.id).subscribe(function (memberList) {
+                        _this._ngZone.run(function () {
+                            _this.memberList = memberList;
+                        });
+                    });
                 };
-                BandListComponent.prototype.ngOnInit = function () {
-                    this.list();
+                BandDetailComponent.prototype.ngOnInit = function () {
+                    this.get_band_info();
                 };
-                BandListComponent = __decorate([
+                BandDetailComponent = __decorate([
                     core_1.Component({
-                        selector: 'band-list',
-                        template: "\n<main>\n<div class=\"container\">\n<div class=\"row\">\n<div class=\"col s12 m9 l10\">\n<div class=\"collection\">\n    <div>\n\n        <div *ngFor=\"#band of bandList\">\n            <a class=\"collection-item\" [routerLink]=\"['BandDetail', {'id': band.id}]\">\n                <strong>{{band.name}}</strong> <br>\n            </a>\n             <p>\n                    {{band.description}}\n             </p>\n        </div>\n    </div>\n\n</div>\n</div>\n</div>\n</div>\n</main>\n    ",
+                        selector: 'band-card',
+                        template: "\n    <div *ngIf=\"band\">\n        <div>name: {{band.name}}</div>\n        <div>lastname: {{band.description}}</div>\n        <div *ngIf=\"memberList\">\n            <div *ngFor=\"#member of memberList\">\n                <a class=\"collection-item\" [routerLink]=\"['UserDetail', {'id': member.user.id}]\">\n                    <strong>{{member.user.username}}</strong> <br>\n                </a>\n                 <p>\n                        {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}\n                 </p>\n            </div>\n        </div>\n    </div>\n    ",
+                        providers: [band_service_1.BandService],
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        providers: [band_service_1.BandService]
                     }), 
-                    __metadata('design:paramtypes', [band_service_1.BandService, router_1.Router, auth_service_1.AuthService])
-                ], BandListComponent);
-                return BandListComponent;
+                    __metadata('design:paramtypes', [band_service_1.BandService, router_1.Router, auth_service_1.AuthService, router_1.RouteParams, core_1.NgZone])
+                ], BandDetailComponent);
+                return BandDetailComponent;
             }());
-            exports_1("BandListComponent", BandListComponent);
+            exports_1("BandDetailComponent", BandDetailComponent);
         }
     }
 });
-//# sourceMappingURL=band-list.component.js.map
+//# sourceMappingURL=band-detail.component.js.map

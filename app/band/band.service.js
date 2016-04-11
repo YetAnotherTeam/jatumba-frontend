@@ -50,7 +50,7 @@ System.register(['angular2/core', "angular2/http"], function(exports_1, context_
                         .map(function (res) { return res.json(); });
                 };
                 BandService.prototype.members_list = function (band_id) {
-                    return this._http.get(this.href + 'member/?band=' + band_id + '/', this.getHeaders()).map(function (res) { return res.json(); });
+                    return this._http.get(this.href + 'member/?band=' + band_id, this.getHeaders()).map(function (res) { return res.json(); });
                 };
                 BandService.prototype.getHeaders = function () {
                     return { headers: this._headers };

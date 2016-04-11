@@ -15,7 +15,6 @@ import {AuthService} from "../auth/auth.service";
 <div class="col s12 m9 l10">
 <div class="collection">
     <div>
-        
         <div *ngFor="#user of userList">
             <a class="collection-item" [routerLink]="['UserDetail', {'id': user.id}]">
                 <strong>{{user.username}}</strong> <br>

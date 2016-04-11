@@ -16,7 +16,7 @@ import {AuthService} from "../auth/auth.service";
     <div>
 
         <div *ngFor="#band of bandList">
-            <a class="collection-item">
+            <a class="collection-item" [routerLink]="['BandDetail', {'id': band.id}]">
                 <strong>{{band.name}}</strong> <br>
             </a>
              <p>
