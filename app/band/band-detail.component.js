@@ -55,13 +55,20 @@ System.register(['angular2/core', "./band.service", "angular2/router", "../auth/
                         });
                     });
                 };
+                BandDetailComponent.prototype.onJoinButton = function () {
+                    var _this = this;
+                    var self = this;
+                    this._bandService.join(this.id).subscribe(function (data) { return _this._ngZone.run(function () {
+                        return self.get_band_info();
+                    }); });
+                };
                 BandDetailComponent.prototype.ngOnInit = function () {
                     this.get_band_info();
                 };
                 BandDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'band-card',
-                        template: "\n    <div *ngIf=\"band\">\n        <div>name: {{band.name}}</div>\n        <div>lastname: {{band.description}}</div>\n        <div *ngIf=\"memberList\">\n            <div *ngFor=\"#member of memberList\">\n                <a class=\"collection-item\" [routerLink]=\"['UserDetail', {'id': member.user.id}]\">\n                    <strong>{{member.user.username}}</strong> <br>\n                </a>\n                 <p>\n                        {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}\n                 </p>\n            </div>\n        </div>\n    </div>\n    ",
+                        template: "\n    <div *ngIf=\"band\">\n        <div>name: {{band.name}}</div>\n        <div>{{band.description}}</div>\n        <br>\n        <div *ngIf=\"memberList\">\n            <div *ngFor=\"#member of memberList\">\n                <a class=\"collection-item\" [routerLink]=\"['UserDetail', {'id': member.user.id}]\">\n                    <strong>{{member.user.username}}</strong> <br>\n                </a>\n                 <p>\n                        {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}\n                 </p>\n            </div>\n        </div>\n        <div>\n            <button (click)=\"onJoinButton()\">\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F</button>\n        </div>\n    </div>\n    ",
                         providers: [band_service_1.BandService],
                         directives: [router_1.ROUTER_DIRECTIVES],
                     }), 

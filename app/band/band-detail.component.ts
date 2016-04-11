@@ -11,7 +11,8 @@ import {AuthService} from "../auth/auth.service";
     template: `
     <div *ngIf="band">
         <div>name: {{band.name}}</div>
-        <div>lastname: {{band.description}}</div>
+        <div>{{band.description}}</div>
+        <br>
         <div *ngIf="memberList">
             <div *ngFor="#member of memberList">
                 <a class="collection-item" [routerLink]="['UserDetail', {'id': member.user.id}]">
@@ -21,6 +22,9 @@ import {AuthService} from "../auth/auth.service";
                         {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}
                  </p>
             </div>
+        </div>
+        <div>
+            <button (click)="onJoinButton()">Присоединиться</button>
         </div>
     </div>
     `,
@@ -54,6 +58,13 @@ export class BandDetailComponent implements OnInit {
                     this.memberList = memberList;
                 })
         })
+    }
+
+    private onJoinButton() {
+        var self = this;
+        this._bandService.join(this.id).subscribe(data => this._ngZone.run(() =>
+            self.get_band_info()
+        ))
     }
 
     public visible = false;

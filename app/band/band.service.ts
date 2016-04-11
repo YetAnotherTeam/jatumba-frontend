@@ -31,7 +31,7 @@ export class BandService {
             .map(res => res.json())
     }
 
-    join(band_id: number, instrument_id: number) {
+    join(band_id: number, instrument_id?: number) {
         return this._http.post(this.href + 'member/', JSON.stringify({
             band: band_id,
             instrument: instrument_id
