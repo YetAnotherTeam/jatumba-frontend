@@ -28,10 +28,11 @@ System.register(['angular2/core', "./user.service", "angular2/router", "../auth/
             }],
         execute: function() {
             UserCardComponent = (function () {
-                function UserCardComponent(_userService, _router, _authService, params) {
+                function UserCardComponent(_userService, _router, _authService, params, _ngZone) {
                     this._userService = _userService;
                     this._router = _router;
                     this._authService = _authService;
+                    this._ngZone = _ngZone;
                     this.visible = false;
                     var self = this;
                     this._authService.isAuth().then(function (isAuth) {
@@ -43,7 +44,11 @@ System.register(['angular2/core', "./user.service", "angular2/router", "../auth/
                 }
                 UserCardComponent.prototype.get_user = function () {
                     var _this = this;
-                    this._userService.get(this.id).subscribe(function (user) { return _this.user = user; });
+                    this._userService.get(this.id).subscribe(function (user) {
+                        _this._ngZone.run(function () {
+                            _this.user = user;
+                        });
+                    });
                 };
                 UserCardComponent.prototype.ngOnInit = function () {
                     this.get_user();
@@ -51,11 +56,10 @@ System.register(['angular2/core', "./user.service", "angular2/router", "../auth/
                 UserCardComponent = __decorate([
                     core_1.Component({
                         selector: 'user-card',
-                        template: "\n    <main>\n    <div>\n        <div>name: {{user.name}}</div>\n        <div>lastname: {{user.lastname}}</div>\n        <div>profession: {{user.profession}}</div>\n        <div>phone: {{user.phone}}</div>\n        <div>email: {{user.email}}</div>\n    </div>\n    </main>\n    ",
-                        inputs: ["user", "visible"],
+                        template: "\n    <div *ngIf=\"user\">\n        <div>name: {{user.first_name}}</div>\n        <div>lastname: {{user.last_name}}</div>\n        <div>username: {{user.username}}</div>\n        <div>vk: {{user.vk_profile}}</div>\n        <div>fb: {{user.fb_profile}}</div>\n    </div>\n    ",
                         providers: [user_service_1.UserService]
                     }), 
-                    __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router, auth_service_1.AuthService, router_1.RouteParams])
+                    __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router, auth_service_1.AuthService, router_1.RouteParams, core_1.NgZone])
                 ], UserCardComponent);
                 return UserCardComponent;
             }());

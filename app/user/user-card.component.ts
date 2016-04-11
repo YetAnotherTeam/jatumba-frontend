@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, NgZone} from 'angular2/core';
 import {User} from './user'
 import {UserService} from "./user.service";
 import {Router, RouteParams} from "angular2/router";
@@ -8,17 +8,14 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'user-card',
     template: `
-    <main>
-    <div>
-        <div>name: {{user.name}}</div>
-        <div>lastname: {{user.lastname}}</div>
-        <div>profession: {{user.profession}}</div>
-        <div>phone: {{user.phone}}</div>
-        <div>email: {{user.email}}</div>
+    <div *ngIf="user">
+        <div>name: {{user.first_name}}</div>
+        <div>lastname: {{user.last_name}}</div>
+        <div>username: {{user.username}}</div>
+        <div>vk: {{user.vk_profile}}</div>
+        <div>fb: {{user.fb_profile}}</div>
     </div>
-    </main>
     `,
-    inputs: ["user", "visible"],
     providers: [UserService]
 })
 
@@ -26,7 +23,7 @@ export class UserCardComponent implements OnInit {
     id: number;
     user: User;
 
-    constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, params: RouteParams) {
+    constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, params: RouteParams, private _ngZone: NgZone) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (!isAuth) {
@@ -37,7 +34,11 @@ export class UserCardComponent implements OnInit {
     }
 
     private get_user() {
-        this._userService.get(this.id).subscribe((user: User) => this.user = user);
+        this._userService.get(this.id).subscribe((user: User) => {
+            this._ngZone.run(() => {
+                this.user = user;
+            })
+        });
     }
 
     public visible = false;
