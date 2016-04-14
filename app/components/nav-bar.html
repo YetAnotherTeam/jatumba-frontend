@@ -22,7 +22,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="#" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -32,8 +32,11 @@
             <li [ngClass]="{active: routeName == 'editor'}">
                 <a [routerLink]="['Editor']"><i class="fa fa-fw fa-table"></i> Редактор</a>
             </li>
-            <li [ngClass]="{active: routeName == 'user-list'}">
+            <li [ngClass]="{active: routeName == 'users'}">
                 <a [routerLink]="['UserList']"><i class="fa fa-fw fa-edit"></i> Список пользователей</a>
+            </li>
+            <li [ngClass]="{active: routeName == 'bands'}">
+                <a [routerLink]="['BandList']"><i class="fa fa-fw fa-edit"></i> Список банд</a>
             </li>
         </ul>
     </div>

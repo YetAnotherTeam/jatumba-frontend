@@ -9,7 +9,7 @@
     padding-left: 0;
 }
 
-.mdl-navigation__link {
+.mdl-navigation__link {x
     cursor: pointer;
 }
 
@@ -132,7 +132,7 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     border-right: 5px solid #7cbd5d;
-    width: 800px;
+    width: 261px;
 }
 .track .sector ul {
     height: 100%;

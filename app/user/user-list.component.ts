@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, NgZone} from 'angular2/core';
 import {UserCardComponent} from './user-card.component';
 import {UserService} from "./user.service";
 import {User} from "./user";
@@ -48,13 +48,14 @@ export class UserListComponent implements OnInit {
 
     public selectedUser = "";
 
-    constructor(private _userService: UserService, private _router: Router, private _authService: AuthService) {
+    constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, private _ngZone: NgZone) {
         var self = this;
-        this._authService.isAuth().then(function(isAuth) {
+        this._ngZone.run(() => { this._authService.isAuth().then(function(isAuth) {
             if (!isAuth) {
                 self._router.navigate(['Login']);
             }
-        })
+            self.list()
+        })})
     }
 
     onSelect(user) {
@@ -62,7 +63,11 @@ export class UserListComponent implements OnInit {
     }
 
     list() {
-        this._userService.list().subscribe((userList: User[]) => this.userList = userList)
+        var self = this;
+        this._userService.list().subscribe((userList: User[]) => {
+                self._ngZone.run(() => self.userList = userList)
+            }
+        )
     }
 
     ngOnInit():any {

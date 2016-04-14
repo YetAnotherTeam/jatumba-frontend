@@ -12,7 +12,7 @@ import {AuthService} from "../auth/auth.service";
         <div>name: {{user.first_name}}</div>
         <div>lastname: {{user.last_name}}</div>
         <div>username: {{user.username}}</div>
-        <div>vk: {{user.vk_profile}}</div>
+        <div>vk: <a href="http://vk.com/id{{user.vk_profile}}">http://vk.com/id{{user.vk_profile}}</a></div>
         <div>fb: {{user.fb_profile}}</div>
     </div>
     `,
