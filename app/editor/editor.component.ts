@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {Router} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 import {Instrument} from "./instrument.model";
-import {EditorService} from "./editor.service";
+import {EditorService, EditorSocketService} from "./editor.service";
 import {Track} from "./track.model";
 import * as howler from "howler";
 
@@ -33,7 +33,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     private _emptySectorList = [];
 
-    constructor(private _router: Router, private _authService: AuthService, private _editorService: EditorService) {
+    constructor(private _router: Router, private _authService: AuthService, private _editorService: EditorService, private _editorSocketService: EditorSocketService) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (!isAuth) {
@@ -205,6 +205,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     _setLinePosition(number) {
         this._linePositionNumber = number;
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
+    }
+
+    sendMessage() {
+        this._editorSocketService.send('{"hello": "message"}');
     }
 
     private _createEmptyTrack() {
