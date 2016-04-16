@@ -58,17 +58,18 @@ mdl-layout--fixed-header">
                             <div class="name">
                                 <div [attr.alt]="track.instrument.name">{{track.instrument.name}}</div>
                             </div>
-                            <div class="sector" *ngFor="#sector of track.sectorList; #sectorIndex = index">
-                                <ul>
-                                    <li *ngFor="#sector of sector.soundList; #soundIndex = index"
-                                        (click)="addSound(track,sectorIndex, soundIndex)"
-                                        (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)">
-                                        <i [class]="mappingSoundValToType(sector.val)"></i>
-                                    </li>
-                                </ul>
+                            <div class="sector_wrapper">
+                                <div class="sector" *ngFor="#sector of track.sectorList; #sectorIndex = index">
+                                    <ul>
+                                        <li *ngFor="#sector of sector.soundList; #soundIndex = index"
+                                            (click)="addSound(track,sectorIndex, soundIndex)"
+                                            (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)">
+                                            <i [class]="mappingSoundValToType(sector.val)"></i>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

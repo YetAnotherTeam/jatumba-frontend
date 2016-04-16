@@ -84,6 +84,7 @@
     clear: both;
 }
 .track .name,
+.track .sector_wrapper,
 .track .sector {
     display: inline-block;
     height: 50px;
