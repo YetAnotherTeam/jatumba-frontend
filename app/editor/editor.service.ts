@@ -1,7 +1,6 @@
 import {Injectable} from 'angular2/core'
 import {INSTRUMENT_LIST} from "./mock-instrument-list";
 import {Headers, Http} from "angular2/http";
-import {$WebSocket} from "angular2-websocket/angular2-websocket";
 
 
 @Injectable()
@@ -26,7 +25,7 @@ export class EditorSocketService {
     constructor(private _http: Http) {
         this._headers = new Headers();
         this._headers.append('Content-Type', 'application/json');
-        this.socket = new $WebSocket(this.href);
+        this.socket = new WebSocket(this.href);
     }
 
     send(message: string) {

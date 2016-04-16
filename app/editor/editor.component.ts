@@ -8,7 +8,7 @@ import * as howler from "howler";
 
 @Component({
     selector: 'editor',
-    providers: [EditorService],
+    providers: [EditorService, EditorSocketService],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
 })
