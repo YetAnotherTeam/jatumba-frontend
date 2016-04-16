@@ -9,7 +9,7 @@
     padding-left: 0;
 }
 
-.mdl-navigation__link {x
+.mdl-navigation__link {
     cursor: pointer;
 }
 
@@ -129,10 +129,24 @@
     filter: e(%('alpha(opacity=%d)', @opacity));
 }
 .track .sector {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    width: 256px;
+}
+
+/* Не первый сектор*/
+.track .sector + .sector {
+    margin-left: -4px;
+}
+
+/* Не первый сектор*/
+.track .sector:not(:last-child) ul li:last-child {
+    background-color: lightgoldenrodyellow;
+}
+
+
+.track .sector:last-child {
     border-right: 5px solid #7cbd5d;
-    width: 261px;
 }
 .track .sector ul {
     height: 100%;

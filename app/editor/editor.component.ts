@@ -64,16 +64,16 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         this.bpm = 90;
 
-        let metronomeSectorList = [];
+        let metronomeSoundList = [];
 
         for (let i = 0; i < 32; i++) {
             if (i % 8 == 0) {
-                metronomeSectorList.push({
+                metronomeSoundList.push({
                     val: 'hi',
                     sound: "metronome"
                 });
             } else {
-                metronomeSectorList.push({
+                metronomeSoundList.push({
                     val: 'empty',
                     sound: false
                 });
@@ -86,7 +86,10 @@ export class EditorComponent implements OnInit, OnDestroy {
                 self.trackList.push({
                     id: 1,
                     instrument: self.instrumentList[0],
-                    sectorList: metronomeSectorList
+                    sectorList: [
+                        {soundList: metronomeSoundList},
+                        {soundList: metronomeSoundList}
+                    ]
                 });
                 self.changeActiveInstrument(self.instrumentList[0]);
             });
@@ -114,25 +117,25 @@ export class EditorComponent implements OnInit, OnDestroy {
         })
     }
     
-    addSound(track: Track, index) {
+    addSound(track: Track, indexSector, indexSound) {
         let instrument: Instrument = this.activeInstrument;
 
         if (track.instrument == instrument) {
             for (let i in instrument.soundList) {
                 if (instrument.soundList[i].active) {
-                    track.sectorList[index].val = instrument.soundList[i].name;
-                    track.sectorList[index].sound = instrument.soundList[i].sound;
+                    track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
+                    track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
                 }
             }
         }
     }
 
-    removeSound(event: MouseEvent, track: Track, index){
+    removeSound(event: MouseEvent, track: Track,indexSector, indexSound){
         let instrument: Instrument = this.activeInstrument;
 
         if (track.instrument == instrument) {
-            track.sectorList[index].val = 'empty';
-            track.sectorList[index].sound = false;
+            track.sectorList[indexSector].soundList[indexSound].val = 'empty';
+            track.sectorList[indexSector].soundList[indexSound].sound = false;
         }
         event.preventDefault();
     }
@@ -157,22 +160,29 @@ export class EditorComponent implements OnInit, OnDestroy {
     play() {
 
         this.isPlay = true;
-        let allSoundList = {};
-        for (let track of this.trackList) {
-            for (let segment in track.sectorList) { // 32 сегмента
-                if (track.sectorList[segment].sound) {
-                    if(!allSoundList[segment]) {
-                        allSoundList[segment] = [];
-                    }
+        let allSoundList = [];
 
-                    allSoundList[segment].push(this.soundMap[track.sectorList[segment].sound]);
+        for (let track of this.trackList) {
+            for (let sectorNum in track.sectorList) {
+                if (!allSoundList[sectorNum]) {
+                    allSoundList[sectorNum] = {};
+                }
+                for (let segment in track.sectorList[sectorNum].soundList) { // 32 сегмента
+                    if (track.sectorList[sectorNum].soundList[segment].sound) {
+                        if(!allSoundList[sectorNum][segment]) {
+                            allSoundList[sectorNum][segment] = [];
+                        }
+                        allSoundList[sectorNum][segment].push(this.soundMap[track.sectorList[sectorNum].soundList[segment].sound]);
+                    }
                 }
             }
+
         }
 
 
         let tickTime = 10;
         let sizeWavePx = 8 * 32; // 8px палочка 32 делений
+        let sizeWithMultipleSector = sizeWavePx * allSoundList.length;
         let self = this;
         let speed = (((sizeWavePx/4 * (this.bpm / 60))/1000)*tickTime);
 
@@ -185,13 +195,18 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 
         var instance = function () {
-            self._setLinePosition((self._linePositionNumber + speed) % sizeWavePx);
+            self._setLinePosition((self._linePositionNumber + speed) % sizeWithMultipleSector);
             let exit = Math.floor(self._linePositionNumber/8);
             let num = 1;
-            for (let num = Math.floor((self._linePositionNumber - speed) / 8); num < exit; num +=1) {
-                if (allSoundList[num]) {
-                    for (let sound of allSoundList[num]) {
-                        sound.play();
+            for (let num = Math.floor((self._linePositionNumber - speed) / 8); num < exit; num += 1) {
+                var sectorPosition = Math.floor(num/32);
+                var soundPosition = num % 32;
+                var flag = sectorPosition != -1; //По неведомым мне причинам иногда soundPosition и sectorPosition == -1
+                if (flag) {
+                    if (allSoundList[sectorPosition][soundPosition]) {
+                        for (let sound of allSoundList[sectorPosition][soundPosition]) {
+                            sound.play();
+                        }
                     }
                 }
 
