@@ -9,6 +9,7 @@ import * as howler from "howler";
 @Component({
     selector: 'editor',
     providers: [EditorService, EditorSocketService],
+    directives: [],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
 })
@@ -33,7 +34,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     private _emptySectorList = [];
 
-    constructor(private _router: Router, private _authService: AuthService, private _editorService: EditorService, private _editorSocketService: EditorSocketService) {
+    constructor(private _router: Router,
+                private _authService: AuthService,
+                private _editorService: EditorService,
+                private _editorSocketService: EditorSocketService) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (!isAuth) {
@@ -123,6 +127,16 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
     }
 
+    removeSound(event: MouseEvent, track: Track, index){
+        let instrument: Instrument = this.activeInstrument;
+
+        if (track.instrument == instrument) {
+            track.sectorList[index].val = 'empty';
+            track.sectorList[index].sound = false;
+        }
+        event.preventDefault();
+    }
+
     mappingSoundValToType(string: string) {
         let mapper = {
             hi: 'type-1',
@@ -205,10 +219,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     _setLinePosition(number) {
         this._linePositionNumber = number;
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
-    }
-
-    sendMessage() {
-        this._editorSocketService.send('{"hello": "message"}');
     }
 
     private _createEmptyTrack() {

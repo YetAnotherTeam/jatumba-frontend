@@ -1,6 +1,5 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
 mdl-layout--fixed-header">
-    <button (click)="sendMessage()">MESSAGE</button>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" style="line-height: 25px;">Выбор инструмента:</span>
         <nav class="mdl-navigation">
@@ -62,7 +61,8 @@ mdl-layout--fixed-header">
                             <div class="sector">
                                 <ul>
                                     <li *ngFor="#sector of track.sectorList; #i = index"
-                                        (click)="addSound(track,i)">
+                                        (click)="addSound(track,i)"
+                                        (contextmenu)="removeSound($event, track, i)">
                                         <i [class]="mappingSoundValToType(sector.val)"></i>
                                     </li>
                                 </ul>
