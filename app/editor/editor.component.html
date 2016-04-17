@@ -45,6 +45,10 @@ mdl-layout--fixed-header">
                             *ngIf="isPlay"
                             (click)="stop()"
                     >Stop</button>
+                    <button
+                            *ngIf="trackList[0]?.sectorList?.length > 1"
+                            (click)="removeSector()"
+                    >Удалить сектор</button>
                 </div>
                 <div class="work-tabs-wrapper">
                     <!-- work tabs -->
@@ -68,6 +72,9 @@ mdl-layout--fixed-header">
                                         </li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="add-sector" (click)="addSector()">
+                                <span class="add-sector__symbol">+</span>
                             </div>
                         </div>
                     </div>
