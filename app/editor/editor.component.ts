@@ -236,6 +236,10 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
     }
 
+    private send() {
+        this._editorSocketService.send('{"test":"hello"}');
+    }
+
     private _createEmptyTrack() {
         let emptySectorList = [];
         for (let i = 0; i < 32; i++) {
