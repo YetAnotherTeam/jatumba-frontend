@@ -125,6 +125,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (instrument.soundList[i].active) {
                     track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
+                    track.sectorList[indexSector].soundListID[indexSound] = instrument.soundList[i].id;
                 }
             }
         }
@@ -251,5 +252,14 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         return emptySectorList;
 
+    }
+
+    private _createEmptyTrackID() {
+        let emptyIDList = [];
+        for (let i = 0; i < 32; i++) {
+            emptyIDList.push(0);
+        }
+
+        return emptyIDList;
     }
 }

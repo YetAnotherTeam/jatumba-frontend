@@ -9,6 +9,7 @@ interface SoundArray {
     [index: string]: Sound;
 }
 interface Sound {
+    id: number,
     name: string,
     sound: string,
     active: boolean

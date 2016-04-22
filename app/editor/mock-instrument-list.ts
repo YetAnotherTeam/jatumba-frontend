@@ -2,10 +2,11 @@ import {Instrument} from "./instrument.model";
 
 export const INSTRUMENT_LIST: Instrument[] = [
     {
-        id: 1,
+        id: 3,
         name: "metronome",
         soundList: [
             {
+                id: 6,
                 name: "hi",
                 sound: "metronome",
                 active: true
@@ -13,15 +14,17 @@ export const INSTRUMENT_LIST: Instrument[] = [
         ],
         active: false
     }, {
-        id: 2,
+        id: 1,
         name: 'agogo',
         soundList: [
             {
+                id: 1,
                 name: "hi",
                 sound: "agogo-hi",
                 active: true
             },
             {
+                id: 2,
                 name: "lo",
                 sound:"agogo-lo",
                 active: false
@@ -29,20 +32,23 @@ export const INSTRUMENT_LIST: Instrument[] = [
         ],
         active: true
     }, {
-        id: 3,
+        id: 2,
         name: "djembe",
         soundList: [
             {
+                id: 4,
                 name: "hi",
                 sound: "djembe-hi",
                 active:true
             },
             {
+                id: 3,
                 name: "mid",
                 sound: "djembe-mid",
                 active: false
             },
             {
+                id: 5,
                 name: "lo",
                 sound: "djembe-lo",
                 active: false

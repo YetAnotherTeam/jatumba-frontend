@@ -8,9 +8,11 @@ export interface Track {
 
 interface sector {
     soundList: sound[] // 32 звука
+    soundListID: number[] //32 айдшиника звука
 }
 
 interface sound {
+    id: number
     val: string // название/изображение звука (общее)
     sound: string // название звука (конкретное для данного инструмента)
 }
