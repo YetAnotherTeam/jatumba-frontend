@@ -8,7 +8,6 @@ export interface Track {
 
 interface sector {
     soundList: sound[] // 32 звука
-    soundListID: number[] //32 айдшиника звука
 }
 
 interface sound {

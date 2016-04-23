@@ -17,6 +17,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     public instrumentList: Instrument[];
     public trackList: Track[];
+    public trackListID: number[][][];
 
     public linePosition: string;
     private _linePositionNumber: number;
@@ -48,6 +49,10 @@ export class EditorComponent implements OnInit, OnDestroy {
         this._playIdTimer = 0;
         this.instrumentList = [];
         this.trackList = [];
+        this.trackListID = [];
+        
+        this._editorSocketService.setOnMessageHandler(this._onSocketMessageHandler);
+        this._editorSocketService.socketSignIn();
 
         this.soundMap = {
             "djembe-hi" : new Howl({urls: ['sound/djembe-hi.wav']}),
@@ -75,7 +80,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             } else {
                 metronomeSoundList.push({
                     val: 'empty',
-                    sound: false
+                    sound: ''
                 });
             }
         }
@@ -111,10 +116,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     createTrack() {
         let countOfSectorList = this.trackList[0].sectorList.length;
         var sectorList = [];
+        var sectorListID = [];
         for (let i = 0; i < countOfSectorList; i++) {
             sectorList.push({
                 soundList: this._createEmptyTrack()
-            })
+            });
+            sectorListID.push(this._createEmptyTrackID());
         }
         this.trackList.push({
             id: this.trackList[this.trackList.length - 1].id + 1,
@@ -131,6 +138,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (instrument.soundList[i].active) {
                     track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
+                    this.trackListID[track.id - 1][indexSector][indexSound] = instrument.soundList[i].id;
                 }
             }
         }
@@ -141,7 +149,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         if (track.instrument == instrument) {
             track.sectorList[indexSector].soundList[indexSound].val = 'empty';
-            track.sectorList[indexSector].soundList[indexSound].sound = false;
+            track.sectorList[indexSector].soundList[indexSound].sound = '';
+            this.trackListID[track.id - 1][indexSector][indexSound] = 0;
         }
         event.preventDefault();
     }
@@ -255,13 +264,28 @@ export class EditorComponent implements OnInit, OnDestroy {
         this._linePositionNumber = number;
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
     }
+    
+    private sendTrackDiff(data: any) {
+        data = [];
+        this.trackList.forEach(function (track) {
+            data.push({
+                instrument: track.instrument,
+                entity: this.trackListID[track.id - 1]
+            })
+        });
+        this._editorSocketService.sendCompositionDiff(data);
+    }
+    
+    private _onSocketMessageHandler(event: MessageEvent) {
+        var message = JSON.parse(event.data);
+    }
 
     private _createEmptyTrack() {
         let emptySectorList = [];
         for (let i = 0; i < 32; i++) {
             emptySectorList.push({
                 val: 'empty',
-                sound: false
+                sound: ''
             });
         }
 

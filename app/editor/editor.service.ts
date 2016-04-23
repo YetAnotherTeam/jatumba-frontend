@@ -26,18 +26,22 @@ export class EditorSocketService {
         this._headers = new Headers();
         this._headers.append('Content-Type', 'application/json');
         this.socket = new $WebSocket(this.href);
-        var data = {
-            access_token: localStorage.getItem('access_token')
-        };
-        this.socket.onMessage(function (event: MessageEvent) {
-            var message = JSON.parse(event.data);
-            console.log(message.user);
-        });
-        this.socket.send(EditorSocketService.createMessage("sign_in", data));
+        while (!this.socket.getReadyState()) {}
     }
 
     send(message: string) {
         this.socket.send(message)
+    }
+    
+    setOnMessageHandler(f: any) {
+        this.socket.onMessage(f);
+    }
+
+    socketSignIn() {
+        var data = {
+            access_token: localStorage.getItem('access_token')
+        };
+        this.socket.send(EditorSocketService.createMessage("sign_in", data));
     }
 
     sendCompositionDiff(data: any) {
