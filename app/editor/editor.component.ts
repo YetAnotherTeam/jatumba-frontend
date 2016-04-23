@@ -89,13 +89,14 @@ export class EditorComponent implements OnInit, OnDestroy {
             .then(instrumentList => {
                 self.instrumentList = instrumentList;
                 self.trackList.push({
-                    id: 1,
+                    id: 0,
                     instrument: self.instrumentList[0],
                     sectorList: [
                         {soundList: metronomeSoundList},
                     ]
                 });
                 self.changeActiveInstrument(self.instrumentList[0]);
+                self.trackListID.push([EditorComponent._createEmptyTrackID()]);
             });
     }
 
@@ -119,29 +120,30 @@ export class EditorComponent implements OnInit, OnDestroy {
         var sectorListID = [];
         for (let i = 0; i < countOfSectorList; i++) {
             sectorList.push({
-                soundList: this._createEmptyTrack()
+                soundList: EditorComponent._createEmptyTrack()
             });
-            sectorListID.push(this._createEmptyTrackID());
+            sectorListID.push(EditorComponent._createEmptyTrackID());
         }
         this.trackList.push({
             id: this.trackList[this.trackList.length - 1].id + 1,
             instrument: this.activeInstrument,
             sectorList: sectorList
-        })
+        });
+        this.trackListID.push(sectorListID);
     }
     
     addSound(track: Track, indexSector, indexSound) {
         let instrument: Instrument = this.activeInstrument;
-
         if (track.instrument == instrument) {
             for (let i in instrument.soundList) {
                 if (instrument.soundList[i].active) {
                     track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
-                    this.trackListID[track.id - 1][indexSector][indexSound] = instrument.soundList[i].id;
+                    this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
                 }
             }
         }
+        this.sendTrackDiff('test');
     }
 
     removeSound(event: MouseEvent, track: Track,indexSector, indexSound){
@@ -150,15 +152,16 @@ export class EditorComponent implements OnInit, OnDestroy {
         if (track.instrument == instrument) {
             track.sectorList[indexSector].soundList[indexSound].val = 'empty';
             track.sectorList[indexSector].soundList[indexSound].sound = '';
-            this.trackListID[track.id - 1][indexSector][indexSound] = 0;
+            this.trackListID[track.id][indexSector][indexSound] = null;
         }
         event.preventDefault();
+        this.sendTrackDiff('test');
     }
 
     addSector() {
         for (let track of this.trackList) {
             track.sectorList.push({
-                soundList: this._createEmptyTrack()
+                soundList: EditorComponent._createEmptyTrack()
             })
         }
     }
@@ -266,11 +269,14 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
     
     private sendTrackDiff(data: any) {
-        data = [];
+        var self = this;
+        data = {
+            tracks: []
+        };
         this.trackList.forEach(function (track) {
-            data.push({
-                instrument: track.instrument,
-                entity: this.trackListID[track.id - 1]
+            data.tracks.push({
+                instrument: track.instrument.id,
+                entity: self.trackListID[track.id]
             })
         });
         this._editorSocketService.sendCompositionDiff(data);
@@ -278,9 +284,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     
     private _onSocketMessageHandler(event: MessageEvent) {
         var message = JSON.parse(event.data);
+        switch (message.method) {
+            case 'sign_in': {
+                break;
+            }
+            case 'diff': {
+                break;
+            }
+        }
     }
 
-    private _createEmptyTrack() {
+    private static _createEmptyTrack() {
         let emptySectorList = [];
         for (let i = 0; i < 32; i++) {
             emptySectorList.push({
@@ -293,10 +307,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     }
 
-    private _createEmptyTrackID() {
+    private static _createEmptyTrackID() {
         let emptyIDList = [];
         for (let i = 0; i < 32; i++) {
-            emptyIDList.push(0);
+            emptyIDList.push(null);
         }
 
         return emptyIDList;
