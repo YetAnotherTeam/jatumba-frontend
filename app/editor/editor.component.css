@@ -1,3 +1,7 @@
+.mdl-layout__content {
+    overflow-x: scroll !important;
+}
+
 .page-content {
     margin-left: 20px;
 }
@@ -70,6 +74,19 @@
 .work-tabs {
     min-width: 100%;
 }
+.add-sector {
+    background-color: wheat;
+}
+.add-sector:hover {
+    background-color: darkgoldenrod;
+    cursor: pointer;
+}
+.add-sector__symbol {
+    position:relative;
+    font-size: 25px;
+    top: 5px;
+}
+
 .track {
     *zoom: 1;
     white-space: nowrap;
@@ -85,7 +102,8 @@
 }
 .track .name,
 .track .sector_wrapper,
-.track .sector {
+.track .sector ,
+.track .add-sector {
     display: inline-block;
     height: 50px;
     vertical-align: middle;
@@ -135,12 +153,7 @@
     width: 256px;
 }
 
-/* Не первый сектор*/
-.track .sector + .sector {
-    margin-left: -4px;
-}
 
-/* Не первый сектор*/
 .track .sector:not(:last-child) ul li:last-child {
     background-color: lightgoldenrodyellow;
 }

@@ -98,7 +98,7 @@ export class AuthService {
     isAuth() {
         var self = this;
         return new Promise(function(resolve, reject) {
-            self._http.post(self.href + 'token/is_auth', JSON.stringify({
+            self._http.post(self.href + 'user/is_authenticated/', JSON.stringify({
                     access_token: localStorage.getItem('access_token'),
                 }), self.getHeaders())
                 .map(res => res.json())

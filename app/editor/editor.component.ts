@@ -88,7 +88,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                     instrument: self.instrumentList[0],
                     sectorList: [
                         {soundList: metronomeSoundList},
-                        {soundList: metronomeSoundList}
                     ]
                 });
                 self.changeActiveInstrument(self.instrumentList[0]);
@@ -110,10 +109,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     createTrack() {
+        let countOfSectorList = this.trackList[0].sectorList.length;
+        var sectorList = [];
+        for (let i = 0; i < countOfSectorList; i++) {
+            sectorList.push({
+                soundList: this._createEmptyTrack()
+            })
+        }
         this.trackList.push({
             id: this.trackList[this.trackList.length - 1].id + 1,
             instrument: this.activeInstrument,
-            sectorList: this._createEmptyTrack()
+            sectorList: sectorList
         })
     }
     
@@ -125,7 +131,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (instrument.soundList[i].active) {
                     track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
-                    track.sectorList[indexSector].soundListID[indexSound] = instrument.soundList[i].id;
                 }
             }
         }
@@ -139,6 +144,20 @@ export class EditorComponent implements OnInit, OnDestroy {
             track.sectorList[indexSector].soundList[indexSound].sound = false;
         }
         event.preventDefault();
+    }
+
+    addSector() {
+        for (let track of this.trackList) {
+            track.sectorList.push({
+                soundList: this._createEmptyTrack()
+            })
+        }
+    }
+
+    removeSector() {
+        for (let track of this.trackList) {
+            track.sectorList.length = track.sectorList.length - 1
+        }
     }
 
     mappingSoundValToType(string: string) {
@@ -235,10 +254,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     _setLinePosition(number) {
         this._linePositionNumber = number;
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
-    }
-
-    private send() {
-        this._editorSocketService.send('{"test":"hello"}');
     }
 
     private _createEmptyTrack() {
