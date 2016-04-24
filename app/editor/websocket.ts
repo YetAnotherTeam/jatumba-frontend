@@ -133,13 +133,15 @@ export class $WebSocket  {
     };
 
 
-    onMessage(callback, options) {
+    onMessage(callback, context, options) {
         if (!isFunction(callback)) {
             throw new Error('Callback must be a function');
         }
+        context = context ? context : this;
 
         this.onMessageCallbacks.push({
             fn: callback,
+            context: context,
             pattern: options ? options.filter : undefined,
             autoApply: options ? options.autoApply : true
         });
@@ -152,7 +154,7 @@ export class $WebSocket  {
         var currentCallback;
         for (var i = 0; i < self.onMessageCallbacks.length; i++) {
             currentCallback = self.onMessageCallbacks[i];
-            currentCallback.fn.apply(self, [message]);
+            currentCallback.fn.apply(self, [message, currentCallback.context]);
         }
 
     };

@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from 'angular2/core';
+import {Component, OnInit, OnDestroy, NgZone} from 'angular2/core';
 import {Router} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 import {Instrument} from "./instrument.model";
@@ -28,8 +28,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     private _playIdTimer: number;
 
 
-
     private soundMap: any;
+    private soundMapID: any;
+    private instrumentMapID: any;
 
     public bpm: number;
 
@@ -38,7 +39,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     constructor(private _router: Router,
                 private _authService: AuthService,
                 private _editorService: EditorService,
-                private _editorSocketService: EditorSocketService) {
+                private _editorSocketService: EditorSocketService,
+                private _ngZone: NgZone) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (!isAuth) {
@@ -50,8 +52,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.instrumentList = [];
         this.trackList = [];
         this.trackListID = [];
-        
-        this._editorSocketService.setOnMessageHandler(this._onSocketMessageHandler);
+
+        this.instrumentMapID = {};
+        this.soundMapID = {};
+
+        EditorSocketService.setOnMessageHandler.call(this, this._onSocketMessageHandler, this._editorSocketService.getSocket());
         this._editorSocketService.socketSignIn();
 
         this.soundMap = {
@@ -97,13 +102,15 @@ export class EditorComponent implements OnInit, OnDestroy {
                 });
                 self.changeActiveInstrument(self.instrumentList[0]);
                 self.trackListID.push([EditorComponent._createEmptyTrackID()]);
+                self._createInstrumentMap();
+                self._createSoundMap();
             });
     }
 
     ngOnDestroy():any {
         this.stop();
     }
-
+    
     changeActiveInstrument(instrument: Instrument) {
         for(let instrumentItem of this.instrumentList) {
             instrumentItem.active = false;
@@ -139,6 +146,8 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (instrument.soundList[i].active) {
                     track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
+                    console.log(track.id);
+                    console.log(this.trackList);
                     this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
                 }
             }
@@ -276,16 +285,48 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.trackList.forEach(function (track) {
             data.tracks.push({
                 instrument: track.instrument.id,
-                entity: self.trackListID[track.id]
+                entity: self.trackListID[track.id],
+                order: track.id
             })
         });
         this._editorSocketService.sendCompositionDiff(data);
     }
+
+    private _parseComposition(tracks: any) {
+        var self = this;
+        this.trackList = [];
+        this.trackListID = [];
+        tracks.forEach(function (track) {
+            self.trackListID.push(track.entity);
+            var track_list = [];
+            track.entity.forEach(function (sector) {
+                var sector_list = [];
+                sector.forEach(function (sound_id) {
+                    if (sound_id) {
+                        sector_list.push(self.soundMapID[sound_id]);
+                    } else {
+                        sector_list.push({
+                            val: 'empty',
+                            sound: ''
+                        });
+                    }
+                });
+                track_list.push({soundList:sector_list});
+            });
+            self.trackList.push({
+                id: self.trackListID.length - 1,
+                instrument: self.instrumentMapID[track.instrument],
+                sectorList: track_list
+            });
+        });
+    }
     
-    private _onSocketMessageHandler(event: MessageEvent) {
+    private _onSocketMessageHandler(event: MessageEvent, context: any) {
+        var self = context;
         var message = JSON.parse(event.data);
         switch (message.method) {
             case 'sign_in': {
+                self._ngZone.run(() => self._parseComposition(message.data.tracks));
                 break;
             }
             case 'diff': {
@@ -314,5 +355,21 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
 
         return emptyIDList;
+    }
+    
+    private _createSoundMap() {
+        var self = this;
+        this.instrumentList.forEach(function (instrument) {
+            instrument.soundList.forEach(function (sound) {
+                self.soundMapID[sound.id] = sound;
+            })
+        })
+    }
+
+    private _createInstrumentMap() {
+        var self = this;
+        this.instrumentList.forEach(function (instrument) {
+            self.instrumentMapID[instrument.id] = instrument;
+        })
     }
 }

@@ -33,8 +33,12 @@ export class EditorSocketService {
         this.socket.send(message)
     }
     
-    setOnMessageHandler(f: any) {
-        this.socket.onMessage(f);
+    static setOnMessageHandler(f: any, socket: any) {
+        socket.onMessage(f, this);
+    }
+    
+    getSocket() {
+        return this.socket;
     }
 
     socketSignIn() {
