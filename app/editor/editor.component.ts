@@ -146,8 +146,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (instrument.soundList[i].active) {
                     track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
-                    console.log(track.id);
-                    console.log(this.trackList);
                     this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
                 }
             }
@@ -171,13 +169,15 @@ export class EditorComponent implements OnInit, OnDestroy {
         for (let track of this.trackList) {
             track.sectorList.push({
                 soundList: EditorComponent._createEmptyTrack()
-            })
+            });
+            this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
         }
     }
 
     removeSector() {
         for (let track of this.trackList) {
             track.sectorList.length = track.sectorList.length - 1
+            this.trackListID[track.id].pop();
         }
     }
 
@@ -319,6 +319,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 sectorList: track_list
             });
         });
+        console.log(this.trackList);
     }
     
     private _onSocketMessageHandler(event: MessageEvent, context: any) {
@@ -330,6 +331,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 break;
             }
             case 'diff': {
+                self._ngZone.run(() => self._parseComposition(message.data.tracks));
                 break;
             }
         }
