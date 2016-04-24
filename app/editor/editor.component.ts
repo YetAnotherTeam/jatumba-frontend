@@ -55,8 +55,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         this.instrumentMapID = {};
         this.soundMapID = {};
+        EditorSocketService.setOnMessageHandler.call(this, this._onSocketMessageHandler, this._editorSocketService.getSocket())
 
-        EditorSocketService.setOnMessageHandler.call(this, this._onSocketMessageHandler, this._editorSocketService.getSocket());
         this._editorSocketService.socketSignIn();
 
         this.soundMap = {
@@ -79,12 +79,12 @@ export class EditorComponent implements OnInit, OnDestroy {
         for (let i = 0; i < 32; i++) {
             if (i % 8 == 0) {
                 metronomeSoundList.push({
-                    val: 'hi',
+                    name: 'hi',
                     sound: "metronome"
                 });
             } else {
                 metronomeSoundList.push({
-                    val: 'empty',
+                    name: 'empty',
                     sound: ''
                 });
             }
@@ -144,7 +144,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         if (track.instrument == instrument) {
             for (let i in instrument.soundList) {
                 if (instrument.soundList[i].active) {
-                    track.sectorList[indexSector].soundList[indexSound].val = instrument.soundList[i].name;
+                    track.sectorList[indexSector].soundList[indexSound].name = instrument.soundList[i].name;
                     track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
                     this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
                 }
@@ -157,7 +157,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         let instrument: Instrument = this.activeInstrument;
 
         if (track.instrument == instrument) {
-            track.sectorList[indexSector].soundList[indexSound].val = 'empty';
+            track.sectorList[indexSector].soundList[indexSound].name = 'empty';
             track.sectorList[indexSector].soundList[indexSound].sound = '';
             this.trackListID[track.id][indexSector][indexSound] = null;
         }
@@ -181,7 +181,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
     }
 
-    mappingSoundValToType(string: string) {
+    mappingSoundNameToType(string: string) {
         let mapper = {
             hi: 'type-1',
             mid: 'type-2',
@@ -208,18 +208,18 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (!allSoundList[sectorNum]) {
                     allSoundList[sectorNum] = {};
                 }
+
                 for (let segment in track.sectorList[sectorNum].soundList) { // 32 сегмента
                     if (track.sectorList[sectorNum].soundList[segment].sound) {
                         if(!allSoundList[sectorNum][segment]) {
                             allSoundList[sectorNum][segment] = [];
                         }
+
                         allSoundList[sectorNum][segment].push(this.soundMap[track.sectorList[sectorNum].soundList[segment].sound]);
                     }
                 }
             }
-
         }
-
 
         let tickTime = 10;
         let sizeWavePx = 8 * 32; // 8px палочка 32 делений
@@ -233,7 +233,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         let exit = 0;
         let num = 0;
         let diff = 0;
-
 
         var instance = function () {
             self._setLinePosition((self._linePositionNumber + speed) % sizeWithMultipleSector);
@@ -250,8 +249,8 @@ export class EditorComponent implements OnInit, OnDestroy {
                         }
                     }
                 }
-
             }
+
             time += tickTime;
             diff = (Date.now() - start) - time;
 
@@ -296,6 +295,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         var self = this;
         this.trackList = [];
         this.trackListID = [];
+        console.log('parse', tracks)
         tracks.forEach(function (track) {
             self.trackListID.push(track.entity);
             var track_list = [];
@@ -303,10 +303,12 @@ export class EditorComponent implements OnInit, OnDestroy {
                 var sector_list = [];
                 sector.forEach(function (sound_id) {
                     if (sound_id) {
+                        console.log('id', sound_id)
+                        console.log('soundMapID', self.soundMapID)
                         sector_list.push(self.soundMapID[sound_id]);
                     } else {
                         sector_list.push({
-                            val: 'empty',
+                            name: 'empty',
                             sound: ''
                         });
                     }
@@ -327,21 +329,22 @@ export class EditorComponent implements OnInit, OnDestroy {
         var message = JSON.parse(event.data);
         switch (message.method) {
             case 'sign_in': {
-                self._ngZone.run(() => self._parseComposition(message.data.tracks));
+                self._parseComposition(message.data.tracks);
                 break;
             }
             case 'diff': {
-                self._ngZone.run(() => self._parseComposition(message.data.tracks));
+                self._parseComposition(message.data.tracks);
                 break;
             }
         }
+        console.log('finish')
     }
 
     private static _createEmptyTrack() {
         let emptySectorList = [];
         for (let i = 0; i < 32; i++) {
             emptySectorList.push({
-                val: 'empty',
+                name: 'empty',
                 sound: ''
             });
         }

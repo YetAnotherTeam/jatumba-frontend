@@ -29,7 +29,7 @@ mdl-layout--fixed-header">
                             }"
                             (click)="changeActiveSound(sound.name)"
                     >
-                        <i [class]="mappingSoundValToType(sound.name)"></i>
+                        <i [class]="mappingSoundNameToType(sound.name)"></i>
                     </button>
                     <!--<button class="btn round" title="Тип"><i class="type-2"></i></button>-->
                     <!--<button class="btn round active" title="Тип"><i class="type-3"></i></button>-->
@@ -69,7 +69,7 @@ mdl-layout--fixed-header">
                                         <li *ngFor="#sector of sector.soundList; #soundIndex = index"
                                             (click)="addSound(track,sectorIndex, soundIndex)"
                                             (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)">
-                                            <i [class]="mappingSoundValToType(sector.val)"></i>
+                                            <i [class]="mappingSoundNameToType(sector.name)"></i>
                                         </li>
                                     </ul>
                                 </div>
@@ -80,6 +80,8 @@ mdl-layout--fixed-header">
                         </div>
                     </div>
                 </div>
+                <!--TRACKLIST:-->
+                <!--<div>{{trackList|json}}</div>-->
             </div>
         </div>
     </main>
