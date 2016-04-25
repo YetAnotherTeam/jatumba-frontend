@@ -1,5 +1,6 @@
 import {Component, OnInit, NgZone} from 'angular2/core';
 import {Band} from './band'
+import {Composition} from './composition'
 import {Member} from './member'
 import {BandService} from "./band.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
@@ -9,6 +10,7 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'band-card',
     template: `
+<h1>Банда</h1>
     <div *ngIf="band">
         <div>name: {{band.name}}</div>
         <div>{{band.description}}</div>
@@ -26,6 +28,13 @@ import {AuthService} from "../auth/auth.service";
         <div>
             <button (click)="onJoinButton()">Присоединиться</button>
         </div>
+        <div *ngIf="compositionList">
+            <div *ngFor="#composition of compositionList">
+                <a class="collection-item" [routerLink]="['Editor']">
+                    {{composition.name}}    
+                </a>
+            </div>
+        </div>
     </div>
     `,
     providers: [BandService],
@@ -36,6 +45,7 @@ export class BandDetailComponent implements OnInit {
     id: number;
     band: Band;
     memberList: Member[];
+    compositionList: Composition[];
 
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService, params: RouteParams, private _ngZone: NgZone) {
         var self = this;
@@ -57,7 +67,12 @@ export class BandDetailComponent implements OnInit {
             this._ngZone.run(() => {
                     this.memberList = memberList;
                 })
-        })
+        });
+        this._bandService.composition_list(this.id).subscribe((compositionList: Composition[]) => {
+            this._ngZone.run(() => {
+                this.compositionList = compositionList;
+            })
+        });
     }
 
     private onJoinButton() {

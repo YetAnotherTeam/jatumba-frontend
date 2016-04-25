@@ -9,6 +9,7 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'user-list',
     template: `
+<h1>Пользователи</h1>
 <main>
 <div class="container">
 <div class="row">

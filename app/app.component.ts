@@ -15,14 +15,14 @@ import {PageTitleComponent} from "./components/page-title.component";
 @Component({
     selector: 'my-app',
     template: `
-        <nav-bar
+        <nav-bar>
             *ngIf="_pageTitle != '' && _pageTitle != 'register'"
-            [routeName]="_pageTitle"></nav-bar>
+            [routeName]="_pageTitle"
+        </nav-bar>
         <div id="wrapper">
             <div id="page-wrapper">
                 <div class="container-fluid">
-                    <page-title
-                        [title]="_pageTitle"></page-title>
+              
                     <div class="row">
                         <router-outlet></router-outlet>
                      </div>

@@ -8,6 +8,7 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'band-list',
     template: `
+<h1>Банды</h1>
 <main>
 <div class="container">
 <div class="row">

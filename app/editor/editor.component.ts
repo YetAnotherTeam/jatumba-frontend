@@ -137,6 +137,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             sectorList: sectorList
         });
         this.trackListID.push(sectorListID);
+        this.sendTrackDiff('test');
     }
     
     addSound(track: Track, indexSector, indexSound) {
@@ -172,6 +173,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             });
             this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
         }
+        this.sendTrackDiff('test');
     }
 
     removeSector() {
@@ -179,6 +181,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             track.sectorList.length = track.sectorList.length - 1
             this.trackListID[track.id].pop();
         }
+        this.sendTrackDiff('test');
     }
 
     mappingSoundNameToType(string: string) {
@@ -295,7 +298,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         var self = this;
         this.trackList = [];
         this.trackListID = [];
-        console.log('parse', tracks)
         tracks.forEach(function (track) {
             self.trackListID.push(track.entity);
             var track_list = [];
@@ -303,8 +305,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 var sector_list = [];
                 sector.forEach(function (sound_id) {
                     if (sound_id) {
-                        console.log('id', sound_id)
-                        console.log('soundMapID', self.soundMapID)
                         sector_list.push(self.soundMapID[sound_id]);
                     } else {
                         sector_list.push({
@@ -321,7 +321,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 sectorList: track_list
             });
         });
-        console.log(this.trackList);
     }
     
     private _onSocketMessageHandler(event: MessageEvent, context: any) {
@@ -337,7 +336,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 break;
             }
         }
-        console.log('finish')
     }
 
     private static _createEmptyTrack() {

@@ -8,6 +8,7 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'user-card',
     template: `
+<h1>Профиль</h1>
     <div *ngIf="user">
         <div>name: {{user.first_name}}</div>
         <div>lastname: {{user.last_name}}</div>
