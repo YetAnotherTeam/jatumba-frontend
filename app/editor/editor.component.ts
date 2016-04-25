@@ -43,7 +43,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _ngZone: NgZone) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
-            if (!isAuth) {
+            if (!isAuth) {example
                 self._router.navigate(['Login']);
             }
         });
@@ -158,6 +158,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         let instrument: Instrument = this.activeInstrument;
 
         if (track.instrument == instrument) {
+            // debugger;
             track.sectorList[indexSector].soundList[indexSound].name = 'empty';
             track.sectorList[indexSector].soundList[indexSound].sound = '';
             this.trackListID[track.id][indexSector][indexSound] = null;
@@ -305,7 +306,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 var sector_list = [];
                 sector.forEach(function (sound_id) {
                     if (sound_id) {
-                        sector_list.push(self.soundMapID[sound_id]);
+                        sector_list.push(JSON.parse(JSON.stringify(self.soundMapID[sound_id])));
                     } else {
                         sector_list.push({
                             name: 'empty',
