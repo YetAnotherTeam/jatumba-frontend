@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     private _pageTitle: string;
     
     constructor(private _authService: AuthService, private _router: Router) {
-        _router.subscribe((val) => this._pageTitle = val);
+        _router.subscribe((val) => this._pageTitle = val); 
     }
 
     ngOnInit() {
