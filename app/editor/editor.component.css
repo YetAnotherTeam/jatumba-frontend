@@ -173,10 +173,13 @@
     -ms-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    border-right: 1px solid #eaecef;
+    /*border-right: 1px solid #eaecef;*/
     display: table-cell;
     vertical-align: middle;
     width: 8px;
+}
+.track .sector ul li:nth-child(8n + 5) {
+    background-color: #eaecef;
 }
 .track .sector ul li:nth-child(8n + 1) {
     background-color: #f6f2f1;
