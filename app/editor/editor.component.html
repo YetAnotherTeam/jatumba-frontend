@@ -55,10 +55,12 @@ mdl-layout--fixed-header">
                     <div class="work-tabs">
                         <div class="play" [style.transform]="linePosition" style="left:90px;"></div>
                         <div class="track"
-                             *ngFor="#track of trackList"
+                             *ngFor="#track of trackList; #trackIndex = index"
                              [ngClass]="{
                                 'active': track.instrument == activeInstrument
-                             }">
+                             }"
+                             (contextmenu)="removeTrackByIndex($event, trackIndex)"
+                        >
                             <div class="name">
                                 <div [attr.alt]="track.instrument.name"
                                      (click)="changeActiveInstrument(track.instrument)"

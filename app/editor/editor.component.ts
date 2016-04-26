@@ -139,6 +139,13 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.trackListID.push(sectorListID);
         this.sendTrackDiff('test');
     }
+
+    removeTrackByIndex(event: MouseEvent, index: number) {
+        if (this.trackList[index].instrument.active) {
+            this.trackList.splice(index, 1);
+        }
+        event.preventDefault();
+    }
     
     addSound(track: Track, indexSector, indexSound) {
         let instrument: Instrument = this.activeInstrument;
