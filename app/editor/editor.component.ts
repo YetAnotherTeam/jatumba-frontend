@@ -14,6 +14,7 @@ import * as howler from "howler";
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
 })
 export class EditorComponent implements OnInit, OnDestroy {
+    public isEditorMode: boolean;
 
     public instrumentList: Instrument[];
     public trackList: Track[];
@@ -52,6 +53,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.instrumentList = [];
         this.trackList = [];
         this.trackListID = [];
+        this.isEditorMode = false;
 
         this.instrumentMapID = {};
         this.soundMapID = {};
@@ -122,74 +124,86 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     createTrack() {
-        let countOfSectorList = this.trackList[0].sectorList.length;
-        var sectorList = [];
-        var sectorListID = [];
-        for (let i = 0; i < countOfSectorList; i++) {
-            sectorList.push({
-                soundList: EditorComponent._createEmptyTrack()
+        if (this.isCanEdit()) {
+            let countOfSectorList = this.trackList[0].sectorList.length;
+            var sectorList = [];
+            var sectorListID = [];
+            for (let i = 0; i < countOfSectorList; i++) {
+                sectorList.push({
+                    soundList: EditorComponent._createEmptyTrack()
+                });
+                sectorListID.push(EditorComponent._createEmptyTrackID());
+            }
+            this.trackList.push({
+                id: this.trackList[this.trackList.length - 1].id + 1,
+                instrument: this.activeInstrument,
+                sectorList: sectorList
             });
-            sectorListID.push(EditorComponent._createEmptyTrackID());
+            this.trackListID.push(sectorListID);
+            this.sendTrackDiff('test');
         }
-        this.trackList.push({
-            id: this.trackList[this.trackList.length - 1].id + 1,
-            instrument: this.activeInstrument,
-            sectorList: sectorList
-        });
-        this.trackListID.push(sectorListID);
-        this.sendTrackDiff('test');
     }
 
     removeTrackByIndex(event: MouseEvent, index: number) {
-        if (this.trackList[index].instrument.active) {
-            this.trackList.splice(index, 1);
+        if (this.isCanEdit()) {
+            if (this.trackList[index].instrument.active) {
+                this.trackList.splice(index, 1);
+            }
+            event.preventDefault();
         }
-        event.preventDefault();
     }
     
     addSound(track: Track, indexSector, indexSound) {
-        let instrument: Instrument = this.activeInstrument;
-        if (track.instrument == instrument) {
-            for (let i in instrument.soundList) {
-                if (instrument.soundList[i].active) {
-                    track.sectorList[indexSector].soundList[indexSound].name = instrument.soundList[i].name;
-                    track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
-                    this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
+        if (this.isCanEdit()) {
+            let instrument:Instrument = this.activeInstrument;
+            if (track.instrument == instrument) {
+                for (let i in instrument.soundList) {
+                    if (instrument.soundList[i].active) {
+                        track.sectorList[indexSector].soundList[indexSound].name = instrument.soundList[i].name;
+                        track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
+                        this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
+                    }
                 }
             }
+            this.sendTrackDiff('test');
         }
-        this.sendTrackDiff('test');
     }
 
-    removeSound(event: MouseEvent, track: Track,indexSector, indexSound){
-        let instrument: Instrument = this.activeInstrument;
+    removeSound(event: MouseEvent, track: Track,indexSector, indexSound) {
+        if (this.isCanEdit()) {
+            let instrument:Instrument = this.activeInstrument;
 
-        if (track.instrument == instrument) {
-            // debugger;
-            track.sectorList[indexSector].soundList[indexSound].name = 'empty';
-            track.sectorList[indexSector].soundList[indexSound].sound = '';
-            this.trackListID[track.id][indexSector][indexSound] = null;
+            if (track.instrument == instrument) {
+                // debugger;
+                track.sectorList[indexSector].soundList[indexSound].name = 'empty';
+                track.sectorList[indexSector].soundList[indexSound].sound = '';
+                this.trackListID[track.id][indexSector][indexSound] = null;
+            }
+            event.preventDefault();
+            this.sendTrackDiff('test');
         }
-        event.preventDefault();
-        this.sendTrackDiff('test');
     }
 
     addSector() {
-        for (let track of this.trackList) {
-            track.sectorList.push({
-                soundList: EditorComponent._createEmptyTrack()
-            });
-            this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
+        if (this.isCanEdit()) {
+            for (let track of this.trackList) {
+                track.sectorList.push({
+                    soundList: EditorComponent._createEmptyTrack()
+                });
+                this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
+            }
+            this.sendTrackDiff('test');
         }
-        this.sendTrackDiff('test');
     }
 
     removeSector() {
-        for (let track of this.trackList) {
-            track.sectorList.length = track.sectorList.length - 1
-            this.trackListID[track.id].pop();
+        if (this.isCanEdit()) {
+            for (let track of this.trackList) {
+                track.sectorList.length = track.sectorList.length - 1
+                this.trackListID[track.id].pop();
+            }
+            this.sendTrackDiff('test');
         }
-        this.sendTrackDiff('test');
     }
 
     mappingSoundNameToType(string: string) {
@@ -284,6 +298,14 @@ export class EditorComponent implements OnInit, OnDestroy {
             this._playIdTimer = 0;
             this._setLinePosition(0);
         }
+    }
+
+    changeEditorMode(state: boolean) {
+        this.isEditorMode = state;
+    }
+
+    private isCanEdit() {
+        return this.isEditorMode;
     }
 
     _setLinePosition(number) {

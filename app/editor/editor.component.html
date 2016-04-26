@@ -46,6 +46,9 @@ mdl-layout--fixed-header">
                             (click)="stop()"
                     >Stop</button>
                     <button
+                            (click)="changeEditorMode(!isEditorMode)"
+                    >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
+                    <button
                             *ngIf="trackList[0]?.sectorList?.length > 1"
                             (click)="removeSector()"
                     >Удалить сектор</button>
