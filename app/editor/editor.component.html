@@ -60,7 +60,9 @@ mdl-layout--fixed-header">
                                 'active': track.instrument == activeInstrument
                              }">
                             <div class="name">
-                                <div [attr.alt]="track.instrument.name">{{track.instrument.name}}</div>
+                                <div [attr.alt]="track.instrument.name"
+                                     (click)="changeActiveInstrument(track.instrument)"
+                                     [attr.data-instrument-id]="track.instrument.id">{{track.instrument.name}}</div>
                             </div>
                             <div class="sector_wrapper">
                                 <div class="sector" *ngFor="#sector of track.sectorList; #sectorIndex = index">
