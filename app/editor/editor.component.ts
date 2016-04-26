@@ -43,7 +43,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _ngZone: NgZone) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
-            if (!isAuth) {example
+            if (!isAuth) {
                 self._router.navigate(['Login']);
             }
         });
@@ -198,7 +198,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     changeActiveSound(soundName: string) {
         let instrument: Instrument = this.activeInstrument;
         for (let i in instrument.soundList) {
-            instrument.soundList[i].active = instrument.soundList[i].name == soundName
+            instrument.soundList[i].active = false;
+            if (instrument.soundList[i].name == soundName) {
+                instrument.soundList[i].active = true;
+                this.soundMap[instrument.soundList[i].sound].play();
+            }
         }
     }
 

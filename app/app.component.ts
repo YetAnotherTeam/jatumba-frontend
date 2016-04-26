@@ -44,7 +44,7 @@ import {PageTitleComponent} from "./components/page-title.component";
     {path:'/register', name: 'Register', component: RegisterComponent}
 ])
 export class AppComponent implements OnInit {
-
+    
     private _pageTitle: string;
     
     constructor(private _authService: AuthService, private _router: Router) {
