@@ -31,7 +31,7 @@ import {AuthService} from "../auth/auth.service";
         </div>
         <div *ngIf="compositionList">
             <div *ngFor="#composition of compositionList">
-                <a class="collection-item" [routerLink]="['Editor']">
+                <a class="collection-item" [routerLink]="['Editor', {'id': composition.id}]">
                     {{composition.name}}    
                 </a>
             </div>
@@ -48,6 +48,8 @@ export class BandDetailComponent implements OnInit {
     band: Band;
     memberList: Member[];
     compositionList: Composition[];
+    prev_composition_ref: string;
+    next_composition_ref: string;
 
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService, params: RouteParams, private _ngZone: NgZone) {
         var self = this;
@@ -56,6 +58,8 @@ export class BandDetailComponent implements OnInit {
                 self._router.navigate(['Login']);
             }
         });
+        this.prev_composition_ref = null;
+        this.next_composition_ref = null;
         this.id = +params.get('id');
     }
 
@@ -65,14 +69,15 @@ export class BandDetailComponent implements OnInit {
                 this.band = band;
             })
         });
-        this._bandService.members_list(this.id).subscribe((memberList: Member[]) => {
+        this._bandService.members_list(this.id).subscribe((response) => {
             this._ngZone.run(() => {
-                    this.memberList = memberList;
+                    this.memberList = response.results;
                 })
         });
-        this._bandService.composition_list(this.id).subscribe((compositionList: Composition[]) => {
+        this._bandService.composition_list(this.id).subscribe((response) => {
             this._ngZone.run(() => {
-                this.compositionList = compositionList;
+                this.next_composition_ref = response.next;
+                this.compositionList = response.results;
             })
         });
     }

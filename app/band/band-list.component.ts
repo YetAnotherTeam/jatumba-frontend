@@ -48,7 +48,7 @@ export class BandListComponent implements OnInit {
     }
 
     list() {
-        this._bandService.list().subscribe((bandList: Band[]) => this.bandList = bandList)
+        this._bandService.list().subscribe((response) => this.bandList = response.results)
     }
 
     ngOnInit():any {

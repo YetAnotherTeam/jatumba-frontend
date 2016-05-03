@@ -65,8 +65,8 @@ export class UserListComponent implements OnInit {
 
     list() {
         var self = this;
-        this._userService.list().subscribe((userList: User[]) => {
-                self._ngZone.run(() => self.userList = userList)
+        this._userService.list().subscribe((response) => {
+                self._ngZone.run(() => self.userList = response.results)
             }
         )
     }

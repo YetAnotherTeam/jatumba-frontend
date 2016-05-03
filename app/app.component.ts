@@ -38,7 +38,7 @@ import {PageTitleComponent} from "./components/page-title.component";
     {path:'/users/:id', name: 'UserDetail', component: UserCardComponent},
     {path:'/bands', name: 'BandList', component: BandListComponent},
     {path:'/bands/:id', name: 'BandDetail', component: BandDetailComponent},
-    {path:'/composition', name: 'Editor', component: EditorComponent},
+    {path:'/composition/:id', name: 'Editor', component: EditorComponent},
     {path:'/settings', name: 'Settings', component: EditorComponent},
     {path:'/', name: 'Login', component: LoginComponent },
     {path:'/register', name: 'Register', component: RegisterComponent}

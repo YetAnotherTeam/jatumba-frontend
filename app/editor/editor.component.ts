@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, NgZone} from 'angular2/core';
-import {Router} from "angular2/router";
+import {Router, RouteParams} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 import {Instrument} from "./instrument.model";
 import {EditorService, EditorSocketService} from "./editor.service";
@@ -42,13 +42,15 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _authService: AuthService,
                 private _editorService: EditorService,
                 private _editorSocketService: EditorSocketService,
-                private _ngZone: NgZone) {
+                private _ngZone: NgZone,
+                params: RouteParams) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (!isAuth) {
                 self._router.navigate(['Login']);
             }
         });
+        this.id = +params.get('id');
         this._setLinePosition(0);
         this._playIdTimer = 0;
         this.instrumentList = [];
@@ -58,9 +60,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         this.instrumentMapID = {};
         this.soundMapID = {};
-        EditorSocketService.setOnMessageHandler.call(this, this._onSocketMessageHandler, this._editorSocketService.getSocket())
 
-        this._editorSocketService.socketSignIn();
+        this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
 
         this.soundMap = {
             "djembe-hi" : new Howl({urls: ['sound/djembe-hi.wav']}),

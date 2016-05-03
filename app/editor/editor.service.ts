@@ -14,7 +14,7 @@ export class EditorService {
 export class EditorSocketService {
     private _headers: Headers;
 
-    private href = "ws://p30112.lab1.stud.tech-mail.ru/ws/composition/1/";
+    private href = "ws://p30112.lab1.stud.tech-mail.ru/ws/composition/";
 
     //private href = "http://localhost:8888/api/";
     private _auth: boolean = false;
@@ -25,23 +25,22 @@ export class EditorSocketService {
     constructor(private _http: Http) {
         this._headers = new Headers();
         this._headers.append('Content-Type', 'application/json');
-        this.socket = new $WebSocket(this.href);
-        while (!this.socket.getReadyState()) {}
     }
 
     send(message: string) {
         this.socket.send(message)
     }
     
-    static setOnMessageHandler(f: any, socket: any) {
-        socket.onMessage(f, this);
-    }
-    
     getSocket() {
         return this.socket;
     }
 
-    socketSignIn() {
+    start(id: number, f: any, context: any) {
+        this.socket = new $WebSocket(this.href + id + '/');
+        while (!this.socket.getReadyState()) {}
+        
+        this.socket.onMessage(f, context);
+        
         var data = {
             access_token: localStorage.getItem('access_token')
         };
