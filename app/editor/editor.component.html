@@ -62,9 +62,10 @@ mdl-layout--fixed-header">
                              [ngClass]="{
                                 'active': track.instrument == activeInstrument
                              }"
-                             (contextmenu)="removeTrackByIndex($event, trackIndex)"
                         >
-                            <div class="name">
+                            <div class="name"
+                                 (contextmenu)="removeTrackByIndex($event, trackIndex)"
+                            >
                                 <div [attr.alt]="track.instrument.name"
                                      (click)="changeActiveInstrument(track.instrument)"
                                      [attr.data-instrument-id]="track.instrument.id">{{track.instrument.name}}</div>
