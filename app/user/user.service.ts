@@ -18,7 +18,7 @@ export class UserService {
     }
 
     list() {
-        return this._http.get(this.href + 'user/', this.getHeaders()).map(res => res.json())
+        return this._http.get(this.href + 'user/?page=3', this.getHeaders()).map(res => res.json())
     }
 
     get(id: number) {
@@ -26,11 +26,12 @@ export class UserService {
     }
 
     update(user: User) {
-        return this._http.put(this.href + 'user/' + user.id + '/', JSON.stringify({
+        return this._http.patch(this.href + 'user/' + user.id + '/', JSON.stringify({
             username: user.username,
             first_name: user.first_name,
             last_name: user.last_name,
-            phone: user.phone
+            vk_profile: user.vk_profile,
+            fb_profile: user.fb_profile,
         }), this.getHeaders())
             .map(res => res.json())
     }
