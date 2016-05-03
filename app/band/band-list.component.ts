@@ -38,6 +38,8 @@ import {AuthService} from "../auth/auth.service";
 export class BandListComponent implements OnInit {
     public bandList: Band[];
 
+    public paginationInfo: any;
+
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
@@ -48,7 +50,10 @@ export class BandListComponent implements OnInit {
     }
 
     list() {
-        this._bandService.list().subscribe((bandList: Band[]) => this.bandList = bandList)
+        this._bandService.list().subscribe((bandList: any) => {
+            this.bandList = bandList.results;
+            this.paginationInfo = bandList;
+        })
     }
 
     ngOnInit():any {
