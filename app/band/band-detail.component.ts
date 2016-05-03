@@ -41,11 +41,16 @@ import {AuthService} from "../auth/auth.service";
     directives: [ROUTER_DIRECTIVES],
 })
 
+//todo Заметил баг, при обновлении страницы на этом разделе, все летит к чертям.
 export class BandDetailComponent implements OnInit {
     id: number;
     band: Band;
+
     memberList: Member[];
+    public memberListPaginationInfo : any;
+
     compositionList: Composition[];
+    public compositionListPaginationInfo: any;
 
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService, params: RouteParams, private _ngZone: NgZone) {
         var self = this;
@@ -63,14 +68,16 @@ export class BandDetailComponent implements OnInit {
                 this.band = band;
             })
         });
-        this._bandService.members_list(this.id).subscribe((memberList: Member[]) => {
+        this._bandService.members_list(this.id).subscribe((memberList: any) => {
             this._ngZone.run(() => {
-                    this.memberList = memberList;
+                    this.memberList = memberList.results;
+                    this.memberListPaginationInfo = memberList
                 })
         });
-        this._bandService.composition_list(this.id).subscribe((compositionList: Composition[]) => {
+        this._bandService.composition_list(this.id).subscribe((compositionList: any) => {
             this._ngZone.run(() => {
-                this.compositionList = compositionList;
+                this.compositionList = compositionList.results;
+                this.compositionListPaginationInfo = compositionList
             })
         });
     }

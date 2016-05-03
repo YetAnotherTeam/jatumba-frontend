@@ -48,7 +48,7 @@ import {AuthService} from "../auth/auth.service";
 export class UserListComponent implements OnInit {
     public userList: User[];
 
-    public paginatonInfo: any;
+    public paginationInfo: any;
     public selectedUser = "";
 
     constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, private _ngZone: NgZone) {
@@ -70,7 +70,7 @@ export class UserListComponent implements OnInit {
         this._userService.list().subscribe((userList: any) => {
                 self._ngZone.run(() => {
                     self.userList = userList.results;
-                    self.paginatonInfo = userList
+                    self.paginationInfo = userList
                 })
             }
         )
