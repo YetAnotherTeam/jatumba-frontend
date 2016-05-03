@@ -8,6 +8,7 @@ import {AuthService} from "../auth/auth.service";
 @Component({
     selector: 'user-card',
     template: `
+<main>
 <h1>Профиль</h1>
     <div *ngIf="user">
         <div>name: {{user.first_name}}</div>
@@ -16,6 +17,7 @@ import {AuthService} from "../auth/auth.service";
         <div>vk: <a href="http://vk.com/id{{user.vk_profile}}">http://vk.com/id{{user.vk_profile}}</a></div>
         <div>fb: {{user.fb_profile}}</div>
     </div>
+</main>
     `,
     providers: [UserService]
 })

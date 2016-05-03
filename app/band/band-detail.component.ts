@@ -11,6 +11,7 @@ import {AuthService} from "../auth/auth.service";
     selector: 'band-card',
     template: `
 <h1>Банда</h1>
+<main>
     <div *ngIf="band">
         <div>name: {{band.name}}</div>
         <div>{{band.description}}</div>
@@ -36,6 +37,7 @@ import {AuthService} from "../auth/auth.service";
             </div>
         </div>
     </div>
+</main>
     `,
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES],

@@ -15,6 +15,7 @@ import * as howler from "howler";
 })
 export class EditorComponent implements OnInit, OnDestroy {
     public isEditorMode: boolean;
+    public id: number;
 
     public instrumentList: Instrument[];
     public trackList: Track[];
