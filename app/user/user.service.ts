@@ -26,7 +26,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this._http.patch(this.href + 'user/' + user.id + '/', JSON.stringify({
+        return this._http.put(this.href + 'user/' + user.id + '/', JSON.stringify({
             username: user.username,
             first_name: user.first_name,
             last_name: user.last_name,
