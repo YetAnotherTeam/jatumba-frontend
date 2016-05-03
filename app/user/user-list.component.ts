@@ -16,6 +16,7 @@ import {AuthService} from "../auth/auth.service";
 <div class="col s12 m9 l10">
 <div class="collection">
     <div>
+    <!--{{userList | json}}-->
         <div *ngFor="#user of userList">
             <a class="collection-item" [routerLink]="['UserDetail', {'id': user.id}]">
                 <strong>{{user.username}}</strong> <br>
@@ -47,6 +48,7 @@ import {AuthService} from "../auth/auth.service";
 export class UserListComponent implements OnInit {
     public userList: User[];
 
+    public paginatonInfo: any;
     public selectedUser = "";
 
     constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, private _ngZone: NgZone) {
@@ -65,8 +67,11 @@ export class UserListComponent implements OnInit {
 
     list() {
         var self = this;
-        this._userService.list().subscribe((userList: User[]) => {
-                self._ngZone.run(() => self.userList = userList)
+        this._userService.list().subscribe((userList: any) => {
+                self._ngZone.run(() => {
+                    self.userList = userList.results;
+                    self.paginatonInfo = userList
+                })
             }
         )
     }
