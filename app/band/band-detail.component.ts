@@ -46,7 +46,10 @@ import {AuthService} from "../auth/auth.service";
 export class BandDetailComponent implements OnInit {
     id: number;
     band: Band;
+
     memberList: Member[];
+    public memberListPaginationInfo : any;
+
     compositionList: Composition[];
     prev_composition_ref: string;
     next_composition_ref: string;
@@ -69,15 +72,16 @@ export class BandDetailComponent implements OnInit {
                 this.band = band;
             })
         });
-        this._bandService.members_list(this.id).subscribe((response) => {
+        this._bandService.members_list(this.id).subscribe((memberList: any) => {
             this._ngZone.run(() => {
-                    this.memberList = response.results;
+                    this.memberList = memberList.results;
+                    this.memberListPaginationInfo = memberList
                 })
         });
-        this._bandService.composition_list(this.id).subscribe((response) => {
+        this._bandService.composition_list(this.id).subscribe((compositionList: any) => {
             this._ngZone.run(() => {
-                this.next_composition_ref = response.next;
-                this.compositionList = response.results;
+                this.compositionList = compositionList.results;
+                this.compositionListPaginationInfo = compositionList
             })
         });
     }

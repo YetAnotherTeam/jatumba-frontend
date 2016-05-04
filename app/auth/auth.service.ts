@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core'
 import {Http, Headers} from "angular2/http";
 import {AppComponent} from "../app.component";
+import {User} from "../user/user";
 
 @Injectable()
 export class AuthService {
@@ -112,7 +113,7 @@ export class AuthService {
 
     }
 
-    getUser() {
+    getUser(): Promise<User> {
         return this.isAuth().then(function(){
             return JSON.parse(localStorage.getItem('user'))
         })
