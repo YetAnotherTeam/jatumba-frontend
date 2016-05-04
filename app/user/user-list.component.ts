@@ -16,7 +16,6 @@ import {AuthService} from "../auth/auth.service";
 <div class="col s12 m9 l10">
 <div class="collection">
     <div>
-    <!--{{userList | json}}-->
         <div *ngFor="#user of userList">
             <a class="collection-item" [routerLink]="['UserDetail', {'id': user.id}]">
                 <strong>{{user.username}}</strong> <br>
@@ -25,14 +24,6 @@ import {AuthService} from "../auth/auth.service";
                     {{user.first_name}} {{user.last_name}}
              </p>
 
-            <!--<div style="color: blue;"-->
-            <!--(click)="onSelect(user)"-->
-            <!--[class.hidden]="selectedUser == user"-->
-            <!--&gt;</div>-->
-            <!--<user-card-->
-            <!--[user]="selectedUser"-->
-            <!--[class.hidden]="selectedUser != user"-->
-            <!--&gt;</user-card>-->
         </div>
     </div>
     

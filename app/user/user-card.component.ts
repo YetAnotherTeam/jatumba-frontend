@@ -9,7 +9,6 @@ import {AuthService} from "../auth/auth.service";
     selector: 'user-card',
     template: `
 <h1>Профиль</h1>
-{{user|json}}
     <div *ngIf="user && !isEditModeOn">
         <div>name: {{user.first_name}}</div>
         <div>lastname: {{user.last_name}}</div>
