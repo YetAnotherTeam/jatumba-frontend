@@ -8,6 +8,31 @@ export class EditorService {
     getInstrumentList() {
         return Promise.resolve(INSTRUMENT_LIST);
     }
+
+    private _headers: Headers;
+
+    private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
+
+    //private href = "http://localhost:8888/api/";
+    private _auth: boolean = false;
+    private socket;
+
+    constructor(private _http: Http) {
+        this._headers = new Headers();
+        this._headers.append('Content-Type', 'application/json');
+        this._headers.append('token', localStorage.getItem('access_token'));
+    }
+
+    forkComposition(composition_id: number, band_id: number) {
+        this._http.post(this.href + 'composition_version/'+ composition_id + '/fork/', JSON.stringify({
+            band: band_id
+        }), this.getHeaders())
+            .map(res => res.json())
+    }
+
+    private getHeaders() {
+        return {headers: this._headers}
+    }
 }
 
 @Injectable()
@@ -20,12 +45,7 @@ export class EditorSocketService {
     private _auth: boolean = false;
     private socket;
 
-
-
-    constructor(private _http: Http) {
-        this._headers = new Headers();
-        this._headers.append('Content-Type', 'application/json');
-    }
+    constructor() {}
 
     send(message: string) {
         this.socket.send(message)

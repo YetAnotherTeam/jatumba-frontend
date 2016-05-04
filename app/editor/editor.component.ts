@@ -314,6 +314,10 @@ export class EditorComponent implements OnInit, OnDestroy {
         this._linePositionNumber = number;
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
     }
+
+    private forkComposition() {
+        // this._editorService.forkComposition(this.id, 0)
+    }
     
     private sendTrackDiff(data: any) {
         var self = this;

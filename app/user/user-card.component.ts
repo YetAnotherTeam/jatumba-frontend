@@ -1,7 +1,7 @@
 import {Component, OnInit, NgZone} from 'angular2/core';
 import {User} from './user'
 import {UserService} from "./user.service";
-import {Router, RouteParams} from "angular2/router";
+import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 
 
@@ -16,9 +16,15 @@ import {AuthService} from "../auth/auth.service";
         <div>username: {{user.username}}</div>
         <div>vk: <a href="http://vk.com/id{{user.vk_profile}}">http://vk.com/id{{user.vk_profile}}</a></div>
         <div>fb: {{user.fb_profile}}</div>
+        <div *ngFor="#member of user.members">
+            <a class="collection-item" [routerLink]="['BandDetail', {'id': member.band.id}]">
+                <strong>{{member.band.name}}</strong> <br>
+            </a>
+        </div>
     </div>
 </main>
     `,
+    directives: [ROUTER_DIRECTIVES],
     providers: [UserService]
 })
 

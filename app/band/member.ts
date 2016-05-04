@@ -5,7 +5,6 @@ import {Instrument} from "./instrument"
 export interface Member {
     id: number,
     user: User,
-    band: Band,
-    instrument: Instrument
+    band: Band
 }
 
