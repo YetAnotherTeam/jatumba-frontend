@@ -56,7 +56,7 @@ mdl-layout--fixed-header">
                 <div class="work-tabs-wrapper">
                     <!-- work tabs -->
                     <div class="work-tabs">
-                        <div class="play" [style.transform]="linePosition" style="left:90px;"></div>
+                        <div class="play" [style.transform]="linePosition" style="left:90px;" *ngIf="trackList[0]"></div>
                         <div class="track"
                              *ngFor="#track of trackList; #trackIndex = index"
                              [ngClass]="{

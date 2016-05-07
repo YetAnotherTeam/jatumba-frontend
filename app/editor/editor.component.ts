@@ -80,30 +80,30 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         let metronomeSoundList = [];
 
-        for (let i = 0; i < 32; i++) {
-            if (i % 8 == 0) {
-                metronomeSoundList.push({
-                    name: 'hi',
-                    sound: "metronome"
-                });
-            } else {
-                metronomeSoundList.push({
-                    name: 'empty',
-                    sound: ''
-                });
-            }
-        }
+        // for (let i = 0; i < 32; i++) {
+        //     if (i % 8 == 0) {
+        //         metronomeSoundList.push({
+        //             name: 'hi',
+        //             sound: "metronome"
+        //         });
+        //     } else {
+        //         metronomeSoundList.push({
+        //             name: 'empty',
+        //             sound: ''
+        //         });
+        //     }
+        // }
 
         this._editorService.getInstrumentList()
             .then(instrumentList => {
                 self.instrumentList = instrumentList;
-                self.trackList.push({
-                    id: 0,
-                    instrument: self.instrumentList[0],
-                    sectorList: [
-                        {soundList: metronomeSoundList},
-                    ]
-                });
+                // self.trackList.push({
+                //     id: 0,
+                //     instrument: self.instrumentList[0],
+                //     sectorList: [
+                //         {soundList: metronomeSoundList},
+                //     ]
+                // });
                 self.changeActiveInstrument(self.instrumentList[0]);
                 self.trackListID.push([EditorComponent._createEmptyTrackID()]);
                 self._createInstrumentMap();
@@ -127,7 +127,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     createTrack() {
         if (this.isCanEdit()) {
-            let countOfSectorList = this.trackList[0].sectorList.length;
+            let countOfSectorList = 1;
+            let id = 1;
+            if (this.trackList.length > 0) {
+                countOfSectorList = this.trackList[0].sectorList.length;
+                id = this.trackList[this.trackList.length - 1].id + 1
+            }
             var sectorList = [];
             var sectorListID = [];
             for (let i = 0; i < countOfSectorList; i++) {
@@ -136,8 +141,9 @@ export class EditorComponent implements OnInit, OnDestroy {
                 });
                 sectorListID.push(EditorComponent._createEmptyTrackID());
             }
+
             this.trackList.push({
-                id: this.trackList[this.trackList.length - 1].id + 1,
+                id: id,
                 instrument: this.activeInstrument,
                 sectorList: sectorList
             });
