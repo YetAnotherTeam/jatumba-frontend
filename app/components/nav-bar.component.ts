@@ -28,6 +28,5 @@ export class NavBarComponent {
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user');
         this._router.navigate(['Login']);
-
     }
 }
