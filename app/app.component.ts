@@ -15,9 +15,9 @@ import {PageTitleComponent} from "./components/page-title.component";
 @Component({
     selector: 'my-app',
     template: `
-        <nav-bar>
+        <nav-bar
             *ngIf="_pageTitle != '' && _pageTitle != 'register'"
-            [routeName]="_pageTitle"
+            [routeName]="_pageTitle">
         </nav-bar>
         <div id="wrapper">
             <div id="page-wrapper">

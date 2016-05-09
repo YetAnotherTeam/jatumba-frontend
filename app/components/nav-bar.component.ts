@@ -19,7 +19,6 @@ export class NavBarComponent {
     constructor(private _authService: AuthService, private _router: Router) {
         var self = this;
         this._authService.getUser().then(function(user) {
-            console.log('usr', user);
             self.user = user;
         })
     }

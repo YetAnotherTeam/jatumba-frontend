@@ -38,6 +38,8 @@ import {AuthService} from "../auth/auth.service";
         </div>
     </div>
 </main>
+
+<chat-component [band_id]="band.id" *ngIf="band">Chat should be loading</chat-component>
     `,
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES],
@@ -51,8 +53,7 @@ export class BandDetailComponent implements OnInit {
     public memberListPaginationInfo : any;
 
     compositionList: Composition[];
-    prev_composition_ref: string;
-    next_composition_ref: string;
+    compositionListPaginationInfo: any;
 
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService, params: RouteParams, private _ngZone: NgZone) {
         var self = this;
@@ -61,8 +62,6 @@ export class BandDetailComponent implements OnInit {
                 self._router.navigate(['Login']);
             }
         });
-        this.prev_composition_ref = null;
-        this.next_composition_ref = null;
         this.id = +params.get('id');
     }
 
