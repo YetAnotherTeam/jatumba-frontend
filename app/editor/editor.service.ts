@@ -5,9 +5,9 @@ import {$WebSocket} from "./websocket"
 
 @Injectable()
 export class EditorService {
-    getInstrumentList() {
-        return Promise.resolve(INSTRUMENT_LIST);
-    }
+    // getInstrumentList() {
+    //     return Promise.resolve(INSTRUMENT_LIST);
+    // }
 
     private _headers: Headers;
 
@@ -27,6 +27,11 @@ export class EditorService {
         this._http.post(this.href + 'composition_version/'+ composition_id + '/fork/', JSON.stringify({
             band: band_id
         }), this.getHeaders())
+            .map(res => res.json())
+    }
+
+    loadInstrumentList() {
+        return this._http.get(this.href + 'instrument/', this.getHeaders())
             .map(res => res.json())
     }
 
