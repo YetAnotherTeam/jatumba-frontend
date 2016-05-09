@@ -3,6 +3,7 @@ import {User} from './user'
 import {UserService} from "./user.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
+import {Composition} from "../band/composition";
 
 
 @Component({
@@ -15,14 +16,23 @@ import {AuthService} from "../auth/auth.service";
         <div>username: {{user.username}}</div>
         <div>vk: <a href="http://vk.com/id{{user.vk_profile}}">http://vk.com/id{{user.vk_profile}}</a></div>
         <div>fb: {{user.fb_profile}}</div>
+        <br/>
+        Bands:
         <div *ngFor="#member of user.members">
             <a class="collection-item" [routerLink]="['BandDetail', {'id': member.band.id}]">
                 <strong>{{member.band.name}}</strong> <br>
             </a>
         </div>
+        <br/>
+        Compositions:
+        <div *ngFor="#composition of compositions">
+            <a class="collection-item" [routerLink]="['Editor', {'id': composition.id}]">
+                <strong>{{composition.name}}</strong> <br>
+            </a>
+        </div>
     </div>
     <button 
-        *ngIf="!isEditModeOn"
+        *ngIf="!isEditModeOn && isCanEdit"
         (click)="changeEditMode(true)"
         >Редактировать</button>
     <div *ngIf="isEditModeOn">
@@ -63,6 +73,7 @@ import {AuthService} from "../auth/auth.service";
 export class UserCardComponent implements OnInit {
     id: number;
     user: User;
+    compositions: Composition[];
     
     private isCanEdit: boolean;
 
@@ -76,15 +87,16 @@ export class UserCardComponent implements OnInit {
             }
         });
         this.id = +params.get('id');
-        
-         this._authService.getUser().then(user => {
-             self.isCanEdit = user.id == self.id;
-         });
+
+        var system_user = JSON.parse(localStorage.getItem('user'));
+        this.isCanEdit = system_user.id == this.id;
     }
 
     private get_user() {
-        this._userService.get(this.id).subscribe((user: User) => {
+        this._userService.get(this.id).subscribe((user: any) => {
             this._ngZone.run(() => {
+                this.compositions = user.compositions;
+                delete user.compositions;
                 this.user = user;
             })
         });
