@@ -1,7 +1,7 @@
 export interface Instrument {
     id : number,
     name : string,
-    soundList: Sound[],
+    sounds: Sound[],
     active: boolean
 }
 
@@ -11,6 +11,6 @@ interface SoundArray {
 interface Sound {
     id: number,
     name: string,
-    sound: string,
+    soundName: string,
     active: boolean
 }

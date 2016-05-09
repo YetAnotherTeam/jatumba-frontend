@@ -13,5 +13,5 @@ interface sector {
 interface sound {
     id: number
     name: string // название/изображение звука (общее)
-    sound: string // название звука (конкретное для данного инструмента)
+    soundName: string // название звука (конкретное для данного инструмента)
 }

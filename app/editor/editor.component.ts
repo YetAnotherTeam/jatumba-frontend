@@ -63,14 +63,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
 
-        this.soundMap = {
-            "djembe-hi" : new Howl({urls: ['sound/djembe-hi.wav']}),
-            "djembe-lo" : new Howl({urls: ['sound/djembe-lo.wav']}),
-            "djembe-mid" : new Howl({urls: ['sound/djembe-mid.wav']}),
-            "agogo-hi" : new Howl({urls: ['sound/agogo-hi.wav']}),
-            "agogo-lo" : new Howl({urls: ['sound/agogo-lo.wav']}),
-            "metronome" : new Howl({urls: ['sound/metronomeup.wav']})
-        };
     };
 
     ngOnInit() {
@@ -94,16 +86,23 @@ export class EditorComponent implements OnInit, OnDestroy {
         //     }
         // }
 
-        this._editorService.getInstrumentList()
-            .then(instrumentList => {
+        this._editorService.loadInstrumentList().subscribe(instrumentList => {
                 self.instrumentList = instrumentList;
-                // self.trackList.push({
-                //     id: 0,
-                //     instrument: self.instrumentList[0],
-                //     sectorList: [
-                //         {soundList: metronomeSoundList},
-                //     ]
-                // });
+                self.instrumentList[0].active = true;
+                self.instrumentList[0].sounds[0].active = true;
+                self.soundMap = {};
+
+                for (let instrument of self.instrumentList) {
+                    let flag = true;
+                    for (let currentSoundIndex in instrument.sounds) {
+                        let currentSound = instrument.sounds[currentSoundIndex];
+                        // Не работало сравнение currentSoundIndex == 0. Пришлось написать так
+                        currentSound.active = flag;
+                        flag = false;
+                        currentSound.soundName = instrument.name + "-" + currentSound.name;
+                        self.soundMap[currentSound.soundName] = new Howl({urls: [currentSound.file]})
+                    }
+                }
                 self.changeActiveInstrument(self.instrumentList[0]);
                 self.trackListID.push([EditorComponent._createEmptyTrackID()]);
                 self._createInstrumentMap();
@@ -165,11 +164,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         if (this.isCanEdit()) {
             let instrument:Instrument = this.activeInstrument;
             if (track.instrument == instrument) {
-                for (let i in instrument.soundList) {
-                    if (instrument.soundList[i].active) {
-                        track.sectorList[indexSector].soundList[indexSound].name = instrument.soundList[i].name;
-                        track.sectorList[indexSector].soundList[indexSound].sound = instrument.soundList[i].sound;
-                        this.trackListID[track.id][indexSector][indexSound] = instrument.soundList[i].id;
+                for (let i in instrument.sounds) {
+                    if (instrument.sounds[i].active) {
+                        track.sectorList[indexSector].soundList[indexSound].name = instrument.sounds[i].name;
+                        track.sectorList[indexSector].soundList[indexSound].soundName = instrument.sounds[i].soundName;
+                        this.trackListID[track.id][indexSector][indexSound] = instrument.sounds[i].id;
                     }
                 }
             }
@@ -184,7 +183,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             if (track.instrument == instrument) {
                 // debugger;
                 track.sectorList[indexSector].soundList[indexSound].name = 'empty';
-                track.sectorList[indexSector].soundList[indexSound].sound = '';
+                track.sectorList[indexSector].soundList[indexSound].soundName = '';
                 this.trackListID[track.id][indexSector][indexSound] = null;
             }
             event.preventDefault();
@@ -226,11 +225,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     
     changeActiveSound(soundName: string) {
         let instrument: Instrument = this.activeInstrument;
-        for (let i in instrument.soundList) {
-            instrument.soundList[i].active = false;
-            if (instrument.soundList[i].name == soundName) {
-                instrument.soundList[i].active = true;
-                this.soundMap[instrument.soundList[i].sound].play();
+        for (let i in instrument.sounds) {
+            instrument.sounds[i].active = false;
+            if (instrument.sounds[i].name == soundName) {
+                instrument.sounds[i].active = true;
+                this.soundMap[instrument.sounds[i].soundName].play();
             }
         }
     }
@@ -247,12 +246,12 @@ export class EditorComponent implements OnInit, OnDestroy {
                 }
 
                 for (let segment in track.sectorList[sectorNum].soundList) { // 32 сегмента
-                    if (track.sectorList[sectorNum].soundList[segment].sound) {
+                    if (track.sectorList[sectorNum].soundList[segment].soundName) {
                         if(!allSoundList[sectorNum][segment]) {
                             allSoundList[sectorNum][segment] = [];
                         }
 
-                        allSoundList[sectorNum][segment].push(this.soundMap[track.sectorList[sectorNum].soundList[segment].sound]);
+                        allSoundList[sectorNum][segment].push(this.soundMap[track.sectorList[sectorNum].soundList[segment].soundName]);
                     }
                 }
             }
@@ -355,7 +354,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                     } else {
                         sector_list.push({
                             name: 'empty',
-                            sound: ''
+                            soundName: ''
                         });
                     }
                 });
@@ -389,7 +388,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         for (let i = 0; i < 32; i++) {
             emptySectorList.push({
                 name: 'empty',
-                sound: ''
+                soundName: ''
             });
         }
 
@@ -409,7 +408,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private _createSoundMap() {
         var self = this;
         this.instrumentList.forEach(function (instrument) {
-            instrument.soundList.forEach(function (sound) {
+            instrument.sounds.forEach(function (sound) {
                 self.soundMapID[sound.id] = sound;
             })
         })
