@@ -50,6 +50,10 @@ mdl-layout--fixed-header">
                             (click)="changeEditorMode(!isEditorMode)"
                     >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <button
+                            *ngIf="!havePermissionToEdit"
+                            (click)="forkComposition()"
+                    >Создать копию</button>
+                    <button
                             *ngIf="trackList[0]?.sectorList?.length > 1"
                             (click)="removeSector()"
                     >Удалить сектор</button>

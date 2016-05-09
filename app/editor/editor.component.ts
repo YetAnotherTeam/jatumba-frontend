@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, NgZone} from 'angular2/core';
-import {Router, RouteParams} from "angular2/router";
+import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 import {Instrument} from "./instrument.model";
 import {EditorService, EditorSocketService} from "./editor.service";
@@ -12,7 +12,7 @@ import {ChatComponent} from "../components/chat.component";
 @Component({
     selector: 'editor',
     providers: [EditorService, EditorSocketService],
-    directives: [ChatComponent],
+    directives: [ChatComponent, ROUTER_DIRECTIVES],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
 })
@@ -24,6 +24,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     public instrumentList: Instrument[];
     public trackList: Track[];
     public trackListID: number[][][];
+    public selectedVersion: number;
 
     public linePosition: string;
     private _linePositionNumber: number;
@@ -119,6 +120,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             self.havePermissionToEdit = composition.permissions.includes('change_composition');
             self._parseComposition(composition.latest_version.tracks);
             self.composition = composition;
+            self.selectedVersion = composition.latest_version.id;
         });
     }
 
@@ -344,7 +346,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     private forkComposition() {
-        // this._editorService.forkComposition(this.id, 0)
+        var self = this;
+        this._editorService.forkComposition(this.selectedVersion, 1).subscribe(response =>{
+            self._router.navigate(['Editor', {id: response.composition.id}])
+        })
     }
     
     private sendTrackDiff(data: any) {
