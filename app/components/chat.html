@@ -2,24 +2,8 @@
     <input type="checkbox" />
     <label data-expanded="Close Chatbox" data-collapsed="Open Chatbox"></label>
     <div class="chat-box-content">
-        <div>
-        Ciluk baaa!!!
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+        <div *ngFor="#message of messages">
+            {{message}}
         </div>
         <input type="text" [(ngModel)]="messageInput" />
     </div>
