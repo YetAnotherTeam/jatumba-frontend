@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
             .vkAuth(token)
             .subscribe(
                 account => {
-                    self._router.navigate(['UserList'])
+                    self._router.navigate(['UserDetail', {id: account.user.id}])
             },
                 e => {
                 if (e.status == 404) {
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
             .fbAuth(token)
             .subscribe(
                 account => {
-                self._router.navigate(['UserList'])
+                self._router.navigate(['UserDetail', {id: account.user.id}])
             },
                 e => {
                     if (e.status == 404) {
@@ -133,8 +133,8 @@ export class LoginComponent implements OnInit {
 
     login() {
         let self = this;
-        this._authService.login(this._login, this._password).subscribe(function() {
-            self._router.navigate(['UserList'])
+        this._authService.login(this._login, this._password).subscribe(function(data) {
+            self._router.navigate(['UserDetail', {id: data.user.id}])
         }, function(error) {
                 this.login_error = error;
             }
