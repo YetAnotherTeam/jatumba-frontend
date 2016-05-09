@@ -23,8 +23,13 @@ export class EditorService {
         this._headers.append('token', localStorage.getItem('access_token'));
     }
 
+    get(composition_id: number) {
+        return this._http.get(this.href + 'composition/'+ composition_id + '/', this.getHeaders())
+            .map(res => res.json())
+    }
+
     forkComposition(composition_id: number, band_id: number) {
-        this._http.post(this.href + 'composition_version/'+ composition_id + '/fork/', JSON.stringify({
+        return this._http.post(this.href + 'composition_version/'+ composition_id + '/fork/', JSON.stringify({
             band: band_id
         }), this.getHeaders())
             .map(res => res.json())
@@ -53,7 +58,9 @@ export class EditorSocketService {
     constructor() {}
 
     send(message: string) {
-        this.socket.send(message)
+        if (this.socket) {
+            this.socket.send(message)
+        }
     }
     
     getSocket() {
@@ -72,8 +79,12 @@ export class EditorSocketService {
         this.socket.send(EditorSocketService.createMessage("sign_in", data));
     }
 
+    stop() {
+        this.socket.close();
+    }
+
     sendCompositionDiff(data: any) {
-        this.socket.send(EditorSocketService.createMessage("diff", data));
+        this.socket.send(EditorSocketService.createMessage("commit", data));
     }
     
     static createMessage(method: string, data: any) {

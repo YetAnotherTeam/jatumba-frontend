@@ -39,9 +39,7 @@ import {ChatComponent} from "../components/chat.component";
         </div>
     </div>
 </main>
-<div *ngIf="band">
-    <chat-component [band]="band">Chat should be loading</chat-component>
-</div>
+<chat-component *ngIf="band" [band]="band"></chat-component>
     `,
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES, ChatComponent],

@@ -5,4 +5,5 @@ export interface Composition {
     id: number
     name: string
     band: number
+    genres: string[]
 }

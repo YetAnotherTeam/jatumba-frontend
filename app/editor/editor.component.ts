@@ -5,17 +5,21 @@ import {Instrument} from "./instrument.model";
 import {EditorService, EditorSocketService} from "./editor.service";
 import {Track} from "./track.model";
 import * as howler from "howler";
+import {Band} from "../band/band";
+import {Composition} from "../band/composition";
+import {ChatComponent} from "../components/chat.component";
 
 @Component({
     selector: 'editor',
     providers: [EditorService, EditorSocketService],
-    directives: [],
+    directives: [ChatComponent],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
 })
 export class EditorComponent implements OnInit, OnDestroy {
     public isEditorMode: boolean;
     public id: number;
+    public composition: Composition;
 
     public instrumentList: Instrument[];
     public trackList: Track[];
@@ -61,7 +65,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.instrumentMapID = {};
         this.soundMapID = {};
 
-        this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
+        // this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
 
     };
 
@@ -108,6 +112,11 @@ export class EditorComponent implements OnInit, OnDestroy {
                 self._createInstrumentMap();
                 self._createSoundMap();
             });
+
+        this._editorService.get(this.id).subscribe(composition => {
+            self._parseComposition(composition.latest_version.tracks);
+            self.composition = composition;
+        });
     }
 
     ngOnDestroy():any {
@@ -309,6 +318,17 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     changeEditorMode(state: boolean) {
         this.isEditorMode = state;
+        var self = this;
+        
+        if (this.isEditorMode) {
+            this._editorSocketService.start(this.composition.id, this._onSocketMessageHandler, this);
+        } else {
+            this._editorSocketService.stop();
+            this._editorService.get(this.id).subscribe(composition => {
+                self._parseComposition(composition.latest_version.tracks);
+                self.composition = composition;
+            });
+        }
     }
 
     private isCanEdit() {
