@@ -5,6 +5,7 @@ import {Member} from './member'
 import {BandService} from "./band.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
+import {ChatComponent} from "../components/chat.component";
 
 
 @Component({
@@ -42,7 +43,7 @@ import {AuthService} from "../auth/auth.service";
 <chat-component [band_id]="band.id" *ngIf="band">Chat should be loading</chat-component>
     `,
     providers: [BandService],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, ChatComponent],
 })
 
 export class BandDetailComponent implements OnInit {

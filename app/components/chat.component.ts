@@ -7,6 +7,7 @@ import {ChatSocketService } from './chat.service'
 @Component({
     selector: 'chat-component',
     templateUrl: '/app/components/chat.html',
+    styleUrls: ['app/components/chat.component.css'],
     inputs: ['routeName', 'band_id'],
     directives: [ROUTER_DIRECTIVES],
     providers: [AuthService]
