@@ -27,7 +27,7 @@ import {ChatComponent} from "../components/chat.component";
                  </p>
             </div>
         </div>
-        <div>
+        <div *ngIf="!isJoined">
             <button (click)="onJoinButton()">Присоединиться</button>
         </div>
         <div *ngIf="compositionList">
@@ -39,7 +39,7 @@ import {ChatComponent} from "../components/chat.component";
         </div>
     </div>
 </main>
-<chat-component *ngIf="band" [band]="band"></chat-component>
+<chat-component *ngIf="isJoined" [band]="band"></chat-component>
     `,
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES, ChatComponent],
@@ -50,6 +50,7 @@ export class BandDetailComponent implements OnInit {
     band: Band;
 
     memberList: Member[];
+    isJoined: boolean;
     public memberListPaginationInfo : any;
 
     compositionList: Composition[];
@@ -63,11 +64,13 @@ export class BandDetailComponent implements OnInit {
             }
         });
         this.id = +params.get('id');
+        this.isJoined = false;
     }
 
     private get_band_info() {
         this._bandService.get(this.id).subscribe((band: Band) => {
             this._ngZone.run(() => {
+                this.isJoined = band.user_joined;
                 this.band = band;
             })
         });

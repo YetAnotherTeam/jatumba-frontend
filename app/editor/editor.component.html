@@ -46,6 +46,7 @@ mdl-layout--fixed-header">
                             (click)="stop()"
                     >Stop</button>
                     <button
+                            *ngIf="havePermissionToEdit"
                             (click)="changeEditorMode(!isEditorMode)"
                     >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <button
@@ -93,4 +94,4 @@ mdl-layout--fixed-header">
         </div>
     </main>
 </div>
-<chat-component *ngIf="composition" [band]="composition.band"></chat-component>
+<chat-component *ngIf="havePermissionToEdit" [band]="composition.band"></chat-component>

@@ -27,6 +27,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     public linePosition: string;
     private _linePositionNumber: number;
+    private havePermissionToEdit: boolean;
 
     public activeInstrument: Instrument;
 
@@ -60,6 +61,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.instrumentList = [];
         this.trackList = [];
         this.trackListID = [];
+        this.havePermissionToEdit = false;
         this.isEditorMode = false;
 
         this.instrumentMapID = {};
@@ -114,6 +116,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             });
 
         this._editorService.get(this.id).subscribe(composition => {
+            self.havePermissionToEdit = composition.permissions.includes('change_composition');
             self._parseComposition(composition.latest_version.tracks);
             self.composition = composition;
         });
@@ -136,7 +139,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     createTrack() {
         if (this.isCanEdit()) {
             let countOfSectorList = 1;
-            let id = 1;
+            let id = 0;
             if (this.trackList.length > 0) {
                 countOfSectorList = this.trackList[0].sectorList.length;
                 id = this.trackList[this.trackList.length - 1].id + 1
@@ -349,6 +352,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         data = {
             tracks: []
         };
+        console.log(self.trackListID);
         this.trackList.forEach(function (track) {
             data.tracks.push({
                 instrument: track.instrument.id,

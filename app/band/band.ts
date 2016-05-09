@@ -3,4 +3,5 @@ export interface Band {
     name: string,
     description: string,
     leader: number
+    user_joined: boolean
 }
