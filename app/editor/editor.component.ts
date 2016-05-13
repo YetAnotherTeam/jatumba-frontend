@@ -15,6 +15,7 @@ import {ChatComponent} from "../components/chat.component";
     directives: [ChatComponent, ROUTER_DIRECTIVES],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
+    host: { '(window:keydown)': 'onKey($event)' },
 })
 export class EditorComponent implements OnInit, OnDestroy {
     public isEditorMode: boolean;
@@ -171,6 +172,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackList.splice(index, 1);
             }
             event.preventDefault();
+            this.sendTrackDiff('');
         }
     }
     
@@ -186,7 +188,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                     }
                 }
             }
-            this.sendTrackDiff('test');
+            this.sendTrackDiff([this.trackList[track.id]]);
         }
     }
 
@@ -201,7 +203,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackListID[track.id][indexSector][indexSound] = null;
             }
             event.preventDefault();
-            this.sendTrackDiff('test');
+            this.sendTrackDiff([this.trackList[track.id]]);
         }
     }
 
@@ -213,7 +215,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 });
                 this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
             }
-            this.sendTrackDiff('test');
+            this.sendTrackDiff(this.trackList);
         }
     }
 
@@ -223,7 +225,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 track.sectorList.length = track.sectorList.length - 1
                 this.trackListID[track.id].pop();
             }
-            this.sendTrackDiff('test');
+            this.sendTrackDiff(this.trackList);
         }
     }
 
@@ -345,6 +347,34 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
     }
 
+    onKey(event: KeyboardEvent) {
+        console.log(event.keyCode);
+        if (event.keyCode == 90 && event.ctrlKey && event.shiftKey) {
+            this._editorSocketService.historyForward();
+        } else if (event.keyCode == 90 && event.ctrlKey) {
+            this._editorSocketService.historyBack();
+        } else if (event.keyCode == 83 && event.ctrlKey) {
+            event.preventDefault();
+            this.commitComposition()
+        }
+    }
+
+    commitComposition() {
+        var self = this;
+        var data = {
+            tracks: []
+        };
+        console.log(self.trackListID);
+        this.trackList.forEach(function (track) {
+            data.tracks.push({
+                instrument: track.instrument.id,
+                entity: self.trackListID[track.id],
+                order: track.id
+            })
+        });
+        this._editorSocketService.commit();
+    }
+
     private forkComposition() {
         var self = this;
         this._editorService.forkComposition(this.selectedVersion, 1).subscribe(response =>{
@@ -352,9 +382,14 @@ export class EditorComponent implements OnInit, OnDestroy {
         })
     }
     
-    private sendTrackDiff(data: any) {
+    private revertComposition() {
+        this._parseComposition(this.composition.latest_version.tracks);
+        this.sendTrackDiff('');
+    }
+    
+    private sendTrackDiff(tracks: any) {
         var self = this;
-        data = {
+        var data = {
             tracks: []
         };
         console.log(self.trackListID);

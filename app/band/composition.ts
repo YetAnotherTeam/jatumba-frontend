@@ -6,4 +6,5 @@ export interface Composition {
     name: string
     band: number
     genres: string[]
+    latest_version: any
 }

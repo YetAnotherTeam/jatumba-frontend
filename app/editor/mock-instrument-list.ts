@@ -4,11 +4,11 @@ export const INSTRUMENT_LIST: Instrument[] = [
     {
         id: 3,
         name: "metronome",
-        soundList: [
+        sounds: [
             {
                 id: 6,
                 name: "hi",
-                sound: "metronome",
+                soundName: "metronome",
                 active: true
             }
         ],
@@ -16,17 +16,17 @@ export const INSTRUMENT_LIST: Instrument[] = [
     }, {
         id: 1,
         name: 'agogo',
-        soundList: [
+        sounds: [
             {
                 id: 1,
                 name: "hi",
-                sound: "agogo-hi",
+                soundName: "agogo-hi",
                 active: true
             },
             {
                 id: 2,
                 name: "lo",
-                sound:"agogo-lo",
+                soundName:"agogo-lo",
                 active: false
             }
         ],
@@ -34,23 +34,23 @@ export const INSTRUMENT_LIST: Instrument[] = [
     }, {
         id: 2,
         name: "djembe",
-        soundList: [
+        sounds: [
             {
                 id: 4,
                 name: "hi",
-                sound: "djembe-hi",
+                soundName: "djembe-hi",
                 active:true
             },
             {
                 id: 3,
                 name: "mid",
-                sound: "djembe-mid",
+                soundName: "djembe-mid",
                 active: false
             },
             {
                 id: 5,
                 name: "lo",
-                sound: "djembe-lo",
+                soundName: "djembe-lo",
                 active: false
             }
         ],

@@ -80,12 +80,24 @@ export class EditorSocketService {
         this.socket.send(EditorSocketService.createMessage("sign_in", data));
     }
 
+    historyForward() {
+        this.socket.send(EditorSocketService.createMessage('history_up', {}));
+    }
+
+    historyBack() {
+        this.socket.send(EditorSocketService.createMessage('history_down', {}));
+    }
+
+    commit() {
+        this.socket.send(EditorSocketService.createMessage('commit', {}))
+    }
+
     stop() {
         this.socket.close();
     }
 
     sendCompositionDiff(data: any) {
-        this.socket.send(EditorSocketService.createMessage("commit", data));
+        this.socket.send(EditorSocketService.createMessage("diff", data));
     }
     
     static createMessage(method: string, data: any) {

@@ -57,6 +57,14 @@ mdl-layout--fixed-header">
                             *ngIf="trackList[0]?.sectorList?.length > 1"
                             (click)="removeSector()"
                     >Удалить сектор</button>
+                    <button
+                            *ngIf="isEditorMode"
+                            (click)="commitComposition()"
+                    >Сохранить изменения</button>
+                    <button
+                            *ngIf="isEditorMode"
+                            (click)="revertComposition()"
+                    >Откатить изменения</button>
                 </div>
                 <div class="work-tabs-wrapper">
                     <!-- work tabs -->

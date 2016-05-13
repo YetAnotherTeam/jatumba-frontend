@@ -45,8 +45,11 @@ export class ChatComponent {
         console.log(this.messages);
     }
 
-    setStartingMessages(messaage: any) {
-
+    setStartingMessages(data: any) {
+        var self = this;
+        data.messages.slice(Math.max(data.messages.length - 20, 1)).forEach(function (message_data) {
+                self.messages.push(message_data.author.author + ': ' + message_data.text);
+        });
     }
 
     private _onSocketMessageHandler(event: MessageEvent, context: any) {

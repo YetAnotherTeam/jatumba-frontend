@@ -13,4 +13,5 @@ interface Sound {
     name: string,
     soundName: string,
     active: boolean
+    file: any
 }
