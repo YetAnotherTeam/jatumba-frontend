@@ -144,4 +144,4 @@ mdl-layout--fixed-header">
 
     </div>
 </div>
-<chat-component *ngIf="havePermissionToEdit" [band]="composition.band"></chat-component>
+<chat-component *ngIf="havePermissionToEdit && composition" [band]="composition.band"></chat-component>

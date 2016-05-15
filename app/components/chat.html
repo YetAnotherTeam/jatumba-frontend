@@ -1,7 +1,7 @@
-<div id="live-chat">
+<div id="live-chat" (keyup.enter)="sendMessage($event)">
 
     <header class="clearfix">
-        <h4>John Doe</h4>
+        <h4>{{band.name}}</h4>
 
         <span class="chat-message-counter">3</span>
     </header>
@@ -71,7 +71,7 @@
 
             <fieldset>
 
-                <input type="text" placeholder="Type your message…" autofocus>
+                <input type="text" placeholder="Type your message…" [(ngModel)]="messageInput" autofocus>
                 <input type="hidden">
 
             </fieldset>
