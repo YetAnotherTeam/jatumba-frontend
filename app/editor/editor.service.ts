@@ -1,14 +1,9 @@
 import {Injectable} from 'angular2/core'
-import {INSTRUMENT_LIST} from "./mock-instrument-list";
 import {Headers, Http} from "angular2/http";
 import {$WebSocket} from "./websocket"
 
 @Injectable()
 export class EditorService {
-    // getInstrumentList() {
-    //     return Promise.resolve(INSTRUMENT_LIST);
-    // }
-
     private _headers: Headers;
 
     private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
@@ -80,12 +75,12 @@ export class EditorSocketService {
         this.socket.send(EditorSocketService.createMessage("sign_in", data));
     }
 
-    historyForward() {
-        this.socket.send(EditorSocketService.createMessage('history_up', {}));
+    historyBack(id: number) {
+        this.socket.send(EditorSocketService.createMessage('history_up', {diff_composition_version: id}));
     }
 
-    historyBack() {
-        this.socket.send(EditorSocketService.createMessage('history_down', {}));
+    historyForward(id: number) {
+        this.socket.send(EditorSocketService.createMessage('history_down', {diff_composition_version: id}));
     }
 
     commit() {

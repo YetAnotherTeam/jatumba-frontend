@@ -40,6 +40,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private soundMap: any;
     private soundMapID: any;
     private instrumentMapID: any;
+    private diffID: number;
 
     public bpm: number;
 
@@ -350,9 +351,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     onKey(event: KeyboardEvent) {
         console.log(event.keyCode);
         if (event.keyCode == 90 && event.ctrlKey && event.shiftKey) {
-            this._editorSocketService.historyForward();
+            event.preventDefault();
+            this._editorSocketService.historyForward(this.diffID);
         } else if (event.keyCode == 90 && event.ctrlKey) {
-            this._editorSocketService.historyBack();
+            event.preventDefault();
+            this._editorSocketService.historyBack(this.diffID);
         } else if (event.keyCode == 83 && event.ctrlKey) {
             event.preventDefault();
             this.commitComposition()
@@ -437,10 +440,22 @@ export class EditorComponent implements OnInit, OnDestroy {
         var message = JSON.parse(event.data);
         switch (message.method) {
             case 'sign_in': {
+                self.diffID = message.data.id;
                 self._parseComposition(message.data.tracks);
                 break;
             }
             case 'diff': {
+                self.diffID = message.data.id;
+                self._parseComposition(message.data.tracks);
+                break;
+            }
+            case 'history_down': {
+                self.diffID = message.data.id;
+                self._parseComposition(message.data.tracks);
+                break;
+            }
+            case 'history_up': {
+                self.diffID = message.data.id;
                 self._parseComposition(message.data.tracks);
                 break;
             }
