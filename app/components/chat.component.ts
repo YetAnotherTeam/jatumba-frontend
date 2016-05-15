@@ -15,14 +15,17 @@ import {Band} from "../band/band";
 
 export class ChatComponent {
     public routeName : string;
-    messages: string[];
+    messages: any[];
     messageInput: string;
     @Input() band: Band;
+    date: Date;
 
     public user = {};
 
     constructor(private _authService: AuthService, private _router: Router, private _service: ChatSocketService, private _ngZone: NgZone) {
         var self = this;
+        this.date = new Date;
+        this.date.setTime(Date.now());
         this._authService.getUser().then(function(user) {
             self.user = user;
         });
@@ -37,7 +40,11 @@ export class ChatComponent {
     }
 
     setMessage(message_data: any) {
-        var message = message_data.author.username + ': ' + message_data.text;
+        var message = {
+            author: message_data.author.first_name + ' ' + message_data.author.last_name,
+            content: message_data.text,
+            time: this.date.getHours() + ':' + this.date.getMinutes()
+        };
         if (this.messages.length > 20) {
             this.messages.shift();
         }
@@ -48,7 +55,12 @@ export class ChatComponent {
     setStartingMessages(data: any) {
         var self = this;
         data.messages.slice(Math.max(data.messages.length - 20, 1)).forEach(function (message_data) {
-                self.messages.push(message_data.author.author + ': ' + message_data.text);
+                var message = {
+                    author: message_data.author.first_name + ' ' + message_data.author.last_name,
+                    content: message_data.text,
+                    time: self.date.getHours() + ':' + self.date.getMinutes()
+                };
+                self.messages.push(message);
         });
     }
 

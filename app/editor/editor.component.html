@@ -1,7 +1,6 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
 mdl-layout--fixed-header">
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title" style="line-height: 25px;">Выбор инструмента:</span>
         <nav class="mdl-navigation">
 
             <a class="mdl-navigation__link"
@@ -12,14 +11,15 @@ mdl-layout--fixed-header">
                (click)="changeActiveInstrument(instrument)"
                [attr.data-instrument-id]="instrument.id"
             >{{instrument.name}}</a>
-            <button (click)="createTrack()">Создать дорожку</button>
+            <br/>
+            <button class="btn btn-success" (click)="createTrack()" *ngIf="isEditorMode">Создать дорожку</button>
         </nav>
     </div>
     <main class="mdl-layout__content">
         <div class="page-content">
             <div class="main">
                 <div class="work-menu" *ngIf="activeInstrument">
-                    <span class="title">Добавить:</span>
+                    <span class="title" style="float: left; width: 200px;">
                     <button class="btn round"
                             title="Тип"
                             *ngFor="#sound of activeInstrument.sounds"
@@ -30,41 +30,54 @@ mdl-layout--fixed-header">
                     >
                         <i [class]="mappingSoundNameToType(sound.name)"></i>
                     </button>
+                        </span>
                     <!--<button class="btn round" title="Тип"><i class="type-2"></i></button>-->
                     <!--<button class="btn round active" title="Тип"><i class="type-3"></i></button>-->
                     <!--<button class="btn round" title="Тип"><i class="type-4"></i></button>-->
                     <span class="bpm-wrapper">
-                        <span>BPM:</span>
-                        <input type="text" [(ngModel)]="bpm" class="inp bpm">
+                        <input type="number" [(ngModel)]="bpm" class="inp bpm">
                     </span>
+                    <div class="btn-group">
                     <button
+                            class="btn btn-success" type="button"
                             *ngIf="!isPlay"
                             (click)="play()"
                     >Play</button>
                     <button
+                            class="btn btn-success" type="button"
                             *ngIf="isPlay"
                             (click)="stop()"
                     >Stop</button>
                     <button
+                            class="btn btn-success" type="button"
                             *ngIf="havePermissionToEdit"
                             (click)="changeEditorMode(!isEditorMode)"
                     >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
+                        </div>
+
+                        <button
+                                class="btn btn-success" type="button"
+                                *ngIf="trackList[0]?.sectorList?.length > 1 && isEditorMode"
+                                (click)="removeSector()"
+                        >Удалить сектор</button>
+                    <div class="btn-group">
                     <button
+                            class="btn btn-success" type="button"
                             type="button" data-toggle="modal" data-target="#forkModal"
                             *ngIf="!isEditorMode"
                     >Создать копию</button>
+
                     <button
-                            *ngIf="trackList[0]?.sectorList?.length > 1"
-                            (click)="removeSector()"
-                    >Удалить сектор</button>
-                    <button
+                            class="btn btn-success" type="button"
                             *ngIf="isEditorMode"
                             (click)="commitComposition()"
                     >Сохранить изменения</button>
                     <button
+                            class="btn btn-success" type="button"
                             *ngIf="isEditorMode"
                             (click)="revertComposition()"
                     >Откатить изменения</button>
+                </div>
                 </div>
                 <div class="work-tabs-wrapper">
                     <!-- work tabs -->

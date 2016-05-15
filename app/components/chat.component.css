@@ -1,61 +1,237 @@
-/* Chat components */
+@charset "utf-8";
+/* CSS Document */
 
-/* todo не опасно ли делать body 3000 для чата ? */
-body {height:3000px}
+/* ---------- GENERAL ---------- */
 
-.chat-box {
-    font:normal normal 11px/1.4 Tahoma,Verdana,Sans-Serif;
-    color:#333;
-    width:200px; /* Chatbox width */
-    border:1px solid #344150;
-    border-bottom:none;
-    background-color:white;
-    position:fixed;
-    right:10px;
-    bottom:0;
-    z-index:9999;
-    -webkit-box-shadow:1px 1px 5px rgba(0,0,0,.2);
-    -moz-box-shadow:1px 1px 5px rgba(0,0,0,.2);
-    box-shadow:1px 1px 5px rgba(0,0,0,.2);
+#live-chat body {
+    background: #e9e9e9;
+    color: #9a9a9a;
+    font: 100%/1.5em "Droid Sans", sans-serif;
+    margin: 0;
 }
 
-.chat-box > input[type="checkbox"] {
-    display:block;
-    margin:0 0;
-    padding:0 0;
-    position:absolute;
-    top:0;
-    right:0;
-    left:0;
-    width:100%;
-    height:26px;
-    z-index:4;
-    cursor:pointer;
-    opacity:0;
-    filter:alpha(opacity=0);
+#live-chat a { text-decoration: none; }
+
+#live-chat fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
 }
 
-.chat-box > label {
-    display:block;
-    height:24px;
-    line-height:24px;
-    background-color:#344150;
-    color:white;
-    font-weight:bold;
-    padding:0 1em 1px;
+#live-chat h4, h5 {
+    line-height: 1.5em;
+    margin: 0;
 }
 
-.chat-box > label:before {content:attr(data-collapsed)}
-
-.chat-box .chat-box-content {
-    padding:10px;
-    display:none;
+#live-chat hr {
+    background: #e9e9e9;
+    border: 0;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 1px;
+    margin: 0;
+    min-height: 1px;
 }
 
-/* hover state */
-.chat-box > input[type="checkbox"]:hover + label {background-color:#404D5A}
+#live-chat img {
+    border: 0;
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
 
-/* checked state */
-.chat-box > input[type="checkbox"]:checked + label {background-color:#212A35}
-.chat-box > input[type="checkbox"]:checked + label:before {content:attr(data-expanded)}
-.chat-box > input[type="checkbox"]:checked ~ .chat-box-content {display:block}
+#live-chat input {
+    border: 0;
+    color: inherit;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: normal;
+    margin: 0;
+}
+
+#live-chat p { margin: 0; }
+
+.clearfix { *zoom: 1; } /* For IE 6/7 */
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after { clear: both; }
+
+/* ---------- LIVE-CHAT ---------- */
+
+#live-chat {
+    font-family: 'Droid Sans', sans-serif;
+    bottom: 0;
+    font-size: 12px;
+    right: 24px;
+    position: fixed;
+    width: 300px;
+    z-index: 2;
+}
+
+#live-chat header {
+    background: #293239;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    cursor: pointer;
+    padding: 16px 24px;
+}
+
+#live-chat h4:before {
+    background: #1a8a34;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    height: 8px;
+    margin: 0 8px 0 0;
+    width: 8px;
+}
+
+#live-chat h4 {
+    font-size: 12px;
+}
+
+#live-chat h5 {
+    font-size: 10px;
+}
+
+#live-chat form {
+    padding: 10px 24px 5px;
+}
+
+#live-chat input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 8px;
+    outline: none;
+    width: 234px;
+}
+
+.chat-message-counter {
+    background: #e62727;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: none;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    left: 0;
+    line-height: 28px;
+    margin: -15px 0 0 -15px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 28px;
+}
+
+.chat-close {
+    background: #1b2126;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    float: right;
+    font-size: 10px;
+    height: 16px;
+    line-height: 16px;
+    margin: 2px 0 0 0;
+    text-align: center;
+    width: 16px;
+}
+
+.chat {
+    background: #fff;
+    border: solid 1px #9a9a9a;
+}
+
+.chat-history {
+    height: 350px;
+    padding: 8px 24px;
+    overflow-y: scroll;
+}
+
+.chat-message {
+    margin: 16px 0;
+}
+
+.chat-message img {
+    border-radius: 50%;
+    float: left;
+}
+
+.chat-message-content {
+    margin-left: 56px;
+}
+
+.chat-time {
+    float: right;
+    font-size: 10px;
+}
+
+.chat-feedback {
+    font-style: italic;
+    margin: 0 0 0 80px;
+}
+
+
+/*!* Chat components *!*/
+
+/*!* todo не опасно ли делать body 3000 для чата ? *!*/
+/*body {height:500px}*/
+
+/*.chat-box {*/
+    /*font:normal normal 11px/1.4 Tahoma,Verdana,Sans-Serif;*/
+    /*color:#333;*/
+    /*width:200px; !* Chatbox width *!*/
+    /*border:1px solid #344150;*/
+    /*border-bottom:none;*/
+    /*background-color:white;*/
+    /*position:fixed;*/
+    /*right:10px;*/
+    /*bottom:0;*/
+    /*z-index:9999;*/
+    /*-webkit-box-shadow:1px 1px 5px rgba(0,0,0,.2);*/
+    /*-moz-box-shadow:1px 1px 5px rgba(0,0,0,.2);*/
+    /*box-shadow:1px 1px 5px rgba(0,0,0,.2);*/
+/*}*/
+
+/*.chat-box > input[type="checkbox"] {*/
+    /*display:block;*/
+    /*margin:0 0;*/
+    /*padding:0 0;*/
+    /*position:absolute;*/
+    /*top:0;*/
+    /*right:0;*/
+    /*left:0;*/
+    /*width:100%;*/
+    /*height:26px;*/
+    /*z-index:4;*/
+    /*cursor:pointer;*/
+    /*opacity:0;*/
+    /*filter:alpha(opacity=0);*/
+/*}*/
+
+/*.chat-box > label {*/
+    /*display:block;*/
+    /*height:24px;*/
+    /*line-height:24px;*/
+    /*background-color:#344150;*/
+    /*color:white;*/
+    /*font-weight:bold;*/
+    /*padding:0 1em 1px;*/
+/*}*/
+
+/*.chat-box > label:before {content:attr(data-collapsed)}*/
+
+/*.chat-box .chat-box-content {*/
+    /*padding:10px;*/
+    /*display:none;*/
+/*}*/
+
+/*!* hover state *!*/
+/*.chat-box > input[type="checkbox"]:hover + label {background-color:#404D5A}*/
+
+/*!* checked state *!*/
+/*.chat-box > input[type="checkbox"]:checked + label {background-color:#212A35}*/
+/*.chat-box > input[type="checkbox"]:checked + label:before {content:attr(data-expanded)}*/
+/*.chat-box > input[type="checkbox"]:checked ~ .chat-box-content {display:block}*/

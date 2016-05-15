@@ -7,6 +7,7 @@ import {Router} from "angular2/router";
     selector: 'nav-bar',
     templateUrl: '/app/components/nav-bar.html',
     inputs: ['routeName'],
+    styleUrls: ['app/components/nav-bar.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [AuthService]
 })

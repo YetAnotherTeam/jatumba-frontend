@@ -8,64 +8,8 @@ import {Composition} from "../band/composition";
 
 @Component({
     selector: 'user-card',
-    template: `
-<h1>Профиль</h1>
-    <div *ngIf="user && !isEditModeOn">
-        <div>name: {{user.first_name}}</div>
-        <div>lastname: {{user.last_name}}</div>
-        <div>username: {{user.username}}</div>
-        <div>vk: <a href="http://vk.com/id{{user.vk_profile}}">http://vk.com/id{{user.vk_profile}}</a></div>
-        <div>fb: {{user.fb_profile}}</div>
-        <br/>
-        Bands:
-        <div *ngFor="#member of user.members">
-            <a class="collection-item" [routerLink]="['BandDetail', {'id': member.band.id}]">
-                <strong>{{member.band.name}}</strong> <br>
-            </a>
-        </div>
-        <br/>
-        Compositions:
-        <div *ngFor="#composition of compositions">
-            <a class="collection-item" [routerLink]="['Editor', {'id': composition.id}]">
-                <strong>{{composition.name}}</strong> <br>
-            </a>
-        </div>
-    </div>
-    <button 
-        *ngIf="!isEditModeOn && isCanEdit"
-        (click)="changeEditMode(true)"
-        >Редактировать</button>
-    <div *ngIf="isEditModeOn">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" required
-            [(ngModel)]="user.first_name" >
-        </div>
-        <div class="form-group">
-            <label for="name">Lastname</label>
-            <input type="text" class="form-control" required
-            [(ngModel)]="user.last_name" >
-        </div>
-        <div class="form-group">
-            <label for="name">Username</label>
-            <input type="text" class="form-control" required
-            [(ngModel)]="user.username" >
-        </div>
-        <div class="form-group">
-            <label for="name">VK (для ВК введите только id)</label>
-            <input type="text" class="form-control" required
-            [(ngModel)]="user.vk_profile" >
-        </div>
-        <div class="form-group">
-            <label for="name">FB </label>
-            <input type="text" class="form-control" required
-            [(ngModel)]="user.fb_profile" >
-        </div>
-    </div>
-    <button
-        *ngIf="isEditModeOn"
-        (click)="saveProfile()">Сохранить</button>
-    `,
+    templateUrl: `app/user/user.component.html`,
+    styleUrls: ['app/user/user.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [UserService]
 })
@@ -76,6 +20,7 @@ export class UserCardComponent implements OnInit {
     compositions: Composition[];
     
     private isCanEdit: boolean;
+    private tab: string;
 
     private isEditModeOn = false;
 
@@ -90,6 +35,7 @@ export class UserCardComponent implements OnInit {
 
         var system_user = JSON.parse(localStorage.getItem('user'));
         this.isCanEdit = system_user.id == this.id;
+        this.tab = 'info';
     }
 
     private get_user() {
@@ -113,6 +59,24 @@ export class UserCardComponent implements OnInit {
         this.changeEditMode(false);
         this._userService.update(this.user).subscribe(user=>{self.user = user;});
     }
+
+    changeTab(tab_name: string) {
+        switch(tab_name) {
+            case 'info': {
+                this.tab = 'info';
+                break;
+            }
+            case 'bands': {
+                this.tab = 'bands';
+                break;
+            }
+            case 'compositions': {
+                this.tab = 'compositions';
+                break;
+            }
+        }
+    }
+
     ngOnInit():any {
         this.get_user();
     }
