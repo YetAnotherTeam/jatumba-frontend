@@ -50,8 +50,8 @@ mdl-layout--fixed-header">
                             (click)="changeEditorMode(!isEditorMode)"
                     >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <button
-                            *ngIf="!havePermissionToEdit"
-                            (click)="forkComposition()"
+                            type="button" data-toggle="modal" data-target="#forkModal"
+                            *ngIf="!isEditorMode"
                     >Создать копию</button>
                     <button
                             *ngIf="trackList[0]?.sectorList?.length > 1"
@@ -105,5 +105,30 @@ mdl-layout--fixed-header">
             </div>
         </div>
     </main>
+</div>
+<!-- Modal -->
+<div id="forkModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">В какую банду скопировать композицию?</h4>
+            </div>
+            <div *ngIf="user" class="modal-body">
+                <div *ngFor="#member of user.members">
+                    <a class="collection-item" (click)="forkComposition(member.band.id)" data-dismiss="modal">
+                        <strong>{{member.band.name}}</strong> <br>
+                    </a>
+                </div>
+                <br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 <chat-component *ngIf="havePermissionToEdit" [band]="composition.band"></chat-component>

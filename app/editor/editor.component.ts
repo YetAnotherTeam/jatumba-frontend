@@ -8,10 +8,11 @@ import * as howler from "howler";
 import {Band} from "../band/band";
 import {Composition} from "../band/composition";
 import {ChatComponent} from "../components/chat.component";
+import {UserService} from "../user/user.service";
 
 @Component({
     selector: 'editor',
-    providers: [EditorService, EditorSocketService],
+    providers: [EditorService, EditorSocketService, UserService],
     directives: [ChatComponent, ROUTER_DIRECTIVES],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
@@ -29,6 +30,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     public linePosition: string;
     private _linePositionNumber: number;
+    private user: any;
     private havePermissionToEdit: boolean;
 
     public activeInstrument: Instrument;
@@ -51,6 +53,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _editorService: EditorService,
                 private _editorSocketService: EditorSocketService,
                 private _ngZone: NgZone,
+                private _userService: UserService,
                 params: RouteParams) {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
@@ -94,6 +97,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         //         });
         //     }
         // }
+
+        this._userService.get(JSON.parse(localStorage.getItem('user')).id).subscribe(user => {
+            self.user = user;
+            localStorage.setItem('user', JSON.stringify(user));
+        });
 
         this._editorService.loadInstrumentList().subscribe(instrumentList => {
                 self.instrumentList = instrumentList;
@@ -335,6 +343,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             this._editorService.get(this.id).subscribe(composition => {
                 self._parseComposition(composition.latest_version.tracks);
                 self.composition = composition;
+                self.selectedVersion = composition.latest_version.id;
             });
         }
     }
@@ -378,9 +387,9 @@ export class EditorComponent implements OnInit, OnDestroy {
         this._editorSocketService.commit();
     }
 
-    private forkComposition() {
+    private forkComposition(id: number) {
         var self = this;
-        this._editorService.forkComposition(this.selectedVersion, 1).subscribe(response =>{
+        this._editorService.forkComposition(this.selectedVersion, id).subscribe(response =>{
             self._router.navigate(['Editor', {id: response.composition.id}])
         })
     }
