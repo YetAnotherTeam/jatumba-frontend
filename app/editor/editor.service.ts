@@ -25,7 +25,7 @@ export class EditorService {
 
     forkComposition(composition_version_id: number, band_id: number) {
         return this._http.post(this.href + 'fork/', JSON.stringify({
-            composition_version: composition_version_id,
+            source_composition_version: composition_version_id,
             band: band_id
         }), this.getHeaders())
             .map(res => res.json())
