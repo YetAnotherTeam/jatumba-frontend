@@ -19,7 +19,7 @@ export class ChatComponent {
     messageInput: string;
     @Input() band: Band;
     date: Date;
-
+    isCollapseChat = true;
     public user = {};
 
     constructor(private _authService: AuthService, private _router: Router, private _service: ChatSocketService, private _ngZone: NgZone) {
@@ -50,6 +50,10 @@ export class ChatComponent {
         }
         this._ngZone.run(() => this.messages.push(message));
         console.log(this.messages);
+    }
+
+    toggleChat() {
+        this.isCollapseChat = !this.isCollapseChat;
     }
 
     setStartingMessages(data: any) {

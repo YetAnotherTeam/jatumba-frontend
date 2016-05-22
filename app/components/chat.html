@@ -1,12 +1,13 @@
 <div id="live-chat" (keyup.enter)="sendMessage($event)">
 
-    <header class="clearfix">
+    <header class="clearfix" (click)="toggleChat()">
         <h4>{{band.name}}</h4>
 
         <span class="chat-message-counter">3</span>
     </header>
 
-    <div class="chat">
+    <div class="chat"
+         [ngClass]="{hidden: isCollapseChat}">
 
         <div class="chat-history">
             <div *ngFor="#message of messages">
