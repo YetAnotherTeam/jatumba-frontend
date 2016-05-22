@@ -390,7 +390,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private forkComposition(id: number) {
         var self = this;
         this._editorService.forkComposition(this.selectedVersion, id).subscribe(response =>{
-            self._router.navigate(['Editor', {id: response.composition.id}])
+            self._router.navigate(['Editor', {id: response.destination_composition.id}])
         })
     }
     
