@@ -7,7 +7,7 @@
     </header>
 
     <div class="chat"
-         [ngClass]="{hidden: isCollapseChat}">
+         [ngClass]="{chat_collapse: isCollapseChat}">
 
         <div class="chat-history">
             <div *ngFor="#message of messages">

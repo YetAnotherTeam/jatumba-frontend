@@ -141,7 +141,18 @@
 
 .chat {
     background: #fff;
+    height: 300px;
     border: solid 1px #9a9a9a;
+    -webkit-transition: height .3s linear, padding-top .3s linear, padding-bottom .3s linear, border-top-width .3s linear, border-top-width .3s linear;
+    transition: height .3s linear, padding-top .3s linear, padding-bottom .3s linear, border-top-width .3s linear, border-top-width .3s linear;
+}
+
+.chat.chat_collapse {
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 0;
+    border-width: 0 1px;
 }
 
 .chat-history {
