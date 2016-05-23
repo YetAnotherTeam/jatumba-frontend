@@ -36,6 +36,11 @@ export class EditorService {
             .map(res => res.json())
     }
 
+    getCommits(id: number) {
+        return this._http.get(this.href + 'composition_version/?composition=' + id, this.getHeaders())
+            .map(res => res.json())
+    }
+
     private getHeaders() {
         return {headers: this._headers}
     }

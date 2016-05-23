@@ -81,3 +81,7 @@
     -webkit-border-radius:0 !important;
 }
 
+.is_fork {
+    background-color: #f0e09a;
+}
+

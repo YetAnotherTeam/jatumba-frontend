@@ -43,6 +43,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private soundMapID: any;
     private instrumentMapID: any;
     private diffID: number;
+    private commits: any;
 
     public bpm: number;
 
@@ -132,6 +133,11 @@ export class EditorComponent implements OnInit, OnDestroy {
             self.composition = composition;
             self.selectedVersion = composition.latest_version.id;
         });
+
+        this._editorService.getCommits(this.id).subscribe(commits => {
+            // TODO Сделать норм пагинацию
+            self.commits = commits.results;
+        })
     }
 
     ngOnDestroy():any {
@@ -397,6 +403,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     private revertComposition() {
         this._parseComposition(this.composition.latest_version.tracks);
         this.sendTrackDiff('');
+    }
+
+    private showCommit(commit: any) {
+        this._parseComposition(commit.tracks);
     }
     
     private sendTrackDiff(tracks: any) {

@@ -18,7 +18,7 @@ mdl-layout--fixed-header">
     <main class="mdl-layout__content">
         <div class="page-content">
             <div class="main">
-                <div class="work-menu" *ngIf="activeInstrument">
+                <div class="work-menu" *ngIf="activeInstrument && composition">
                     <span class="title" style="float: left; width: 200px;">
                     <button class="btn round"
                             title="Тип"
@@ -63,7 +63,7 @@ mdl-layout--fixed-header">
                     <div class="btn-group">
                     <button
                             class="btn btn-success" type="button"
-                            type="button" data-toggle="modal" data-target="#forkModal"
+                            data-toggle="modal" data-target="#forkModal"
                             *ngIf="!isEditorMode"
                     >Создать копию</button>
 
@@ -77,6 +77,18 @@ mdl-layout--fixed-header">
                             *ngIf="isEditorMode"
                             (click)="revertComposition()"
                     >Откатить изменения</button>
+                    <button
+                        class="btn btn-success" type="button"
+                        data-toggle="modal" data-target="#commits"
+                        *ngIf="!isEditorMode">
+                        Версии
+                    </button>
+                    <button
+                            class="btn btn-success" type="button"
+                            data-toggle="modal" data-target="#forks"
+                            *ngIf="!isEditorMode && composition.as_source_forks.length">
+                        Копии
+                    </button>
                 </div>
                 </div>
                 <div class="work-tabs-wrapper">
@@ -144,4 +156,55 @@ mdl-layout--fixed-header">
 
     </div>
 </div>
+
+<div id="commits" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Выберите версию</h4>
+            </div>
+            <div *ngIf="commits" class="modal-body">
+                <div *ngFor="#commit of commits">
+                    <a class="collection-item" (click)="showCommit(commit)" data-dismiss="modal">
+                        Версия композиции от - <strong>{{commit.create_datetime}}</strong> <br>
+                    </a>
+                </div>
+                <br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="forks" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Копии</h4>
+            </div>
+            <div *ngIf="composition" class="modal-body">
+                <div *ngFor="#fork of composition.as_source_forks">
+                    <a class="collection-item" [routerLink]="['Editor', {'id': fork.destination_composition.id}]" data-dismiss="modal">
+                        <strong>{{fork.destination_composition.name}}</strong> <br>
+                    </a>
+                </div>
+                <br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <chat-component *ngIf="havePermissionToEdit && composition" [band]="composition.band"></chat-component>
