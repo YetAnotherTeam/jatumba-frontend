@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
                     self._router.navigate(['UserDetail', {id: account.user.id}])
             },
                 e => {
-                if (e.status == 404) {
+                if (e.status == 400) {
                     self.toggleSocialInput('vk');
                 }
             }
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
                 self._router.navigate(['UserDetail', {id: account.user.id}])
             },
                 e => {
-                    if (e.status == 404) {
+                    if (e.status == 400) {
                         self.toggleSocialInput('fb');
                     }
                 }
