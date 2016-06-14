@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
                 facebook: '214029838968901'
             },
             {
-                redirect_uri: 'http://localhost:3000/',
+                redirect_uri: 'http://p30112.lab1.stud.tech-mail.ru/',
                 force: true
             });
     }
