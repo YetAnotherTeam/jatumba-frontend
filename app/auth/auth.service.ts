@@ -23,10 +23,11 @@ export class AuthService {
     register(username:string, password:string) {
         var register_headers = new Headers();
         register_headers.append('Content-Type', 'multipart/form-data');
+        var headers = {headers: register_headers};
         return this._http.post(this.href + 'user/sign_up/', JSON.stringify({
             username: username,
             password: password
-        }), register_headers)
+        }), headers)
             .map(res => res.json())
             .do(data => {
                 this._auth = true;
