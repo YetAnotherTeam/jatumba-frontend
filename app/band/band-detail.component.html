@@ -1,0 +1,46 @@
+<div *ngIf="band">
+<div *ngIf="!isEditMode">
+    <h1>{{band.name}}</h1>
+    <button *ngIf="isLeader" (click)="edit()">Редактировать</button>
+    <main>
+        <div>{{band.description}}</div>
+        <br>
+        <div *ngIf="memberList">
+            <div *ngFor="#member of memberList">
+                <a class="collection-item" [routerLink]="['UserDetail', {'id': member.user.id}]">
+                    <strong>{{member.user.username}}</strong> <br>
+                </a>
+                <p>
+                    {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}
+                </p>
+            </div>
+        </div>
+        <div *ngIf="!isJoined">
+            <button (click)="onJoinButton()">Присоединиться</button>
+        </div>
+        <div *ngIf="compositionList">
+            <div *ngFor="#composition of compositionList">
+                <a class="collection-item" [routerLink]="['Editor', {'id': composition.id}]">
+                    {{composition.name}}
+                </a>
+            </div>
+        </div>
+
+    </main>
+    <chat-component *ngIf="isJoined" [band]="band"></chat-component>
+</div>
+
+<div *ngIf="isEditMode">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" required id="name"
+               [(ngModel)]="band.name" >
+        <label for="description">Description</label>
+        <input type="text" class="form-control" required id="description"
+               [(ngModel)]="band.description" >
+    </div>
+    <button (click)="update()">
+        Сохранить
+    </button>
+</div>
+</div>

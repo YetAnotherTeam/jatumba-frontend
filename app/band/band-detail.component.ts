@@ -10,37 +10,7 @@ import {ChatComponent} from "../components/chat.component";
 
 @Component({
     selector: 'band-card',
-    template: `
-<h1>Банда</h1>
-<main>
-    <div *ngIf="band">
-        <div>name: {{band.name}}</div>
-        <div>{{band.description}}</div>
-        <br>
-        <div *ngIf="memberList">
-            <div *ngFor="#member of memberList">
-                <a class="collection-item" [routerLink]="['UserDetail', {'id': member.user.id}]">
-                    <strong>{{member.user.username}}</strong> <br>
-                </a>
-                 <p>
-                        {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}
-                 </p>
-            </div>
-        </div>
-        <div *ngIf="!isJoined">
-            <button (click)="onJoinButton()">Присоединиться</button>
-        </div>
-        <div *ngIf="compositionList">
-            <div *ngFor="#composition of compositionList">
-                <a class="collection-item" [routerLink]="['Editor', {'id': composition.id}]">
-                    {{composition.name}}    
-                </a>
-            </div>
-        </div>
-    </div>
-</main>
-<chat-component *ngIf="isJoined" [band]="band"></chat-component>
-    `,
+    templateUrl: `app/band/band-detail.component.html`,
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES, ChatComponent],
 })
@@ -48,6 +18,8 @@ import {ChatComponent} from "../components/chat.component";
 export class BandDetailComponent implements OnInit {
     id: number;
     band: Band;
+    isEditMode: boolean;
+    isLeader: boolean;
 
     memberList: Member[];
     isJoined: boolean;
@@ -65,11 +37,14 @@ export class BandDetailComponent implements OnInit {
         });
         this.id = +params.get('id');
         this.isJoined = false;
+        this.isEditMode = false;
+        this.isLeader = false;
     }
 
     private get_band_info() {
         this._bandService.get(this.id).subscribe((band: Band) => {
             this._ngZone.run(() => {
+                this.isLeader = band.is_leader;
                 this.isJoined = band.user_joined;
                 this.band = band;
             })
@@ -93,6 +68,19 @@ export class BandDetailComponent implements OnInit {
         this._bandService.join(this.id).subscribe(data => this._ngZone.run(() =>
             self.get_band_info()
         ))
+    }
+    
+    private edit() {
+        this.isEditMode = true;
+    }
+    
+    private update() {
+        this._bandService.update(this.band).subscribe((band: Band) => this._ngZone.run(() => {
+            this.isEditMode = false;
+            this.isLeader = band.is_leader;
+            this.isJoined = band.user_joined;
+            this.band = band;
+        }))
     }
 
     public visible = false;

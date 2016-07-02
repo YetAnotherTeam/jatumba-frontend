@@ -32,7 +32,7 @@ export class BandService {
     }
 
     update(band: Band) {
-        return this._http.patch(this.href + 'band/' + band.id + '/', JSON.stringify({
+        return this._http.put(this.href + 'band/' + band.id + '/', JSON.stringify({
             name: band.name,
             description: band.description
         }), this.getHeaders())
