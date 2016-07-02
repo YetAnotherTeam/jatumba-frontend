@@ -14,6 +14,14 @@ export class BandService {
         this._headers.append('Content-Type', 'application/json');
         this._headers.append('token', localStorage.getItem('access_token'));
     }
+    
+    create(name: string, description: string) {
+        return this._http.post(this.href + 'band/', JSON.stringify({
+            name: name,
+            description: description
+        }), this.getHeaders())
+            .map(res => res.json())
+    }
 
     list() {
         return this._http.get(this.href + 'band/', this.getHeaders()).map(res => res.json())
