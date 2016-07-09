@@ -1,210 +1,357 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
-mdl-layout--fixed-header">
-    <div class="mdl-layout__drawer">
-        <nav class="mdl-navigation">
+<div class="col xl2 l3 m3 s3 col-menu">
+    <div class="card silver">
+        <div class="card-content">
+            <div class="card-header">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">keyboard_arrow_up</i></span>
 
-            <a class="mdl-navigation__link"
-               *ngFor="#instrument of instrumentList"
-               [ngClass]="{
-                   'mdl-navigation__link--current': instrument.active
-               }"
-               (click)="changeActiveInstrument(instrument)"
-               [attr.data-instrument-id]="instrument.id"
-            >{{instrument.name}}</a>
-            <br/>
-            <button class="btn btn-success" (click)="createTrack()" *ngIf="isEditorMode">Создать дорожку</button>
-        </nav>
-    </div>
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div class="main">
-                <div class="work-menu" *ngIf="activeInstrument && composition">
-                    <span class="title" style="float: left; width: 200px;">
-                    <button class="btn round"
-                            title="Тип"
-                            *ngFor="#sound of activeInstrument.sounds"
-                            [ngClass]="{
-                                'active': sound.active
-                            }"
-                            (click)="changeActiveSound(sound.name)"
-                    >
-                        <i [class]="mappingSoundNameToType(sound.name)"></i>
-                    </button>
-                        </span>
-                    <!--<button class="btn round" title="Тип"><i class="type-2"></i></button>-->
-                    <!--<button class="btn round active" title="Тип"><i class="type-3"></i></button>-->
-                    <!--<button class="btn round" title="Тип"><i class="type-4"></i></button>-->
-                    <span class="bpm-wrapper">
-                        <input type="number" [(ngModel)]="bpm" class="inp bpm">
-                    </span>
-                    <div class="btn-group">
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="!isPlay"
-                            (click)="play()"
-                    >Play</button>
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="isPlay"
-                            (click)="stop()"
-                    >Stop</button>
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="havePermissionToEdit"
-                            (click)="changeEditorMode(!isEditorMode)"
-                    >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
+            </div>
+            <ul class="collection no-margin silver collection__special">
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">queue_music</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">
+                            <span class="link">Drums Drums</span>
                         </div>
+                    </div>
+                    <div class="collection-item__secondary double">
+                        <i class="material-icons clickable">play_arrow</i>
+                        <i class="material-icons clickable">add</i>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+								<span class="avatar">
+									<img src="img/ava.jpg">
+								</span>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">Петрович</div>
+                        <div class="comment">Изменено там что-то</div>
+                        <div class="comment">2 часа назад</div>
+                    </div>
+                    <div class="collection-item__secondary">
+                        <i class="material-icons clickable">check_circle</i>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+								<span class="avatar">
+									<img src="img/ava.jpg">
+								</span>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">Череззаборногузадерищенский Котейко</div>
+                        <div class="comment">Изменено там что-то</div>
+                        <div class="comment">2 часа назад</div>
+                    </div>
+                    <div class="collection-item__secondary">
+                        <i class="material-icons clickable">check_circle</i>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">queue_music</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">
+                            <a href="#" class="link">Drums Drums</a>
+                        </div>
+                        <div class="comment">Изменено там что-то</div>
+                        <div class="comment">2 часа назад</div>
+                    </div>
+                    <div class="collection-item__secondary">
+                        <i class="material-icons">check</i>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">queue_music</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">Drums</div>
+                    </div>
+                    <div class="collection-item__secondary double">
+                        <i class="material-icons">content_copy</i>
+                        <i class="material-icons">more_vert</i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-                        <button
-                                class="btn btn-success" type="button"
-                                *ngIf="trackList[0]?.sectorList?.length > 1 && isEditorMode"
-                                (click)="removeSector()"
-                        >Удалить сектор</button>
-                    <div class="btn-group">
-                    <button
-                            class="btn btn-success" type="button"
-                            data-toggle="modal" data-target="#forkModal"
-                            *ngIf="!isEditorMode"
-                    >Создать копию</button>
 
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="isEditorMode"
-                            (click)="commitComposition()"
-                    >Сохранить изменения</button>
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="isEditorMode"
-                            (click)="revertComposition()"
-                    >Откатить изменения</button>
-                    <button
-                        class="btn btn-success" type="button"
-                        data-toggle="modal" data-target="#commits"
-                        *ngIf="!isEditorMode">
-                        Версии
-                    </button>
-                    <button
-                            class="btn btn-success" type="button"
-                            data-toggle="modal" data-target="#forks"
-                            *ngIf="!isEditorMode && composition.as_source_forks.length">
-                        Копии
-                    </button>
+    <div class="card silver">
+        <div class="card-content">
+            <div class="card-header">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">keyboard_arrow_up</i></span>
+
+            </div>
+            <ul class="collection no-margin silver collection__special">
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">queue_music</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">
+                            <span class="link">Drums Drums</span>
+                        </div>
+                    </div>
+                    <div class="collection-item__secondary double">
+                        <i class="material-icons clickable">play_arrow</i>
+                        <i class="material-icons clickable">add</i>
+                    </div>
+                </li>
+
+
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">queue_music</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">
+                            <a href="#" class="link">Drums Drums</a>
+                        </div>
+                        <div class="comment">Изменено там что-то</div>
+                        <div class="comment">2 часа назад</div>
+                    </div>
+                    <div class="collection-item__secondary">
+                        <i class="material-icons">check</i>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">queue_music</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title">Drums</div>
+                    </div>
+                    <div class="collection-item__secondary double">
+                        <i class="material-icons">content_copy</i>
+                        <i class="material-icons">more_vert</i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<div class="col xl10 l9 m9 s9 col-board">
+
+    <div class="card silver">
+        <div class="card-content">
+            <div class="card-header">
+                <div class="playboard-header">
+                    <div class="playboard-header__left">
+									<span class="play">
+										<i class="material-icons">play_circle_filled</i>
+									</span>
+									<span class="bpm">
+										<span class="bpm__title">BPM</span>
+										<span class="bpm__beat"><input type="text" class="inp-underlined" value="120"></span>
+									</span>
+                        <div class="icon-add">
+                            <span class="step"><span class="icon circle"></span></span>
+                            <span class="step"><span class="icon circle fill"></span></span>
+                            <span class="step"><span class="icon triangle"></span></span>
+                            <span class="step"><span class="icon triangle fill"></span></span>
+                        </div>
+                    </div>
+                    <div class="playboard-header__right">
+									<span class="sound">
+										<i class="material-icons clickable">volume_up</i>
+									</span>
+									<span class="edit link link-grey">
+										Edit
+									</span>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                </div>
-                <div class="work-tabs-wrapper">
-                    <!-- work tabs -->
-                    <div class="work-tabs">
-                        <div class="play" [style.transform]="linePosition" style="left:90px;" *ngIf="trackList[0]"></div>
-                        <div class="track"
-                             *ngFor="#track of trackList; #trackIndex = index"
-                             [ngClass]="{
-                                'active': track.instrument == activeInstrument
-                             }"
-                        >
-                            <div class="name"
-                                 (contextmenu)="removeTrackByIndex($event, trackIndex)"
-                            >
-                                <div [attr.alt]="track.instrument.name"
-                                     (click)="changeActiveInstrument(track.instrument)"
-                                     [attr.data-instrument-id]="track.instrument.id">{{track.instrument.name}}</div>
-                            </div>
-                            <div class="sector_wrapper">
-                                <div class="sector" *ngFor="#sector of track.sectorList; #sectorIndex = index">
-                                    <ul>
-                                        <li *ngFor="#sector of sector.soundList; #soundIndex = index"
-                                            (click)="addSound(track,sectorIndex, soundIndex)"
-                                            (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)">
-                                            <i [class]="mappingSoundNameToType(sector.name)"></i>
-                                        </li>
-                                    </ul>
+            </div>
+
+            <div class="playboard">
+
+                <div class="playhead" style="left: 400px;"></div>
+
+                <div class="playboard__container">
+                    <div class="playboard__inner">
+                        <div class="playboard-track">
+                            <div class="playboard-track__info">
+                                <div class="track-brd">
+                                    <div class="playboard-track__avatar">
+                                        <div class="avatar"><img src="img/ava.jpg"></div>
+                                    </div>
+                                    <div class="playboard-track__ruler">
+                                        <div class="name"><span class="link">BongoBongoBongo</span></div>
+                                        <div class="volume">
+                                            <input type="range">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="add-sector" (click)="addSector()">
-                                <span class="add-sector__symbol">+</span>
+                            <div class="playboard-track__track">
+                                <div class="track">
+                                    <div class="track__segment">
+                                        <div class="track-brd">
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle fill"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment" data-num="1">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment">
+                                        <div class="track-brd">
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon triangle fill"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment"  data-num="2">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment">
+                                        <div class="track-brd">
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment"  data-num="3">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment"  data-num="4">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment"  data-num="5">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle fill"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="track__segment"  data-num="6">
+                                        <div class="track-brd">
+                                            <span class="icon circle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon trianle"></span>
+                                            <span class="icon circle"></span>
+                                            <span class="icon triangle fill"></span>
+                                            <span class="icon circle"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--TRACKLIST:-->
-                <!--<div>{{trackList|json}}</div>-->
-            </div>
-        </div>
-    </main>
-</div>
-<!-- Modal -->
-<div id="forkModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">В какую банду скопировать композицию?</h4>
-            </div>
-            <div *ngIf="user" class="modal-body">
-                <div *ngFor="#member of user.members">
-                    <a class="collection-item" (click)="forkComposition(member.band.id)" data-dismiss="modal">
-                        <strong>{{member.band.name}}</strong> <br>
-                    </a>
+                <div class="playboard__ruler">
+                    <i class="material-icons clickable">add_circle</i>
+                    <i class="material-icons clickable">remove_circle</i>
                 </div>
-                <br/>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
 
+        </div>
     </div>
 </div>
-
-<div id="commits" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Выберите версию</h4>
-            </div>
-            <div *ngIf="commits" class="modal-body">
-                <div *ngFor="#commit of commits">
-                    <a class="collection-item" (click)="showCommit(commit)" data-dismiss="modal">
-                        Версия композиции от - <strong>{{commit.create_datetime}}</strong> <br>
-                    </a>
-                </div>
-                <br/>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div id="forks" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Копии</h4>
-            </div>
-            <div *ngIf="composition" class="modal-body">
-                <div *ngFor="#fork of composition.as_source_forks">
-                    <a class="collection-item" [routerLink]="['Editor', {'id': fork.destination_composition.id}]" data-dismiss="modal">
-                        <strong>{{fork.destination_composition.name}}</strong> <br>
-                    </a>
-                </div>
-                <br/>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<chat-component *ngIf="havePermissionToEdit && composition" [band]="composition.band"></chat-component>

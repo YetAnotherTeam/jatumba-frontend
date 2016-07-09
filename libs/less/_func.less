@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* -------------------------------------------------------------------------------------------------------
+ 												FUNCTIONS
+------------------------------------------------------------------------------------------------------- */
+
+@width-prop: 10, 50, 100, 200, 500;
+.width {
+  .-(@i: length(@width-prop)) when (@i > 0) {
+  @divider: e(extract(@width-prop, @i));
+  @className: `Math.floor(@{divider})`;
+  @parName: `Math.floor(@{divider}) * -1`;
+  &-@{className} {
+    width: ~"@{divider}px";
+    & + .inp-error-message {
+      width: ~"@{divider}px";
+      margin-left: ~"@{parName}px";
+    }
+  }
+  .-((@i - 1));
+} .-;
+}

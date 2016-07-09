@@ -1,0 +1,229 @@
+@charset "utf-8";
+/* -------------------------------------------------------------------------------------------------------
+ 												DESIGN
+------------------------------------------------------------------------------------------------------- */
+
+
+@media only screen and (min-width: 1620px)   {
+  .row .col.xl1 {
+    width: 8.3333333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl2 {
+    width: 16.6666666667%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl3 {
+    width: 25%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl4 {
+    width: 33.3333333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl5 {
+    width: 41.6666666667%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl6 {
+    width: 50%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl7 {
+    width: 58.3333333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl8 {
+    width: 66.6666666667%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl9 {
+    width: 75%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl10 {
+    width: 83.3333333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl11 {
+    width: 91.6666666667%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+  .row .col.xl12 {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+}
+
+
+
+body {
+  background-color: @color-grey;
+}
+
+.wrapper {
+  min-width: 1024px;
+}
+
+
+.main {
+  .row.board {
+    display: flex;
+
+    & > .col {
+      margin: 0!important;
+
+      &.col-menu {
+      }
+    }
+  }
+}
+
+
+/* NAV */
+.nav-wrapper {
+  .brand-logo {
+    background-color: @color-red;
+    color: @color-white;
+    width:64px;
+    left: 0!important;
+    text-align: center;
+    .transition();
+    .boxsizing;
+
+    &:hover {
+      background-color: darken(@color-red, 15%);
+    }
+  }
+}
+
+// LINK
+a, .link {
+  cursor: pointer;
+  color: @color-red;
+  &.underline {
+    text-decoration: underline;
+  }
+
+  &.link-grey {
+    color: @color-steel;
+  }
+
+  &:hover {
+    color: @color-black;
+  }
+}
+
+// MATERIAL
+.material-icons.clickable {
+  .transition();
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+// ICONS
+.icon-add {
+  display: flex;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+  display: inline-block;
+  width: 15px;
+  height:15px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .transition();
+  &:hover {
+  }
+  &.circle {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.94 13.94"><defs><style>.cls-1{fill:#4d4d4d;}</style></defs><title>Untitled-1</title><path class="cls-1" d="M7.5,3.53a4,4,0,1,1-4,4,4,4,0,0,1,4-4m0-3a7,7,0,1,0,7,7,7,7,0,0,0-7-7h0Z" transform="translate(-0.53 -0.53)"/></svg>');
+    &:hover {
+      @color: @color-red;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.94 13.94"><defs><style>.cls-1{fill:@{color};}</style></defs><title>Untitled-1</title><path class="cls-1" d="M7.5,3.53a4,4,0,1,1-4,4,4,4,0,0,1,4-4m0-3a7,7,0,1,0,7,7,7,7,0,0,0-7-7h0Z" transform="translate(-0.53 -0.53)"/></svg>');
+    }
+  }
+  &.circle.fill {
+    background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><style type="text/css">.st0{fill:#4D4D4D;}</style><g><circle class="st0" cx="7.5" cy="7.5" r="6"/><path class="st0" d="M7.5,2.5c2.7,0,5,2.2,5,5s-2.2,5-5,5s-5-2.2-5-5S4.8,2.5,7.5,2.5 M7.5,0.5c-3.8,0-7,3.1-7,7s3.1,7,7,7s7-3.1,7-7S11.3,0.5,7.5,0.5L7.5,0.5z"/></g></svg>');
+    &:hover {
+      @color: @color-red;
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><style type="text/css">.st0{fill:@{color};}</style><g><circle class="st0" cx="7.5" cy="7.5" r="6"/><path class="st0" d="M7.5,2.5c2.7,0,5,2.2,5,5s-2.2,5-5,5s-5-2.2-5-5S4.8,2.5,7.5,2.5 M7.5,0.5c-3.8,0-7,3.1-7,7s3.1,7,7,7s7-3.1,7-7S11.3,0.5,7.5,0.5L7.5,0.5z"/></g></svg>');
+    }
+  }
+  &.triangle {
+    background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><style type="text/css">.st0{fill:none;stroke:#4D4D4D;stroke-width:2.4217;stroke-miterlimit:10;}</style><g><polygon class="st0" points="7.5,3.2 12.9,11.9 2.1,11.9"/></g></svg>');
+    &:hover {
+      @color: @color-red;
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><style type="text/css">.st0{fill:none;stroke:@{color};stroke-width:2.4217;stroke-miterlimit:10;}</style><g><polygon class="st0" points="7.5,3.2 12.9,11.9 2.1,11.9"/></g></svg>');
+    }
+
+  }
+  &.triangle.fill {
+    background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><style type="text/css">.st0{fill:#4D4D4D;stroke:#4D4D4D;stroke-width:2.4217;stroke-miterlimit:10;}</style><g><polygon class="st0" points="7.5,3.2 12.9,11.9 2.1,11.9"/></g></svg>');
+    &:hover {
+    @color: @color-red;
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><style type="text/css">.st0{fill:@{color};stroke:@{color};stroke-width:2.4217;stroke-miterlimit:10;}</style><g><polygon class="st0" points="7.5,3.2 12.9,11.9 2.1,11.9"/></g></svg>');
+    }
+  }
+}
+
+
+
+
+.avatar {
+  .avatar();
+}
+
+
+// INPUT
+
+input.inp-underlined {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin: 0;
+  box-sizing: content-box;
+  transition: all 0.3s;
+  display: inline-block;
+  .opacity(80);
+  cursor: pointer;
+  border-bottom: 1px dotted @color-steel;
+  width: 30px;
+  padding: 0;
+  text-align: center;
+  line-height: 20px;
+  height:20px;
+  &:focus, &:active {
+    border-bottom: 1px dotted @color-steel!important;
+    .box-shadow(@color: transparent)!important;
+  }
+}

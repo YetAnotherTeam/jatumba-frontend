@@ -16,19 +16,16 @@ import {BandCreateComponent} from "./band/band-create.component";
 @Component({
     selector: 'my-app',
     template: `
-        <nav-bar
-            *ngIf="_pageTitle != '' && _pageTitle != 'register'"
-            [routeName]="_pageTitle">
-        </nav-bar>
-        <div id="wrapper">
-            <div id="page-wrapper">
-                <div class="container-fluid">
-              
-                    <div class="row">
-                        <router-outlet></router-outlet>
-                     </div>
+        <div class="wrapper">
+            <nav-bar
+                *ngIf="_pageTitle != '' && _pageTitle != 'register'"
+                [routeName]="_pageTitle">
+            </nav-bar>
+            <div class="main">
+                <div class="row board">
+                    <router-outlet></router-outlet>
                 </div>
-            </div>
+             </div>
          </div>
     `,
     directives: [ROUTER_DIRECTIVES, NavBarComponent, PageTitleComponent],

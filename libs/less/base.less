@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* -------------------------------------------------------------------------------------------------------
+ 												BASE RESET
+------------------------------------------------------------------------------------------------------- */
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+
+* {
+  outline: none;
+}
+
+html, body,
+table, td, th, tbody, thead, tfoot,
+h1, h2, h3, h4, h5, h6,
+ul, ol, li,
+form, label, input, button, textarea, select, option,
+p, div, hr {
+  padding: 0;
+  margin: 0;
+}
+/* Обнуление инпутов */
+button, input, select, textarea {outline: none;}
+button {-webkit-appearance: button;}
+/* textarea: автоматическая высота, выравнивание по верхнему краю, ресайз только вертикальный, наследование шрифта */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  resize: vertical;
+  font-family: inherit;
+}
+/* Удаление лишних отступов у placeholder */
+input::-webkit-input-placeholder {padding-left: 0px;}
+/* запрет подсветки при тапе*/
+input, textarea, button, label, a, span, div {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+/* списки */
+ul {list-style: none}
+ol {padding: 0 0 0 2.1em;}
+/* таблицы */
+table {border-collapse: collapse;border-spacing: 0;table-layout: auto;}
+td, th {vertical-align: top;text-align: left;}
+/* разделитель */
+hr {
+  display: block;
+  border: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+

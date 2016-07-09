@@ -1,0 +1,159 @@
+@charset "utf-8";
+// -------------------------------------------------------------------------------------------------------
+// 												BASIC MIXINS
+// -------------------------------------------------------------------------------------------------------
+
+// Box Sizing
+.boxsizing() {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.transition(@prop: all; @duration: .5s; @timing-fun: ease-in-out; @delay: 0s;) {
+  transition: @prop @duration @timing-fun @delay;
+  -webkit-transition: @prop @duration @timing-fun @delay;
+}
+
+.scale(@prop) {
+  transform: scale(@prop);
+  -webkit-transform: scale(@prop);
+  -moz-transform: scale(@prop);
+}
+
+
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+/* Shadows ------------------------------------------------------------------------------------------------ */
+
+// Outer Shadow
+.box-shadow(
+  @horizontal:  0px;
+  @vertical:    0px;
+  @blur:        3px;
+  @spread:      3px;
+  @color:       rgba(0,0,0,0.25);
+) {
+  @shadow: @horizontal @vertical @blur @spread @color;
+  -webkit-box-shadow: @shadow;
+  -moz-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+// Inset Shadow
+.inset-shadow(
+  @horizontal:  0px;
+  @vertical:    0px;
+  @blur:        3px;
+  @spread:      3px;
+  @color:       rgba(0,0,0,0.25);
+) {
+  @shadow: inset @horizontal @vertical @blur @spread @color;
+  -webkit-box-shadow: @shadow;
+  -moz-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+// Имитация бордера тенью
+.false-border (
+  @horizontal:  0px;
+  @vertical:    0px;
+  @size:        1px;
+  @color:       #000000;
+) {
+  @shadow: @horizontal @vertical 0px @size @color;
+  -webkit-box-shadow:   @shadow;
+  -moz-box-shadow:      @shadow;
+  box-shadow:           @shadow;
+}
+
+
+/* Clearfix ------------------------------------------------------------------------------------------------ */
+.clearfix {
+  .clearfix();
+}
+
+.clearfix() {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/* Filter -------------------------------------------------------------------------------------------------- */
+.filter(@prop) {
+  -webkit-filter: @prop; /* Chrome, Safari, Opera */
+  filter: @prop;
+}
+
+/* Opacity ------------------------------------------------------------------------------------------------- */
+.opacity(@opacity: 100) {
+  opacity: @opacity / 100;
+  filter: ~"e(%('alpha(opacity=%d)', @opacity))";
+}
+
+
+// PROJECT MIXINS -------------------------------
+
+.avatar(@size: 30px;) {
+  .border-radius(100%);
+  display: inline-block;
+  overflow: hidden;
+  width:@size;
+  height:@size;
+  img {
+    width:100%;
+    min-width: 100%;
+    min-height: 100%;
+  }
+}
+
+.scroll() {
+  .transition();
+  @size: 5px;
+  @track: @color-grey;
+  @track-hover: @color-grey - 20;
+  @bg: @color-white;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: @track;
+    border: 0px;
+    border-radius: 0px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: @track-hover;
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: @track-hover;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border: 0px;
+    border-radius: 52px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-track:active {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

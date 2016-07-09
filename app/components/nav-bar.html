@@ -1,34 +1,48 @@
-<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-        </button>
-        <a class="navbar-brand" [routerLink]="['UserDetail', {'id': user.id}]">JaTumba</a>
+<nav>
+    <div class="nav-wrapper white">
+        <a href="#" class="brand-logo"><i class="material-icons">music_note</i></a>
+        <ul id="nav-mobile" class="right">
+            <div class="user-panel">
+				<span class="avatar">
+					<img src="img/ava.jpg">
+				</span>
+                <i class="material-icons clickable">more_vert</i>
+            </div>
+        </ul>
     </div>
-    <!-- Top Menu Items -->
-    <ul class="nav navbar-right top-nav">
-        <li>
-            <a class="navbar-link" [routerLink]="['BandList']">Банды</a>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown">
-                <i class="fa fa-user"></i>&nbsp;{{user.username}}<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a [routerLink]="['UserDetail', {'id': user.id}]"><i class="fa fa-fw fa-user"></i> Profile</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
 </nav>
+
+<!--<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">-->
+    <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+    <!--<div class="navbar-header">-->
+        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">-->
+            <!--<span class="sr-only">Toggle navigation</span>-->
+        <!--</button>-->
+        <!--<a class="navbar-brand" [routerLink]="['UserDetail', {'id': user.id}]">JaTumba</a>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; Top Menu Items &ndash;&gt;-->
+    <!--<ul class="nav navbar-right top-nav">-->
+        <!--<li>-->
+            <!--<a class="navbar-link" [routerLink]="['BandList']">Банды</a>-->
+        <!--</li>-->
+        <!--<li class="dropdown">-->
+            <!--<a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown">-->
+                <!--<i class="fa fa-user"></i>&nbsp;{{user.username}}<b class="caret"></b></a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li>-->
+                    <!--<a [routerLink]="['UserDetail', {'id': user.id}]"><i class="fa fa-fw fa-user"></i> Profile</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>-->
+                <!--</li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li>-->
+                    <!--<a href="#" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</li>-->
+    <!--</ul>-->
+<!--</nav>-->
