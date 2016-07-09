@@ -251,9 +251,9 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     mappingSoundNameToType(string: string) {
         let mapper = {
-            hi: 'type-1',
-            mid: 'type-2',
-            lo: 'type-3'
+            hi: 'icon circle fill', // black circle
+            mid: 'icon circle', //white circle
+            lo: 'icon triangle fill' // triangle
         };
         return mapper[string] ? mapper[string] : string;
     }
