@@ -74,11 +74,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.instrumentMapID = {};
         this.soundMapID = {};
 
-        setInterval(() => {
-            console.log('track-list', this.trackList);
-        },5000)
-
-
         // this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
 
     };
@@ -197,6 +192,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
     
     addSound(track: Track, indexSector, indexSound) {
+        console.log('popal')
         if (this.isCanEdit()) {
             let instrument:Instrument = this.activeInstrument;
             if (track.instrument == instrument) {

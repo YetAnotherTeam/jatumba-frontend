@@ -189,36 +189,6 @@
             <div class="playboard">
 
                 <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
-                <!--
-    <div class="track"
-         *ngFor="#track of trackList; #trackIndex = index"
-         [ngClass]="{
-                    'active': track.instrument == activeInstrument
-                 }"
-    >
-        <div class="name"
-             (contextmenu)="removeTrackByIndex($event, trackIndex)"
-        >
-            <div [attr.alt]="track.instrument.name"
-                 (click)="changeActiveInstrument(track.instrument)"
-                 [attr.data-instrument-id]="track.instrument.id">{{track.instrument.name}}</div>
-        </div>
-        <div class="sector_wrapper">
-            <div class="sector" *ngFor="#sector of track.sectorList; #sectorIndex = index">
-                <ul>
-                    <li *ngFor="#sector of sector.soundList; #soundIndex = index"
-                        (click)="addSound(track,sectorIndex, soundIndex)"
-                        (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)">
-                        <i [class]="mappingSoundNameToType(sector.name)"></i>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="add-sector" (click)="addSector()">
-            <span class="add-sector__symbol">+</span>
-        </div>
-    </div>
-                -->
                 <div class="playboard__container">
                     <div class="playboard__inner">
 
