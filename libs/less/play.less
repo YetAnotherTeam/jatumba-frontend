@@ -245,7 +245,7 @@
 // ОПИСАНИЕ ДЛЯ СЕГМЕНТОВ
 //// ПУНКТИРЫ
 
-.track__segment:nth-child(odd) {
+.track__block:nth-child(odd) {
   &:after {
     z-index: 4;
     display: block;
@@ -258,7 +258,7 @@
     right:0;
   }
 }
-.playboard-track:first-child .track__segment:nth-child(odd) {
+.playboard-track:first-child .track__block:nth-child(odd) {
   &:after {
     z-index: 4;
     display: block;
@@ -272,7 +272,7 @@
   }
 }
 
-.track__segment:nth-child(even) {
+.track__block:nth-child(even) {
   &:after {
     z-index: 4;
     display: block;
@@ -286,7 +286,7 @@
   }
 }
 
-.playboard-track:first-child .track__segment:nth-child(even) {
+.playboard-track:first-child .track__block:nth-child(even) {
   &:before {
     content: attr(data-num);
     font-family: Verdana, sans-serif;

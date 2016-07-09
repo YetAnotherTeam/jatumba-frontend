@@ -74,6 +74,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.instrumentMapID = {};
         this.soundMapID = {};
 
+        setInterval(() => {
+            console.log('track-list', this.trackList);
+        },5000)
+
+
         // this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
 
     };

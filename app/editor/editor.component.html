@@ -158,6 +158,11 @@
                             <span class="step"><span class="icon triangle fill"></span></span>
                         </div>
                     </div>
+                    <button
+                            class="btn btn-success" type="button"
+                            *ngIf="havePermissionToEdit"
+                            (click)="changeEditorMode(!isEditorMode)"
+                    >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <div class="playboard-header__right">
 									<span class="sound">
 										<i class="material-icons clickable">volume_up</i>
@@ -178,17 +183,55 @@
             <div class="playboard">
 
                 <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
-
+                <!--
+    <div class="track"
+         *ngFor="#track of trackList; #trackIndex = index"
+         [ngClass]="{
+                    'active': track.instrument == activeInstrument
+                 }"
+    >
+        <div class="name"
+             (contextmenu)="removeTrackByIndex($event, trackIndex)"
+        >
+            <div [attr.alt]="track.instrument.name"
+                 (click)="changeActiveInstrument(track.instrument)"
+                 [attr.data-instrument-id]="track.instrument.id">{{track.instrument.name}}</div>
+        </div>
+        <div class="sector_wrapper">
+            <div class="sector" *ngFor="#sector of track.sectorList; #sectorIndex = index">
+                <ul>
+                    <li *ngFor="#sector of sector.soundList; #soundIndex = index"
+                        (click)="addSound(track,sectorIndex, soundIndex)"
+                        (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)">
+                        <i [class]="mappingSoundNameToType(sector.name)"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="add-sector" (click)="addSector()">
+            <span class="add-sector__symbol">+</span>
+        </div>
+    </div>
+                -->
                 <div class="playboard__container">
                     <div class="playboard__inner">
-                        <div class="playboard-track">
-                            <div class="playboard-track__info">
+
+                        <div class="playboard-track"
+                             *ngFor="#track of trackList; #trackIndex = index"
+                             [ngClass]="{
+                                'active': track.instrument == activeInstrument
+                             }"
+                        >
+                            <div class="playboard-track__info"
+                                 [attr.alt]="track.instrument.name"
+                                 (click)="changeActiveInstrument(track.instrument)"
+                                 [attr.data-instrument-id]="track.instrument.id">
                                 <div class="track-brd">
                                     <div class="playboard-track__avatar">
                                         <div class="avatar"><img src="img/ava.jpg"></div>
                                     </div>
                                     <div class="playboard-track__ruler">
-                                        <div class="name"><span class="link">BongoBongoBongo</span></div>
+                                        <div class="name"><span class="link">{{track.instrument.name}}</span></div>
                                         <div class="volume">
                                             <input type="range">
                                         </div>
@@ -197,68 +240,21 @@
                             </div>
                             <div class="playboard-track__track">
                                 <div class="track">
-                                    <div class="track__segment">
-                                        <div class="track-brd">
-                                            <span class="icon circle fill"></span>
-                                            <span class="icon circle fill"></span>
-                                            <span class="icon circle fill"></span>
-                                            <span class="icon circle fill"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment" data-num="1">
-                                        <div class="track-brd">
-                                            <span class="icon circle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon circle"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment">
-                                        <div class="track-brd">
-                                            <span class="icon triangle fill"></span>
-                                            <span class="icon triangle fill"></span>
-                                            <span class="icon triangle fill"></span>
-                                            <span class="icon triangle fill"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment"  data-num="2">
-                                        <div class="track-brd">
-                                            <span class="icon circle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon"></span>
-                                            <span class="icon circle"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment">
-                                        <div class="track-brd">
-                                            <span class="icon trianle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon triangle fill"></span>
-                                            <span class="icon circle"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment"  data-num="3">
-                                        <div class="track-brd">
-                                            <span class="icon trianle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon triangle fill"></span>
-                                            <span class="icon circle"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment">
-                                        <div class="track-brd">
-                                            <span class="icon circle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon"></span>
-                                            <span class="icon circle"></span>
-                                        </div>
-                                    </div>
-                                    <div class="track__segment"  data-num="4">
-                                        <div class="track-brd">
-                                            <span class="icon trianle"></span>
-                                            <span class="icon circle"></span>
-                                            <span class="icon triangle fill"></span>
-                                            <span class="icon circle"></span>
+                                    <div class="track__segment"
+                                         *ngFor="#sector of track.sectorList; #sectorIndex = index">
+                                        <div class="track__block"
+                                             *ngFor="#block of [4,8,12,16,20,24,28,32]"
+                                            [attr.data-num]="block % 8 == 0 ? block : ''">
+                                            <div class="track-brd">
+                                                <span class="icon circle fill"
+                                                      *ngFor="#sector of sector.soundList; #soundIndex = index"
+                                                      (click)="addSound(track,sectorIndex, soundIndex)"
+                                                      (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)"
+                                                      [class]="mappingSoundNameToType(sector.name)"
+                                                      *ngIf="soundIndex < block && soundIndex >= block - 4"
+                                                ></span>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
