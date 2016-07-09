@@ -200,7 +200,7 @@
       }
     }
     width: @step;
-    @shift: @step / 8;
+    @shift: @step / 4;
 
     .icon {
       .border-radius(0px);
@@ -211,15 +211,17 @@
       bottom:0;
       height:auto;
       background-size: 12px 12px;
-      width: 12px;
+      width: 15px;
       background-position: center center;
 
+      @correct: 7;
 
-      & {left: (@shift * 0) - 1;}
-      & + .icon {left: @shift * 1 - 1;}
-      & + .icon + .icon {left: @shift * 2 - 1;}
-      & + .icon + .icon + .icon {left: @shift * 3 - 1;}
-      & + .icon + .icon + .icon + .icon {left: @shift * 4 + 1;}
+
+      & {left: (@shift * 0) - 1 - @correct;}
+      & + .icon {left: @shift * 1 - 1 - @correct;}
+      & + .icon + .icon {left: @shift * 2 - 1 - @correct;}
+      & + .icon + .icon + .icon {left: @shift * 3 - 1 - @correct;}
+      & + .icon + .icon + .icon + .icon {left: @shift * 4 + 1 - @correct;}
       & + .icon + .icon + .icon + .icon + .icon {left: @shift * 5 + 1;}
       & + .icon + .icon + .icon + .icon + .icon + .icon {left: @shift * 6 + 1;}
       & + .icon + .icon + .icon + .icon + .icon + .icon + .icon {left: @shift * 7 + 1;}
