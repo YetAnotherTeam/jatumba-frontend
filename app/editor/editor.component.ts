@@ -255,7 +255,8 @@ export class EditorComponent implements OnInit, OnDestroy {
             mid: 'icon circle', //white circle
             lo: 'icon triangle fill' // triangle
         };
-        return mapper[string] ? mapper[string] : string;
+
+        return mapper[string] ? mapper[string] : 'icon';
     }
 
     
@@ -294,7 +295,8 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
 
         let tickTime = 10;
-        let sizeWavePx = 8 * 32; // 8px палочка 32 делений
+        let widthSound = 15 // 15px палочка
+        let sizeWavePx = widthSound * 32; // 8px палочка 32 делений
         let sizeWithMultipleSector = sizeWavePx * allSoundList.length;
         let self = this;
         let speed = (((sizeWavePx/4 * (this.bpm / 60))/1000)*tickTime);
@@ -308,12 +310,13 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         var instance = function () {
             self._setLinePosition((self._linePositionNumber + speed) % sizeWithMultipleSector);
-            let exit = Math.floor(self._linePositionNumber/8);
+            let exit = Math.floor(self._linePositionNumber/widthSound);
             let num = 1;
-            for (let num = Math.floor((self._linePositionNumber - speed) / 8); num < exit; num += 1) {
+            for (let num = Math.floor((self._linePositionNumber - speed) / widthSound); num < exit; num += 1) {
                 var sectorPosition = Math.floor(num/32);
                 var soundPosition = num % 32;
                 var flag = sectorPosition != -1; //По неведомым мне причинам иногда soundPosition и sectorPosition == -1
+
                 if (flag) {
                     if (allSoundList[sectorPosition][soundPosition]) {
                         for (let sound of allSoundList[sectorPosition][soundPosition]) {
@@ -322,7 +325,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                     }
                 }
             }
-
             time += tickTime;
             diff = (Date.now() - start) - time;
 

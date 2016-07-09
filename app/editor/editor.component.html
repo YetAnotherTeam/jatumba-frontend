@@ -144,12 +144,12 @@
             <div class="card-header">
                 <div class="playboard-header">
                     <div class="playboard-header__left">
-									<span class="play">
+									<span class="play" (click)="play()">
 										<i class="material-icons">play_circle_filled</i>
 									</span>
 									<span class="bpm">
 										<span class="bpm__title">BPM</span>
-										<span class="bpm__beat"><input type="text" class="inp-underlined" value="120"></span>
+										<span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
 									</span>
                         <div class="icon-add">
                             <span class="step"><span class="icon circle"></span></span>
@@ -244,15 +244,17 @@
                                          *ngFor="#sector of track.sectorList; #sectorIndex = index">
                                         <div class="track__block"
                                              *ngFor="#block of [4,8,12,16,20,24,28,32]"
-                                            [attr.data-num]="block % 8 == 0 ? block : ''">
+                                            [attr.data-num]="block % 8 == 0 ? block / 8 : ''">
                                             <div class="track-brd">
-                                                <span class="icon circle fill"
-                                                      *ngFor="#sector of sector.soundList; #soundIndex = index"
-                                                      (click)="addSound(track,sectorIndex, soundIndex)"
-                                                      (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)"
-                                                      [class]="mappingSoundNameToType(sector.name)"
-                                                      *ngIf="soundIndex < block && soundIndex >= block - 4"
-                                                ></span>
+                                                <!--Баг ангуляра, костыль-->
+                                                <template ngFor #sound [ngForOf]="sector.soundList" #soundIndex="index">
+                                                    <span
+                                                          (click)="addSound(track,sectorIndex, soundIndex)"
+                                                          (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)"
+                                                          [class]="mappingSoundNameToType(sound.name)"
+                                                          *ngIf="soundIndex < block && soundIndex >= block - 4"
+                                                    ></span>
+                                                </template>
 
                                             </div>
                                         </div>
