@@ -143,7 +143,7 @@
         <div class="card-content">
             <div class="card-header">
                 <div class="playboard-header">
-                    <div class="playboard-header__left">
+                    <div class="playboard-header__left" *ngIf="activeInstrument && composition">
 									<span class="play" (click)="play()">
 										<i class="material-icons">play_circle_filled</i>
 									</span>
@@ -152,10 +152,16 @@
 										<span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
 									</span>
                         <div class="icon-add">
-                            <span class="step"><span class="icon circle"></span></span>
-                            <span class="step"><span class="icon circle fill"></span></span>
-                            <span class="step"><span class="icon triangle"></span></span>
-                            <span class="step"><span class="icon triangle fill"></span></span>
+
+                            <span class="step" *ngFor="#sound of activeInstrument.sounds">
+                                <span class="icon circle"
+                                      [ngClass]="{
+                                            'selected': sound.active
+                                        }"
+                                      (click)="changeActiveSound(sound.name)"
+                                      [class]="mappingSoundNameToType(sound.name)"
+                                ></span>
+                            </span>
                         </div>
                     </div>
                     <button
