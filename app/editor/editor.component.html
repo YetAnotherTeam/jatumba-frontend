@@ -208,8 +208,6 @@
             </div>
 
             <div class="playboard">
-
-                <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
                 <div class="playboard__container">
                     <div class="playboard__inner">
 
@@ -263,11 +261,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
                     </div>
                 </div>
                 <div class="playboard__ruler">
-                    <i class="material-icons clickable">add_circle</i>
-                    <i class="material-icons clickable">remove_circle</i>
+                    <i class="material-icons clickable" (click)="addSector()">add_circle</i>
+                    <i class="material-icons clickable"
+                       *ngIf="trackList[0]?.sectorList?.length > 1 && isEditorMode"
+                       (click)="removeSector()">remove_circle</i>
                 </div>
             </div>
 
