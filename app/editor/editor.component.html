@@ -162,8 +162,11 @@
             <div class="card-header">
                 <div class="playboard-header">
                     <div class="playboard-header__left" *ngIf="activeInstrument && composition">
-									<span class="play" (click)="play()">
+									<span class="play" *ngIf="!isPlay" (click)="play()">
 										<i class="material-icons">play_circle_filled</i>
+									</span>
+                                    <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
+										<i class="material-icons">stop</i>
 									</span>
 									<span class="bpm">
 										<span class="bpm__title">BPM</span>
@@ -220,7 +223,10 @@
                                  [attr.alt]="track.instrument.name"
                                  (click)="changeActiveInstrument(track.instrument)"
                                  [attr.data-instrument-id]="track.instrument.id">
-                                <div class="track-brd">
+                                <div class="track-brd"
+                                     [ngClass]="{
+                                            'active': track.instrument == activeInstrument
+                                        }">
                                     <div class="playboard-track__avatar">
                                         <div class="avatar"><img src="img/ava.jpg"></div>
                                     </div>
