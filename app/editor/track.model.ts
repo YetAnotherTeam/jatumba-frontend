@@ -4,6 +4,7 @@ export interface Track {
     id : number,
     instrument: Instrument,
     sectorList: sector[] // каждый сектор это квадрат из 32 звуков
+    volume: number
 }
 
 interface sector {

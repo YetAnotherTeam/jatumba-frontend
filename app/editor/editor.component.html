@@ -233,7 +233,8 @@
                                     <div class="playboard-track__ruler">
                                         <div class="name"><span class="link">{{track.instrument.name}}</span></div>
                                         <div class="volume">
-                                            <input type="range">
+                                            <input type="range" [(ngModel)]="track.volume"
+                                                   (change)="volumeChange(track)">
                                         </div>
                                     </div>
                                 </div>

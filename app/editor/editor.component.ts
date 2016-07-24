@@ -284,7 +284,10 @@ export class EditorComponent implements OnInit, OnDestroy {
                             allSoundList[sectorNum][segment] = [];
                         }
 
-                        allSoundList[sectorNum][segment].push(this.soundMap[track.sectorList[sectorNum].soundList[segment].soundName]);
+                        allSoundList[sectorNum][segment].push({
+                            soundVolume: track.volume,
+                            howler: this.soundMap[track.sectorList[sectorNum].soundList[segment].soundName]
+                        });
                     }
                 }
             }
@@ -316,7 +319,8 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (flag) {
                     if (allSoundList[sectorPosition][soundPosition]) {
                         for (let sound of allSoundList[sectorPosition][soundPosition]) {
-                            sound.play();
+                            sound.howler.volume(sound.soundVolume / 100);
+                            sound.howler.play();
                         }
                     }
                 }
@@ -394,6 +398,10 @@ export class EditorComponent implements OnInit, OnDestroy {
             })
         });
         this._editorSocketService.commit();
+    }
+
+    volumeChange(track: Track) {
+        console.log(track);
     }
 
     private forkComposition(id: number) {
