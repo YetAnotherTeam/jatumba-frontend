@@ -1,7 +1,8 @@
 import {Injectable} from "angular2/core";
-import {Headers, Http} from "angular2/http";
+import {Http} from "angular2/http";
 import {$WebSocket} from "./websocket";
 import {BaseAPIService} from "../base/base.api.service";
+import {BaseWebSocketService} from "../base/base.websocket.service";
 
 @Injectable()
 export class EditorService extends BaseAPIService {
@@ -38,16 +39,14 @@ export class EditorService extends BaseAPIService {
 }
 
 @Injectable()
-export class EditorSocketService {
-    private _headers: Headers;
-
-    private href = "ws://p30112.lab1.stud.tech-mail.ru/ws/composition/";
-
-    //private href = "http://localhost:8888/api/";
+export class EditorSocketService extends BaseWebSocketService {
+    private href: string;
     private _auth: boolean = false;
     private socket;
 
     constructor() {
+        super();
+        this.href = this.baseWebSocketUrl + '/composition/';
     }
 
     send(message: string) {
