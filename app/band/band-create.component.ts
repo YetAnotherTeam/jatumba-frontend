@@ -15,10 +15,10 @@ export class BandCreateComponent implements OnInit {
     band: Band;
     name: string;
     description: string;
-    
+
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService, params: RouteParams) {
         var self = this;
-        this._authService.isAuth().then(function(isAuth) {
+        this._authService.isAuth().then(function (isAuth) {
             if (!isAuth) {
                 self._router.navigate(['Login']);
             }
@@ -33,7 +33,7 @@ export class BandCreateComponent implements OnInit {
             this._router.navigate(['BandDetail', {id: band.id}]);
         })
     }
-    
-    ngOnInit():any {
+
+    ngOnInit(): any {
     }
 }

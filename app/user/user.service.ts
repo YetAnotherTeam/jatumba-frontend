@@ -10,8 +10,12 @@ export class UserService extends BaseAPIService {
         this._headers.append('token', localStorage.getItem('access_token'));
     }
 
-    list() {
-        return this._http.get(this.baseAPIUrl + 'user/?page=3', this.getHeaders()).map(res => res.json())
+    list(page?: number) {
+        var url = this.baseAPIUrl + 'user/';
+        if (page) {
+            url += '?page=' + page;
+        }
+        return this._http.get(url, this.getHeaders()).map(res => res.json())
     }
 
     get(id: number) {
@@ -19,13 +23,6 @@ export class UserService extends BaseAPIService {
     }
 
     update(user: User) {
-        return this._http.put(this.baseAPIUrl + 'user/' + user.id + '/', JSON.stringify({
-            username: user.username,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            vk_profile: user.vk_profile,
-            fb_profile: user.fb_profile,
-        }), this.getHeaders())
-            .map(res => res.json())
+        return this._http.put(this.baseAPIUrl + 'user/' + user.id + '/', user.toString(), this.getHeaders()).map(res => res.json())
     }
 }

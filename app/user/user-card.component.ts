@@ -8,7 +8,7 @@ import {Composition} from "../band/composition";
 
 @Component({
     selector: 'user-card',
-    templateUrl: `app/user/user.component.html`,
+    templateUrl: 'app/user/user.component.html',
     styleUrls: ['app/user/user.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [UserService]
