@@ -1,5 +1,5 @@
-import {Component, OnInit, NgZone} from 'angular2/core';
-import {User} from './user'
+import {Component, OnInit, NgZone} from "angular2/core";
+import {User} from "./user";
 import {UserService} from "./user.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";

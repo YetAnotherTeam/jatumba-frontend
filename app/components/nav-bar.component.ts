@@ -1,7 +1,6 @@
-import {Component} from 'angular2/core';
+import {Component} from "angular2/core";
 import {AuthService} from "../auth/auth.service";
-import {ROUTER_DIRECTIVES} from "angular2/router"
-import {Router} from "angular2/router";
+import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 
 @Component({
     selector: 'nav-bar',
@@ -13,13 +12,13 @@ import {Router} from "angular2/router";
 })
 
 export class NavBarComponent {
-    public routeName : string;
-    
+    public routeName: string;
+
     public user = {};
 
     constructor(private _authService: AuthService, private _router: Router) {
         var self = this;
-        this._authService.getUser().then(function(user) {
+        this._authService.getUser().then(function (user) {
             self.user = user;
         })
     }
