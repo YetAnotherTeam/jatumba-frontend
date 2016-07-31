@@ -2,28 +2,37 @@
 <div class="col-lg-6 col-sm-6" *ngIf="user && !isEditModeOn">
     <div class="card hovercard">
         <div class="card-background">
-            <img class="card-bkimg" alt="" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+            <img class="card-bkimg" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
         </div>
         <div class="useravatar">
             <img alt="" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
         </div>
-        <div class="card-info"> <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
-
+        <div class="card-info">
+            <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
         </div>
     </div>
     <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
-            <button (click)="changeTab('info')" type="button" id="stars" [ngClass]="{btn: true, 'btn-success': tab == 'info'}" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <button (click)="changeTab('info')" type="button" id="stars"
+                    [ngClass]="{btn: true, 'btn-success': tab == 'info'}" href="#tab1"
+                    data-toggle="tab">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 <div class="hidden-xs">Информация</div>
             </button>
         </div>
         <div class="btn-group" role="group">
-            <button (click)="changeTab('bands')" type="button" id="favorites" [ngClass]="{btn: true, 'btn-success': tab == 'bands'}" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <button (click)="changeTab('bands')" type="button" id="favorites"
+                    [ngClass]="{btn: true, 'btn-success': tab == 'bands'}" href="#tab2"
+                    data-toggle="tab">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <div class="hidden-xs">Банды</div>
             </button>
         </div>
         <div class="btn-group" role="group">
-            <button (click)="changeTab('compositions')" type="button" id="following" [ngClass]="{btn: true, 'btn-success': tab == 'compositions'}" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+            <button (click)="changeTab('compositions')" type="button" id="following"
+                    [ngClass]="{btn: true, 'btn-success': tab == 'compositions'}" href="#tab3"
+                    data-toggle="tab">
+                <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
                 <div class="hidden-xs">Композиции</div>
             </button>
         </div>
@@ -33,22 +42,29 @@
         <div class="tab-content">
             <div class="tab-pane fade in active" id="tab1">
                 <div><h2>@{{user.username}}</h2></div>
-                <div *ngIf="user.vk_profile"><a href="http://vk.com/id{{user.vk_profile}}"><i class="fa fa-vk" aria-hidden="true"></i> {{user.vk_profile}}</a></div>
-                <div *ngIf="user.fb_profile"><i class="fa fa-facebook" aria-hidden="true"></i>{{user.fb_profile}}</div>
+                <div *ngIf="user.vk_profile">
+                    <a href="http://vk.com/id{{user.vk_profile}}">
+                        <i class="fa fa-vk" aria-hidden="true"></i>
+                        {{user.vk_profile}}
+                    </a>
+                </div>
+                <div *ngIf="user.fb_profile">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    {{user.fb_profile}}
+                </div>
             </div>
             <div class="tab-pane fade in" id="tab2">
                 <div class="list-group">
-                    <a *ngFor="#member of user.members" class="list-group-item" [routerLink]="['BandDetail', {'id': member.band.id}]">
+                    <a *ngFor="#member of user.members" class="list-group-item"
+                       [routerLink]="['BandDetail', {'id': member.band.id}]">
                         <strong>{{member.band.name}}</strong> <br>
                     </a>
                 </div>
             </div>
             <div class="tab-pane fade in" id="tab3">
                 <div class="list-group">
-
                     <a *ngFor="#composition of compositions" class="list-group-item"
-                       [routerLink]="['Editor', {'id': composition.id}]"
-                    >
+                       [routerLink]="['Editor', {'id': composition.id}]">
                         <strong>{{composition.name}}</strong>
                         <br>
                     </a>
@@ -56,10 +72,9 @@
             </div>
         </div>
     </div>
-
 </div>
 <script type="application/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".btn-pref .btn").click(function () {
             $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
             // $(".tab").addClass("active"); // instead of this do the below
@@ -70,40 +85,36 @@
 <div class="col-lg-3 col-sm-3"></div>
 
 
-
-
-
-
-<button
-        *ngIf="!isEditModeOn && isCanEdit"
-        (click)="changeEditMode(true)"
->Редактировать</button>
+<button *ngIf="!isEditModeOn && isCanEdit" (click)="changeEditMode(true)">
+    Редактировать
+</button>
 <div *ngIf="isEditModeOn">
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" required
-               [(ngModel)]="user.first_name" >
+               [(ngModel)]="user.first_name">
     </div>
     <div class="form-group">
         <label for="name">Lastname</label>
         <input type="text" class="form-control" required
-               [(ngModel)]="user.last_name" >
+               [(ngModel)]="user.last_name">
     </div>
     <div class="form-group">
         <label for="name">Username</label>
         <input type="text" class="form-control" required
-               [(ngModel)]="user.username" >
+               [(ngModel)]="user.username">
     </div>
     <div class="form-group">
         <label for="name">VK (для ВК введите только id)</label>
         <input type="text" class="form-control" required
-               [(ngModel)]="user.vk_profile" >
+               [(ngModel)]="user.vk_profile">
     </div>
     <div class="form-group">
         <label for="name">FB </label>
         <input type="text" class="form-control" required
-               [(ngModel)]="user.fb_profile" >
+               [(ngModel)]="user.fb_profile">
     </div>
 </div>
-<button *ngIf="isEditModeOn"
-        (click)="saveProfile()">Сохранить</button>
+<button *ngIf="isEditModeOn" (click)="saveProfile()">
+    Сохранить
+</button>

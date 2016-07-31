@@ -18,15 +18,19 @@ export class UserCardComponent implements OnInit {
     id: number;
     user: User;
     compositions: Composition[];
-    
+
     private isCanEdit: boolean;
     private tab: string;
 
     private isEditModeOn = false;
 
-    constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, params: RouteParams, private _ngZone: NgZone) {
+    constructor(private _userService: UserService,
+                private _router: Router,
+                private _authService: AuthService,
+                params: RouteParams,
+                private _ngZone: NgZone) {
         var self = this;
-        this._authService.isAuth().then(function(isAuth) {
+        this._authService.isAuth().then(function (isAuth) {
             if (!isAuth) {
                 self._router.navigate(['Login']);
             }
@@ -57,11 +61,13 @@ export class UserCardComponent implements OnInit {
     saveProfile() {
         var self = this;
         this.changeEditMode(false);
-        this._userService.update(this.user).subscribe(user=>{self.user = user;});
+        this._userService.update(this.user).subscribe(user=> {
+            self.user = user;
+        });
     }
 
     changeTab(tab_name: string) {
-        switch(tab_name) {
+        switch (tab_name) {
             case 'info': {
                 this.tab = 'info';
                 break;
@@ -77,7 +83,7 @@ export class UserCardComponent implements OnInit {
         }
     }
 
-    ngOnInit():any {
+    ngOnInit(): any {
         this.get_user();
     }
 }

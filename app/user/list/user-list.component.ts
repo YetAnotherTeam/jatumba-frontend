@@ -3,7 +3,6 @@ import {UserCardComponent} from "../user-card.component";
 import {UserService} from "../user.service";
 import {User} from "../user";
 import {Router, ROUTER_DIRECTIVES} from "angular2/router";
-import {AppComponent} from "../../app.component";
 import {AuthService} from "../../auth/auth.service";
 
 @Component({
