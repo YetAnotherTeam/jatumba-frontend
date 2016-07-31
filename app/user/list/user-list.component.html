@@ -10,7 +10,7 @@
                                 <h2 class="header">{{user.first_name}} {{user.last_name}}</h2>
                                 <div class="card horizontal">
                                     <div class="card-image">
-                                        <img src="{{user.avatar}}">
+                                        <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
                                     </div>
                                     <div class="card-stacked">
                                         <div class="card-content">
