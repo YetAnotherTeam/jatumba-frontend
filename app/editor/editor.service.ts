@@ -46,7 +46,7 @@ export class EditorSocketService extends BaseWebSocketService {
 
     constructor() {
         super();
-        this.href = this.baseWebSocketUrl + '/composition/';
+        this.href = this.baseWebSocketUrl + 'composition/';
     }
 
     send(message: string) {

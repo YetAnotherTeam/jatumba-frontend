@@ -5,7 +5,7 @@ import {Member} from './member'
 import {BandService} from "./band.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
-import {ChatComponent} from "../components/chat.component";
+import {ChatComponent} from "../components/chat/chat.component";
 
 
 @Component({

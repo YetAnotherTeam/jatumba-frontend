@@ -1,7 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Observable} from "rxjs/Observable";
-import {isPresent, isString, isArray, isFunction} from 'angular2/src/facade/lang';
-import {Scheduler} from "rxjs/Rx";
+import {Injectable} from "angular2/core";
+import {isString, isFunction} from "angular2/src/facade/lang";
 import {Subject} from "rxjs/Subject";
 
 

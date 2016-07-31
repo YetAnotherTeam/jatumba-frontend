@@ -13,15 +13,15 @@
             <div *ngFor="#message of messages">
             <div  class="chat-message clearfix">
 
-                <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
+                <img src="{{message.author.avatar}}" alt="" width="32" height="32">
 
                 <div class="chat-message-content clearfix">
 
-                    <span class="chat-time">{{message.time}}</span>
+                    <span class="chat-time">{{message.datetime}}</span>
 
-                    <h5>{{message.author}}</h5>
+                    <h5>{{message.author.last_name}} {{message.author.first_name}}</h5>
 
-                    <p>{{message.content}}</p>
+                    <p>{{message.text}}</p>
 
                 </div> <!-- end chat-message-content -->
 

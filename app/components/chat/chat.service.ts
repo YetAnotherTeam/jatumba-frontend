@@ -1,6 +1,6 @@
-import {$WebSocket} from "../editor/websocket";
+import {$WebSocket} from "../../editor/websocket";
 import {Injectable} from "angular2/core";
-import {BaseWebSocketService} from "../base/base.websocket.service";
+import {BaseWebSocketService} from "../../base/base.websocket.service";
 
 
 @Injectable()
@@ -10,7 +10,7 @@ export class ChatSocketService extends BaseWebSocketService {
 
     constructor() {
         super();
-        this.href = this.baseWebSocketUrl + '/chat/';
+        this.href = this.baseWebSocketUrl + 'chat/';
     }
 
     send(message: string) {

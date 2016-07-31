@@ -7,7 +7,7 @@ import {Track} from "./track.model";
 import * as howler from "howler";
 import {Band} from "../band/band";
 import {Composition} from "../band/composition";
-import {ChatComponent} from "../components/chat.component";
+import {ChatComponent} from "../components/chat/chat.component";
 import {UserService} from "../user/user.service";
 
 @Component({
