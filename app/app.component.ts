@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {UserListComponent} from './user/user-list.component';
+import {UserListComponent} from './user/list/user-list.component';
 import {UserCardComponent} from './user/user-card.component';
 import {BandListComponent} from './band/band-list.component';
 import {BandDetailComponent} from './band/band-detail.component';

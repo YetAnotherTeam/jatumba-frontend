@@ -1,6 +1,5 @@
-import {Injectable} from 'angular2/core'
+import {Injectable} from "angular2/core";
 import {Http, Headers} from "angular2/http";
-import {AppComponent} from "../app.component";
 import {User} from "./user";
 
 @Injectable()
@@ -8,7 +7,6 @@ export class UserService {
     private _headers: Headers;
 
     private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
-
 
 
     constructor(private _http: Http) {
