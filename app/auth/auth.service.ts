@@ -2,22 +2,20 @@ import {Injectable} from 'angular2/core'
 import {Http, Headers} from "angular2/http";
 import {AppComponent} from "../app.component";
 import {User} from "../user/user";
+import {BaseService} from "../base/base.service";
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseService {
 
     private _headers: Headers;
 
-    private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
+    private href: string;
 
-    //private href = "http://localhost:8888/api/";
     private _auth: boolean = false;
 
-
-
     constructor(private _http: Http) {
-        this._headers = new Headers();
-        this._headers.append('Content-Type', 'application/json');
+        super();
+        this.href=this.baseUrl + '/api/';
     }
 
     register(username:string, password:string) {
