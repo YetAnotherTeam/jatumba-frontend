@@ -2,11 +2,10 @@
 <div class="col-lg-6 col-sm-6" *ngIf="user && !isEditModeOn">
     <div class="card hovercard">
         <div class="card-background">
-            <img class="card-bkimg" alt="" src="https://s3.amazonaws.com/uifaces/faces/twitter/marcogomes/128.jpg">
-            <!-- http://lorempixel.com/850/280/people/9/ -->
+            <img class="card-bkimg" alt="" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
         </div>
         <div class="useravatar">
-            <img alt="" src="https://s3.amazonaws.com/uifaces/faces/twitter/marcogomes/128.jpg">
+            <img alt="" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
         </div>
         <div class="card-info"> <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
 

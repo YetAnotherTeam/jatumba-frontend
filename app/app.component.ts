@@ -1,10 +1,9 @@
-import {Component, OnInit} from 'angular2/core';
-import {UserListComponent} from './user/list/user-list.component';
-import {UserCardComponent} from './user/user-card.component';
-import {BandListComponent} from './band/band-list.component';
-import {BandDetailComponent} from './band/band-detail.component';
-import {RouteConfig, ROUTER_DIRECTIVES, AuxRoute, Router} from "angular2/router";
-import {User} from "./user/user";
+import {Component, OnInit} from "angular2/core";
+import {UserListComponent} from "./user/list/user-list.component";
+import {UserCardComponent} from "./user/user-card.component";
+import {BandListComponent} from "./band/band-list.component";
+import {BandDetailComponent} from "./band/band-detail.component";
+import {RouteConfig, ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {EditorComponent} from "./editor/editor.component";
 import {LoginComponent} from "./auth/login.component";
 import {RegisterComponent} from "./auth/register.component";

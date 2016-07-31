@@ -40,13 +40,12 @@ export class EditorService extends BaseAPIService {
 
 @Injectable()
 export class EditorSocketService extends BaseWebSocketService {
-    private href: string;
+    private href = this.baseWebSocketUrl + 'composition/';
     private _auth: boolean = false;
     private socket;
 
     constructor() {
         super();
-        this.href = this.baseWebSocketUrl + 'composition/';
     }
 
     send(message: string) {
