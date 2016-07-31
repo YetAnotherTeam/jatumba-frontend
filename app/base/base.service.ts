@@ -1,8 +1,8 @@
-import {Http, Headers} from "angular2/http";
+import {Headers} from "angular2/http";
 
 export class BaseService {
 
-    private _headers: Headers;
+    protected _headers: Headers;
 
     protected baseUrl = "http://p30112.lab1.stud.tech-mail.ru";
 
@@ -11,7 +11,7 @@ export class BaseService {
         this._headers.append('Content-Type', 'application/json');
     }
 
-    private getHeaders() {
+    protected getHeaders() {
         return {headers: this._headers}
     }
 }
