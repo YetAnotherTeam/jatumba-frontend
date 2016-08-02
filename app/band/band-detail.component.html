@@ -18,7 +18,7 @@
                             <h6 style="margin-top: 20px">
                                 Tracks
                             </h6>
-                            <div class="collection">
+                            <div *ngIf="compositionList" class="collection">
                                 <a *ngFor="#composition of compositionList" class="collection-item"
                                    [routerLink]="['Editor', {'id': composition.id}]">
                                     {{composition.name}}
