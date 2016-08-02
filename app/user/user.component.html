@@ -1,6 +1,7 @@
-<div class="col-lg-3 col-sm-3"></div>
-<div class="col-lg-6 col-sm-6" *ngIf="user && !isEditModeOn">
-    <div class="card hovercard">
+<div class="col-lg-2 col-sm-2"></div>
+<div class="col-lg-8 col-sm-8" *ngIf="user && !isEditModeOn">
+  <div class="card">
+    <div class="hovercard">
         <div class="card-background">
             <img class="card-bkimg" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
         </div>
@@ -72,6 +73,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script type="application/javascript">
     $(document).ready(function () {

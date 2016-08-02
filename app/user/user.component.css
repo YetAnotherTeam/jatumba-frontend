@@ -1,19 +1,8 @@
 /* USER PROFILE PAGE */
 .card {
     margin-top: 20px;
-    padding: 30px;
-    background-color: rgba(214, 224, 226, 0.2);
-    -webkit-border-top-left-radius:5px;
-    -moz-border-top-left-radius:5px;
-    border-top-left-radius:5px;
-    -webkit-border-top-right-radius:5px;
-    -moz-border-top-right-radius:5px;
-    border-top-right-radius:5px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
-.card.hovercard {
+.hovercard {
     position: relative;
     padding-top: 0;
     overflow: hidden;
@@ -21,8 +10,8 @@
     background-color: #fff;
     background-color: rgba(255, 255, 255, 1);
 }
-.card.hovercard .card-background {
-    height: 130px;
+.hovercard .card-background {
+    height: 170px;
 }
 .card-background img {
     -webkit-filter: blur(25px);
@@ -34,13 +23,13 @@
     margin-top: -200px;
     min-width: 130%;
 }
-.card.hovercard .useravatar {
+.hovercard .useravatar {
     position: absolute;
     top: 15px;
     left: 0;
     right: 0;
 }
-.card.hovercard .useravatar img {
+.hovercard .useravatar img {
     width: 100px;
     height: 100px;
     max-width: 100px;
@@ -50,13 +39,13 @@
     border-radius: 50%;
     border: 5px solid rgba(255, 255, 255, 0.5);
 }
-.card.hovercard .card-info {
+.hovercard .card-info {
     position: absolute;
     bottom: 14px;
     left: 0;
     right: 0;
 }
-.card.hovercard .card-info .card-title {
+.hovercard .card-info .card-title {
     padding:0 5px;
     font-size: 20px;
     line-height: 1;
@@ -80,8 +69,6 @@
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
-
 .is_fork {
     background-color: #f0e09a;
 }
-

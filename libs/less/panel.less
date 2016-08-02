@@ -47,6 +47,7 @@
 
   &.silver {
     background-color: @color-lightgrey;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14);
     .card-header {
       background-color: @color-white;
     }
@@ -62,9 +63,11 @@
     }
   }
   &__special {
-    li {
-      border:0!important;
-    }
+      border:0 !important;
+      border-radius: 0;
+      li {
+        border:0 !important;
+      }
   }
 }
 
