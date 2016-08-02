@@ -11,6 +11,7 @@ import {ChatComponent} from "../components/chat/chat.component";
 @Component({
     selector: 'band-card',
     templateUrl: `app/band/band-detail.component.html`,
+    styleUrls: ['app/band/band-create.component.css'],
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES, ChatComponent],
 })

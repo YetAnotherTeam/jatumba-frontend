@@ -21,7 +21,7 @@ import {BandCreateComponent} from "./band/band-create.component";
                 [routeName]="_pageTitle">
             </nav-bar>
             <div class="main">
-                <div class="row board">
+                <div class="row">
                     <router-outlet></router-outlet>
                 </div>
              </div>
