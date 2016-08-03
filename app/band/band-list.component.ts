@@ -7,32 +7,8 @@ import {AuthService} from "../auth/auth.service";
 
 @Component({
     selector: 'band-list',
-    template: `
-<h1>Банды</h1>
-<main>
-<div class="container">
-<div class="row">
-<div class="col s12 m9 l10">
-<div class="collection">
-    <button [routerLink]="['BandCreate']">Создать банду</button>
-    <div>
-
-        <div *ngFor="#band of bandList">
-            <a class="collection-item" [routerLink]="['BandDetail', {'id': band.id}]">
-                <strong>{{band.name}}</strong> <br>
-            </a>
-             <p>
-                    {{band.description}}
-             </p>
-        </div>
-    </div>
-
-</div>
-</div>
-</div>
-</div>
-</main>
-    `,
+    templateUrl: `app/band/band-list.component.html`,
+    styleUrls: ['app/band/band-create.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [BandService]
 })
