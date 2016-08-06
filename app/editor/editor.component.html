@@ -122,6 +122,9 @@
                             <!--<span class="sound">-->
                                 <!--<i class="material-icons clickable">volume_up</i>-->
                             <!--</span>-->
+                            <span *ngIf="!isEditorMode" class="topbar_icon">
+                                <i (click)="openForkDialogue()" class="material-icons clickable">call_split</i>
+                            </span>
                             <span *ngIf="havePermissionToEdit" class="edit link link-grey" (click)="changeEditorMode(!isEditorMode)">
                                 Режим редактирования
                             </span>
@@ -135,7 +138,7 @@
                 </div>
             </div>
 
-            <div class="playboard">
+            <div *ngIf="trackList.length" class="playboard">
                 <div class="playboard__container">
                     <div class="playboard__inner">
 
@@ -207,13 +210,19 @@
         </div>
     </div>
 </div>
+
 <chat-component *ngIf="composition" [band]="composition.band"></chat-component>
-<div id="modal1" class="modal">
+
+<div *ngIf="user" id="forkModal" class="modal modal-fixed-footer">
     <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <h4>Choose band where you want to fork this composition</h4>
+        <div class="collection">
+            <a *ngFor="#member of user.members" class="collection-item" (click)="forkComposition(member.band.id)">
+                {{member.band.name}}
+            </a>
+        </div>
     </div>
     <div class="modal-footer">
-        <a (click)="closeModal();"class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a (click)="closeModal();" class=" modal-action modal-close waves-effect waves-green btn-flat">No, thanks</a>
     </div>
 </div>
