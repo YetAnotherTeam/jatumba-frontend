@@ -404,9 +404,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         console.log(event.keyCode);
         if (event.keyCode == 90 && event.ctrlKey && event.shiftKey) {
             event.preventDefault();
+            Materialize.toast('redo', 4000);
             this._editorSocketService.historyForward(this.diffID);
         } else if (event.keyCode == 90 && event.ctrlKey) {
             event.preventDefault();
+            Materialize.toast('undo', 4000);
             this._editorSocketService.historyBack(this.diffID);
         } else if (event.keyCode == 83 && event.ctrlKey) {
             event.preventDefault();
@@ -428,6 +430,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             })
         });
         this._editorSocketService.commit();
+        Materialize.toast('Commit successful', 4000)
     }
 
     volumeChange(track: Track) {
