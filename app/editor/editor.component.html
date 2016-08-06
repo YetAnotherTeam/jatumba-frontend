@@ -52,15 +52,15 @@
             <ul class="collection no-margin silver collection__special">
                 <li *ngFor="#commit of commits" class="collection-item">
                     <div class="collection-item__icon">
-                        <span class="avatar">
+                        <span class="avatar user_hover">
                             <img
                                     [src]="commit.author.avatar ? commit.author.avatar : '/img/default_avatar.jpg'"
-                                    [routerLink]="['UserDetail', {'id': member.user.id}]"
+                                    [routerLink]="['UserDetail', {'id': commit.author.id}]"
                             >
                         </span>
                     </div>
                     <div class="collection-item__name">
-                        <div class="collection-item__title" [routerLink]="['UserDetail', {'id': member.user.id}]">
+                        <div class="collection-item__title user_hover" [routerLink]="['UserDetail', {'id': commit.author.id}]">
                             {{commit.author.username}}
                         </div>
                         <div class="comment">commited {{timeSince(commit.create_datetime)}}</div>
