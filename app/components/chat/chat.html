@@ -1,5 +1,5 @@
 <div id="live-chat" (keyup.enter)="sendMessage($event)">
-
+    <div class="card" style="margin-bottom: 0px">
     <header class="clearfix" (click)="toggleChat()">
         <h4>{{band.name}}</h4>
 
@@ -11,61 +11,26 @@
 
         <div class="chat-history">
             <div *ngFor="#message of messages">
-            <div  class="chat-message clearfix">
+            <div  class="chat-message">
 
-                <img src="{{message.author.avatar}}" alt="" width="32" height="32">
+                <img
+                    [src]="message.author.avatar ? message.author.avatar : '/img/default_avatar.jpg'"
+                    [routerLink]="['UserDetail', {'id': message.author.id}]"
+                     alt="" width="32" height="32">
 
-                <div class="chat-message-content clearfix">
+                <div class="chat-message-content">
 
                     <span class="chat-time">{{message.datetime}}</span>
 
-                    <h5>{{message.author.last_name}} {{message.author.first_name}}</h5>
+                    <h5>{{message.author.first_name}} {{message.author.last_name}}</h5>
 
                     <p>{{message.text}}</p>
 
                 </div> <!-- end chat-message-content -->
 
             </div> <!-- end chat-message -->
-
             <hr>
             </div>
-
-            <!--<div class="chat-message clearfix">-->
-
-                <!--<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">-->
-
-                <!--<div class="chat-message-content clearfix">-->
-
-                    <!--<span class="chat-time">13:37</span>-->
-
-                    <!--<h5>Marco Biedermann</h5>-->
-
-                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nulla accusamus magni vel debitis numquam qui tempora rem voluptatem delectus!</p>-->
-
-                <!--</div> &lt;!&ndash; end chat-message-content &ndash;&gt;-->
-
-            <!--</div> &lt;!&ndash; end chat-message &ndash;&gt;-->
-
-            <!--<hr>-->
-
-            <!--<div class="chat-message clearfix">-->
-
-                <!--<img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">-->
-
-                <!--<div class="chat-message-content clearfix">-->
-
-                    <!--<span class="chat-time">13:38</span>-->
-
-                    <!--<h5>John Doe</h5>-->
-
-                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>-->
-
-                <!--</div> &lt;!&ndash; end chat-message-content &ndash;&gt;-->
-
-            <!--</div> &lt;!&ndash; end chat-message &ndash;&gt;-->
-
-            <!--<hr>-->
-
         </div> <!-- end chat-history -->
 
         <form action="#" method="post">
@@ -80,7 +45,7 @@
         </form>
 
     </div> <!-- end chat -->
-
+    </div>
 </div> <!-- end live-chat -->
 
 
