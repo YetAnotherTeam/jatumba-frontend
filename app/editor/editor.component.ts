@@ -182,12 +182,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
     }
 
-    removeTrackByIndex(event: MouseEvent, index: number) {
+    removeTrackByIndex(index: number) {
         if (this.isCanEdit()) {
             if (this.trackList[index].instrument.active) {
                 this.trackList.splice(index, 1);
             }
-            event.preventDefault();
             this.sendTrackDiff('');
         }
     }
