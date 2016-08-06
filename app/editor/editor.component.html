@@ -80,7 +80,8 @@
 <div class="col xl10 l9 m9 s9 col-board">
 
     <div class="card silver" style="min-height: 495px;">
-        <div style="position: absolute; top: 250px; left: 200px;" *ngIf="!trackList.length">В данный момент композиция пуста! Попробуйте добавить музыкальную дорожку!</div>
+        <div *ngIf="!trackList.length && havePermissionToEdit" style="position: absolute; top: 250px; left: 200px;">В данный момент композиция пуста! Попробуйте добавить музыкальную дорожку!</div>
+        <div *ngIf="!trackList.length && !havePermissionToEdit" style="position: absolute; top: 250px; left: 350px;">Здесь пока ничего нет, но скоро музыканты начнут свою работу!</div>
         <div class="card-content">
             <div class="card-header">
                 <div class="playboard-header">
@@ -93,7 +94,7 @@
                                 <i class="material-icons">stop</i>
                             </span>
                         </template>
-                        <span class="bpm">
+                        <span *ngIf="trackList.length" class="bpm">
                             <span class="bpm__title">BPM</span>
                             <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
                         </span>
@@ -121,15 +122,15 @@
                             <!--<span class="sound">-->
                                 <!--<i class="material-icons clickable">volume_up</i>-->
                             <!--</span>-->
-                            <span class="edit link link-grey" (click)="changeEditorMode(!isEditorMode)">
+                            <span *ngIf="havePermissionToEdit" class="edit link link-grey" (click)="changeEditorMode(!isEditorMode)">
                                 Режим редактирования
                             </span>
-                        <div class="switch">
-                            <label *ngIf="havePermissionToEdit">
-                                <input type="checkbox" [checked]="isEditorMode" (change)="changeEditorMode(!isEditorMode)">
-                                <span class="lever"></span>
-                            </label>
-                        </div>
+                            <div class="switch">
+                                <label *ngIf="havePermissionToEdit">
+                                    <input type="checkbox" [checked]="isEditorMode" (change)="changeEditorMode(!isEditorMode)">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
                     </div>
                 </div>
             </div>
