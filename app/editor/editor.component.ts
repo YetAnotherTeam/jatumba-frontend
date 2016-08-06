@@ -78,7 +78,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.soundMapID = {};
 
         // this._editorSocketService.start(this.id, this._onSocketMessageHandler, this);
-
     };
 
     ngOnInit() {
@@ -297,6 +296,14 @@ export class EditorComponent implements OnInit, OnDestroy {
                         });
                     }
                 }
+                for (let segment in track.sectorList[sectorNum].soundList) { // 32 сегмента
+                    if (track.sectorList[sectorNum].soundList[segment].soundName) {
+                        for (let soundObject of allSoundList[sectorNum][segment]) {
+                            soundObject.howler.volume((soundObject.soundVolume/100) * (this.globalVolume/100))
+                        }
+                    }
+                }
+
             }
         }
 
@@ -326,7 +333,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (flag) {
                     if (allSoundList[sectorPosition][soundPosition]) {
                         for (let sound of allSoundList[sectorPosition][soundPosition]) {
-                            sound.howler.volume((sound.soundVolume/100) * (self.globalVolume/100));
+                            // sound.howler.volume();
                             sound.howler.play();
                         }
                     }
