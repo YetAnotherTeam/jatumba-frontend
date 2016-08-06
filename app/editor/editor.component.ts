@@ -129,17 +129,19 @@ export class EditorComponent implements OnInit, OnDestroy {
                 self._createSoundMap();
             });
 
-        this._editorService.get(this.id).subscribe(composition => {
-            self.havePermissionToEdit = composition.permissions.includes('change_composition');
-            self._parseComposition(composition.latest_version.tracks);
-            self.composition = composition;
-            self.selectedVersion = composition.latest_version.id;
-        });
+            self._editorService.get(self.id).subscribe(composition => {
+                self.havePermissionToEdit = composition.permissions.includes('change_composition');
+                console.log('Now it comes');
+                console.log(composition.latest_version.tracks);
+                self._parseComposition(composition.latest_version.tracks);
+                self.composition = composition;
+                self.selectedVersion = composition.latest_version.id;
+            });
 
-        this._editorService.getCommits(this.id).subscribe(commits => {
-            // TODO Сделать норм пагинацию
-            self.commits = commits.results;
-        })
+            self._editorService.getCommits(self.id).subscribe(commits => {
+                // TODO Сделать норм пагинацию
+                self.commits = commits.results;
+            });
     }
 
     ngOnDestroy():any {
@@ -190,7 +192,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackList.splice(index, 1);
             }
             this.sendTrackDiff('');
-            this.restartPlay();
         }
     }
     
@@ -236,7 +237,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
             }
             this.sendTrackDiff(this.trackList);
-            this.restartPlay();
         }
     }
 
@@ -412,10 +412,6 @@ export class EditorComponent implements OnInit, OnDestroy {
             })
         });
         this._editorSocketService.commit();
-        this.templateRenderTime = new Date();
-        this._editorService.getCommits(this.id).subscribe(commits => {
-            self.commits = commits.results;
-        })
     }
 
     volumeChange(track: Track) {
@@ -537,6 +533,12 @@ export class EditorComponent implements OnInit, OnDestroy {
                 self.diffID = message.data.id;
                 self._parseComposition(message.data.tracks);
                 break;
+            }
+            case 'commit': {
+                self.templateRenderTime = new Date();
+                self._editorService.getCommits(self.id).subscribe(commits => {
+                    self.commits = commits.results;
+                })
             }
         }
     }
