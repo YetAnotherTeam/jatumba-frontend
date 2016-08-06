@@ -10,7 +10,7 @@
 
             </div>
     <!--<a class="mdl-navigation__link"
-       *ngFor="#instrument of instrumentList"
+       *ngFor="let instrument of instrumentList"
        [ngClass]="{
            'mdl-navigation__link--current': instrument.active
        }"
@@ -22,7 +22,7 @@
     -->
             <ul class="collection no-margin silver collection__special">
                 <li class="collection-item"
-                    *ngFor="#instrument of instrumentList"
+                    *ngFor="let instrument of instrumentList"
                     [ngClass]="{
                         'collection-item_active': instrument.active
                     }">
@@ -50,7 +50,7 @@
 
             </div>
             <ul class="collection no-margin silver collection__special">
-                <li *ngFor="#commit of commits" class="collection-item">
+                <li *ngFor="let commit of commits" class="collection-item">
                     <div class="collection-item__icon">
                         <span class="avatar user_hover">
                             <img
@@ -99,7 +99,7 @@
                             <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
                         </span>
                         <div class="icon-add" *ngIf="isEditorMode">
-                            <span class="step" *ngFor="#sound of activeInstrument.sounds">
+                            <span class="step" *ngFor="let sound of activeInstrument.sounds">
                                 <span class="icon circle"
                                       [ngClass]="{
                                             'selected': sound.active
@@ -142,7 +142,7 @@
                     <div class="playboard__inner">
 
                         <div class="playboard-track"
-                             *ngFor="#track of trackList; #trackIndex = index"
+                             *ngFor="let track of trackList; let trackIndex = index"
                              [ngClass]="{
                                 'active': track.instrument == activeInstrument
                              }"
@@ -175,18 +175,18 @@
                             <div class="playboard-track__track">
                                 <div class="track">
                                     <div class="track__segment"
-                                         *ngFor="#sector of track.sectorList; #sectorIndex = index">
+                                         *ngFor="let sector of track.sectorList; let sectorIndex = index">
                                         <div class="track__block"
-                                             *ngFor="#block of [4,8,12,16,20,24,28,32]"
+                                             *ngFor="let block of [4,8,12,16,20,24,28,32]"
                                             [attr.data-num]="block % 8 == 0 ? block / 8 : ''">
                                             <div class="track-brd">
                                                 <!--Баг ангуляра, костыль-->
-                                                <template ngFor #sound [ngForOf]="sector.soundList" #soundIndex="index">
+                                                <template ngFor let-sound [ngForOf]="sector.soundList" let soundIndex="index">
                                                     <span
                                                           (click)="addOrRemoveSound(track,sectorIndex, soundIndex)"
                                                           [class]="mappingSoundNameToType(sound.name)"
-                                                          *ngIf="soundIndex < block && soundIndex >= block - 4"
-                                                    ></span>
+                                                          *ngIf="soundIndex < block && soundIndex >= block - 4">
+                                                    </span>
                                                 </template>
                                             </div>
                                         </div>
@@ -215,7 +215,7 @@
     <div class="modal-content">
         <h4>Choose band where you want to fork this composition</h4>
         <div class="collection">
-            <a *ngFor="#member of user.members" class="collection-item" (click)="forkComposition(member.band.id)">
+            <a *ngFor="let member of user.members" class="collection-item" (click)="forkComposition(member.band.id)">
                 {{member.band.name}}
             </a>
         </div>

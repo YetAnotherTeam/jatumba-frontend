@@ -19,7 +19,7 @@
                                 Tracks
                             </h6>
                             <div *ngIf="compositionList?.length" class="collection">
-                                <a *ngFor="#composition of compositionList" class="collection-item"
+                                <a *ngFor="let composition of compositionList" class="collection-item"
                                    [routerLink]="['Editor', {'id': composition.id}]">
                                     {{composition.name}}
                                 </a>
@@ -29,7 +29,7 @@
                             <h6 style="margin-bottom: 15px;">
                                 Members
                             </h6>
-                            <div *ngFor="#member of memberList" class="member">
+                            <div *ngFor="let member of memberList" class="member">
                                 <img class="avatar user-avatar"
                                      [src]="member.user.avatar ? member.user.avatar : '/img/default_avatar.jpg'"
                                      [routerLink]="['UserDetail', {'id': member.user.id}]"

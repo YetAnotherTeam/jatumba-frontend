@@ -5,7 +5,7 @@
             <div class="col s12 m9 l10">
                 <div class="collection">
                     <div>
-                        <div *ngFor="#user of userList">
+                        <div *ngFor="let user of userList">
                             <div class="col s12 m7">
                                 <h2 class="header">{{user.first_name}} {{user.last_name}}</h2>
                                 <div class="card horizontal">

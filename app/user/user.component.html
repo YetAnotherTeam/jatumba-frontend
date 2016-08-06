@@ -56,7 +56,7 @@
             </div>
             <div class="tab-pane fade in" id="tab2">
                 <div class="list-group">
-                    <a *ngFor="#member of user.members" class="list-group-item"
+                    <a *ngFor="let member of user.members" class="list-group-item"
                        [routerLink]="['BandDetail', {'id': member.band.id}]">
                         <strong>{{member.band.name}}</strong> <br>
                     </a>
@@ -64,7 +64,7 @@
             </div>
             <div class="tab-pane fade in" id="tab3">
                 <div class="list-group">
-                    <a *ngFor="#composition of compositions" class="list-group-item"
+                    <a *ngFor="let composition of compositions" class="list-group-item"
                        [routerLink]="['Editor', {'id': composition.id}]">
                         <strong>{{composition.name}}</strong>
                         <br>

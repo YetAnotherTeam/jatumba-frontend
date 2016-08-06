@@ -2,7 +2,7 @@
     <div class="col s8 offset-s2">
         <div class="card band-list_card">
             <div class="card-content">
-                <div *ngFor="#band of bandList" class="band_list_item">
+                <div *ngFor="let band of bandList" class="band_list_item">
                     <a [routerLink]="['BandDetail', {'id': band.id}]"><h5 class="band_name">{{band.name}}</h5></a>
                     <p style="margin-bottom: 10px;">{{band.description}}</p>
                     <div class="user_counter">

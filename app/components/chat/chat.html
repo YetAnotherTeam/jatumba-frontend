@@ -10,7 +10,7 @@
          [ngClass]="{chat_collapse: isCollapseChat}">
 
         <div class="chat-history">
-            <div *ngFor="#message of messages">
+            <div *ngFor="let message of messages">
             <div  class="chat-message">
 
                 <img
@@ -53,7 +53,7 @@
     <!--<input type="checkbox" />-->
     <!--<label data-expanded="Close Chatbox" data-collapsed="Open Chatbox"></label>-->
     <!--<div class="chat-box-content">-->
-        <!--<div *ngFor="#message of messages">-->
+        <!--<div *ngFor="let message of messages">-->
             <!--{{message}}-->
         <!--</div>-->
         <!--<input type="text" [(ngModel)]="messageInput" />-->
