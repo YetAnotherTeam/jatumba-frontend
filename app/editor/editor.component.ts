@@ -83,7 +83,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     ngOnInit() {
         var self = this;
 
-        this.bpm = 90;
+        this.bpm = 60;
+
+        $('#modal1').openModal();
 
         let metronomeSoundList = [];
 
@@ -144,6 +146,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     ngOnDestroy():any {
         this.stop();
+    }
+
+    closeModal() {
+        $('#modal1').closeModal();
     }
     
     changeActiveInstrument(instrument: Instrument) {
@@ -343,7 +349,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (flag) {
                     if (allSoundList[sectorPosition][soundPosition]) {
                         for (let sound of allSoundList[sectorPosition][soundPosition]) {
-                            // sound.howler.volume();
                             sound.howler.play();
                         }
                     }
