@@ -176,11 +176,12 @@
                             <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
                                 <i class="material-icons">stop</i>
                             </span>
-                            <span class="bpm">
-                                <span class="bpm__title">BPM</span>
-                                <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
-                            </span>
                         </template>
+                        <span class="bpm">
+                            <span class="bpm__title">BPM</span>
+                            <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
+                        </span>
+
                         <div class="icon-add" *ngIf="isEditorMode">
                             <span class="step" *ngFor="#sound of activeInstrument.sounds">
                                 <span class="icon circle"
@@ -193,7 +194,13 @@
                             </span>
                         </div>
                     </div>
+
                     <div class="playboard-header__right">
+                                    <span class="volume" style="margin-right: 20px;">
+                                        <i class="material-icons clickable" style="position: relative; top: 9px;">volume_up</i>
+                                        <input type="range" [(ngModel)]="globalVolume" style="width: 100px;"
+                                               (change)="volumeChange(track)">
+                                    </span>
 									<!--<span class="sound">-->
 										<!--<i class="material-icons clickable">volume_up</i>-->
 									<!--</span>-->
@@ -234,6 +241,7 @@
                                     <div class="playboard-track__ruler" style="position: relative;">
                                         <div class="name"><span class="link">{{track.instrument.name}}</span></div>
                                         <span class="rotate45" style="position: absolute; right: 0; top: 0;"
+                                             *ngIf="isEditorMode"
                                             (click)="removeTrackByIndex(trackIndex)">
                                             <i class="material-icons clickable">add</i>
                                         </span>

@@ -38,7 +38,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     public isPlay = false;
     private _playIdTimer: number;
 
-
     private soundMap: any;
     private soundMapID: any;
     private instrumentMapID: any;
@@ -46,6 +45,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private commits: any;
 
     public bpm: number;
+    public globalVolume: number;
 
     private _emptySectorList = [];
 
@@ -70,6 +70,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.trackListID = [];
         this.havePermissionToEdit = false;
         this.isEditorMode = false;
+        this.globalVolume = 100;
 
         this.instrumentMapID = {};
         this.soundMapID = {};
@@ -188,6 +189,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackList.splice(index, 1);
             }
             this.sendTrackDiff('');
+            this.restartPlay();
         }
     }
     
@@ -205,6 +207,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 }
             }
             this.sendTrackDiff([this.trackList[track.id]]);
+            this.restartPlay();
         }
     }
 
@@ -220,6 +223,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             }
             event.preventDefault();
             this.sendTrackDiff([this.trackList[track.id]]);
+            this.restartPlay();
         }
     }
 
@@ -232,6 +236,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackListID[track.id].push(EditorComponent._createEmptyTrackID());
             }
             this.sendTrackDiff(this.trackList);
+            this.restartPlay();
         }
     }
 
@@ -242,6 +247,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.trackListID[track.id].pop();
             }
             this.sendTrackDiff(this.trackList);
+            this.restartPlay();
         }
     }
 
@@ -292,9 +298,10 @@ export class EditorComponent implements OnInit, OnDestroy {
                 }
             }
         }
+        console.log('all', allSoundList);
 
         let tickTime = 10;
-        let widthSound = 15 // 15px палочка
+        let widthSound = 15; // 15px палочка
         let sizeWavePx = widthSound * 32; // 8px палочка 32 делений
         let sizeWithMultipleSector = sizeWavePx * allSoundList.length;
         let self = this;
@@ -319,7 +326,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 if (flag) {
                     if (allSoundList[sectorPosition][soundPosition]) {
                         for (let sound of allSoundList[sectorPosition][soundPosition]) {
-                            sound.howler.volume(sound.soundVolume / 100);
+                            sound.howler.volume((sound.soundVolume/100) * (self.globalVolume/100));
                             sound.howler.play();
                         }
                     }
@@ -401,7 +408,14 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     volumeChange(track: Track) {
-        console.log(track);
+        this.restartPlay();
+    }
+
+    private restartPlay() {
+        if (this.isPlay) {
+            this.stop();
+            this.play();
+        }
     }
 
     private forkComposition(id: number) {
