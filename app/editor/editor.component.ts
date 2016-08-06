@@ -131,8 +131,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 
             self._editorService.get(self.id).subscribe(composition => {
                 self.havePermissionToEdit = composition.permissions.includes('change_composition');
-                console.log('Now it comes');
-                console.log(composition.latest_version.tracks);
                 self._parseComposition(composition.latest_version.tracks);
                 self.composition = composition;
                 self.selectedVersion = composition.latest_version.id;
@@ -194,6 +192,19 @@ export class EditorComponent implements OnInit, OnDestroy {
             this.sendTrackDiff('');
         }
     }
+
+    addOrRemoveSound(track: Track, indexSector, indexSound) {
+        if (this.isCanEdit()) {
+            let instrument:Instrument = this.activeInstrument;
+            if (track.instrument == instrument) {
+                if (track.sectorList[indexSector].soundList[indexSound].name == 'empty') {
+                    this.addSound(track, indexSector, indexSound);
+                } else {
+                    this.removeSound(track, indexSector, indexSound);
+                }
+            }
+        }
+    }
     
     addSound(track: Track, indexSector, indexSound) {
         if (this.isCanEdit()) {
@@ -212,7 +223,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
     }
 
-    removeSound(event: MouseEvent, track: Track,indexSector, indexSound) {
+    removeSound(track: Track, indexSector, indexSound) {
         if (this.isCanEdit()) {
             let instrument:Instrument = this.activeInstrument;
 
@@ -222,7 +233,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 track.sectorList[indexSector].soundList[indexSound].soundName = '';
                 this.trackListID[track.id][indexSector][indexSound] = null;
             }
-            event.preventDefault();
             this.sendTrackDiff([this.trackList[track.id]]);
             this.restartPlay();
         }

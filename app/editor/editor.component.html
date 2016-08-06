@@ -175,8 +175,7 @@
                                                 <!--Баг ангуляра, костыль-->
                                                 <template ngFor #sound [ngForOf]="sector.soundList" #soundIndex="index">
                                                     <span
-                                                          (click)="addSound(track,sectorIndex, soundIndex)"
-                                                          (contextmenu)="removeSound($event, track, sectorIndex, soundIndex)"
+                                                          (click)="addOrRemoveSound(track,sectorIndex, soundIndex)"
                                                           [class]="mappingSoundNameToType(sound.name)"
                                                           *ngIf="soundIndex < block && soundIndex >= block - 4"
                                                     ></span>
