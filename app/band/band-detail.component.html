@@ -15,10 +15,10 @@
                             <p class="description" >
                                 {{band.description}}
                             </p>
-                            <h6 style="margin-top: 20px">
+                            <h6 *ngIf="compositionList?.length" style="margin-top: 20px">
                                 Tracks
                             </h6>
-                            <div *ngIf="compositionList" class="collection">
+                            <div *ngIf="compositionList?.length" class="collection">
                                 <a *ngFor="#composition of compositionList" class="collection-item"
                                    [routerLink]="['Editor', {'id': composition.id}]">
                                     {{composition.name}}
