@@ -157,23 +157,25 @@
 </div>
 <div class="col xl10 l9 m9 s9 col-board">
 
-    <div class="card silver">
+    <div class="card silver" style="min-height: 495px;">
+        <div style="position: absolute; top: 250px; left: 200px;" *ngIf="!trackList.length">В данный момент композиция пуста! Попробуйте добавить музыкальную дорожку!</div>
         <div class="card-content">
             <div class="card-header">
                 <div class="playboard-header">
                     <div class="playboard-header__left" *ngIf="activeInstrument && composition">
-									<span class="play" *ngIf="!isPlay" (click)="play()">
-										<i class="material-icons">play_circle_filled</i>
-									</span>
-                                    <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
-										<i class="material-icons">stop</i>
-									</span>
-									<span class="bpm">
-										<span class="bpm__title">BPM</span>
-										<span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
-									</span>
-                        <div class="icon-add">
-
+                        <template [ngIf]="trackList.length">
+                            <span class="play" *ngIf="!isPlay" (click)="play()">
+                                <i class="material-icons">play_circle_filled</i>
+                            </span>
+                            <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
+                                <i class="material-icons">stop</i>
+                            </span>
+                            <span class="bpm">
+                                <span class="bpm__title">BPM</span>
+                                <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
+                            </span>
+                        </template>
+                        <div class="icon-add" *ngIf="isEditorMode">
                             <span class="step" *ngFor="#sound of activeInstrument.sounds">
                                 <span class="icon circle"
                                       [ngClass]="{
@@ -185,21 +187,16 @@
                             </span>
                         </div>
                     </div>
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="havePermissionToEdit"
-                            (click)="changeEditorMode(!isEditorMode)"
-                    >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <div class="playboard-header__right">
-									<span class="sound">
-										<i class="material-icons clickable">volume_up</i>
-									</span>
-									<span class="edit link link-grey">
-										Edit
+									<!--<span class="sound">-->
+										<!--<i class="material-icons clickable">volume_up</i>-->
+									<!--</span>-->
+									<span class="edit link link-grey" (click)="changeEditorMode(!isEditorMode)">
+										Режим редактирования
 									</span>
                         <div class="switch">
-                            <label>
-                                <input type="checkbox">
+                            <label *ngIf="havePermissionToEdit">
+                                <input type="checkbox" [checked]="isEditorMode" (change)="changeEditorMode(!isEditorMode)">
                                 <span class="lever"></span>
                             </label>
                         </div>
