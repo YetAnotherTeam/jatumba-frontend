@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="collection-item__secondary double">
-                        <i class="material-icons clickable" (click)="createTrack()" *ngIf="isEditorMode">add</i>
+                        <i class="material-icons clickable" (click)="changeActiveInstrument(instrument); createTrack()" *ngIf="isEditorMode">add</i>
                     </div>
                 </li>
             </ul>
