@@ -3,7 +3,10 @@
     <div class="card silver">
         <div class="card-content">
             <div class="card-header">
-                <span class="card-title activator grey-text text-darken-4">Инструменты<i class="material-icons right">keyboard_arrow_up</i></span>
+                <span class="card-title activator grey-text text-darken-4">
+                    Инструменты
+                    <!--<i class="material-icons right">keyboard_arrow_up</i>-->
+                </span>
 
             </div>
     <!--<a class="mdl-navigation__link"
@@ -38,33 +41,33 @@
                 </li>
 
 
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">queue_music</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title">
-                            <a href="#" class="link">Drums Drums</a>
-                        </div>
-                        <div class="comment">Изменено там что-то</div>
-                        <div class="comment">2 часа назад</div>
-                    </div>
-                    <div class="collection-item__secondary">
-                        <i class="material-icons">check</i>
-                    </div>
-                </li>
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">queue_music</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title">Drums</div>
-                    </div>
-                    <div class="collection-item__secondary double">
-                        <i class="material-icons">content_copy</i>
-                        <i class="material-icons">more_vert</i>
-                    </div>
-                </li>
+                <!--<li class="collection-item">-->
+                    <!--<div class="collection-item__icon">-->
+                        <!--<i class="material-icons">queue_music</i>-->
+                    <!--</div>-->
+                    <!--<div class="collection-item__name">-->
+                        <!--<div class="collection-item__title">-->
+                            <!--<a href="#" class="link">Drums Drums</a>-->
+                        <!--</div>-->
+                        <!--<div class="comment">Изменено там что-то</div>-->
+                        <!--<div class="comment">2 часа назад</div>-->
+                    <!--</div>-->
+                    <!--<div class="collection-item__secondary">-->
+                        <!--<i class="material-icons">check</i>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="collection-item">-->
+                    <!--<div class="collection-item__icon">-->
+                        <!--<i class="material-icons">queue_music</i>-->
+                    <!--</div>-->
+                    <!--<div class="collection-item__name">-->
+                        <!--<div class="collection-item__title">Drums</div>-->
+                    <!--</div>-->
+                    <!--<div class="collection-item__secondary double">-->
+                        <!--<i class="material-icons">content_copy</i>-->
+                        <!--<i class="material-icons">more_vert</i>-->
+                    <!--</div>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
@@ -72,7 +75,7 @@
     <div class="card silver">
         <div class="card-content">
             <div class="card-header">
-                <span class="card-title activator grey-text text-darken-4">Commits<i class="material-icons right">keyboard_arrow_up</i></span>
+                <span class="card-title activator grey-text text-darken-4">Commits</span>
 
             </div>
             <ul class="collection no-margin silver collection__special">
@@ -100,23 +103,25 @@
 </div>
 <div class="col xl10 l9 m9 s9 col-board">
 
-    <div class="card silver">
+    <div class="card silver" style="min-height: 495px;">
+        <div style="position: absolute; top: 250px; left: 200px;" *ngIf="!trackList.length">В данный момент композиция пуста! Попробуйте добавить музыкальную дорожку!</div>
         <div class="card-content">
             <div class="card-header">
                 <div class="playboard-header">
                     <div class="playboard-header__left" *ngIf="activeInstrument && composition">
-									<span class="play" *ngIf="!isPlay" (click)="play()">
-										<i class="material-icons">play_circle_filled</i>
-									</span>
-                                    <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
-										<i class="material-icons">stop</i>
-									</span>
-									<span class="bpm">
-										<span class="bpm__title">BPM</span>
-										<span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
-									</span>
-                        <div class="icon-add">
-
+                        <template [ngIf]="trackList.length">
+                            <span class="play" *ngIf="!isPlay" (click)="play()">
+                                <i class="material-icons">play_circle_filled</i>
+                            </span>
+                            <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
+                                <i class="material-icons">stop</i>
+                            </span>
+                            <span class="bpm">
+                                <span class="bpm__title">BPM</span>
+                                <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
+                            </span>
+                        </template>
+                        <div class="icon-add" *ngIf="isEditorMode">
                             <span class="step" *ngFor="#sound of activeInstrument.sounds">
                                 <span class="icon circle"
                                       [ngClass]="{
@@ -128,11 +133,6 @@
                             </span>
                         </div>
                     </div>
-                    <button
-                            class="btn btn-success" type="button"
-                            *ngIf="havePermissionToEdit"
-                            (click)="changeEditorMode(!isEditorMode)"
-                    >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <div class="playboard-header__right">
                         <span *ngIf="isEditorMode" class="topbar_icon">
                             <i (click)="revertComposition()" class="material-icons clickable">settings_backup_restore</i>
@@ -147,8 +147,8 @@
                             Edit
                         </span>
                         <div class="switch">
-                            <label>
-                                <input type="checkbox">
+                            <label *ngIf="havePermissionToEdit">
+                                <input type="checkbox" [checked]="isEditorMode" (change)="changeEditorMode(!isEditorMode)">
                                 <span class="lever"></span>
                             </label>
                         </div>
@@ -177,8 +177,12 @@
                                     <div class="playboard-track__avatar">
                                         <div class="avatar"><img src="img/default_avatar.jpg"></div>
                                     </div>
-                                    <div class="playboard-track__ruler">
+                                    <div class="playboard-track__ruler" style="position: relative;">
                                         <div class="name"><span class="link">{{track.instrument.name}}</span></div>
+                                        <span class="rotate45" style="position: absolute; right: 0; top: 0;"
+                                            (click)="removeTrackByIndex(trackIndex)">
+                                            <i class="material-icons clickable">add</i>
+                                        </span>
                                         <div class="volume">
                                             <input type="range" [(ngModel)]="track.volume"
                                                    (change)="volumeChange(track)">
@@ -213,7 +217,7 @@
                         <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
                     </div>
                 </div>
-                <div class="playboard__ruler">
+                <div class="playboard__ruler" *ngIf="isEditorMode && trackList.length">
                     <i class="material-icons clickable" (click)="addSector()">add_circle</i>
                     <i class="material-icons clickable"
                        *ngIf="trackList[0]?.sectorList?.length > 1 && isEditorMode"
