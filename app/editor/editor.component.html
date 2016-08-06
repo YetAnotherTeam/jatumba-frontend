@@ -72,79 +72,22 @@
     <div class="card silver">
         <div class="card-content">
             <div class="card-header">
-                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">keyboard_arrow_up</i></span>
+                <span class="card-title activator grey-text text-darken-4">Commits<i class="material-icons right">keyboard_arrow_up</i></span>
 
             </div>
             <ul class="collection no-margin silver collection__special">
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">queue_music</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title">
-                            <span class="link">Drums Drums</span>
-                        </div>
-                    </div>
-                    <div class="collection-item__secondary double">
-                        <i class="material-icons clickable">play_arrow</i>
-                        <i class="material-icons clickable">add</i>
-                    </div>
-                </li>
-                <li class="collection-item">
+                <li *ngFor="#commit of commits" class="collection-item">
                     <div class="collection-item__icon">
                         <span class="avatar">
-                            <img src="img/ava.jpg">
+                            <img [src]="commit.author.avatar ? commit.author.avatar : '/img/default_avatar.jpg'">
                         </span>
                     </div>
                     <div class="collection-item__name">
-                        <div class="collection-item__title">Петрович</div>
-                        <div class="comment">Изменено там что-то</div>
-                        <div class="comment">2 часа назад</div>
+                        <div class="collection-item__title">{{commit.author.username}}</div>
+                        <div class="comment">commited {{timeSince(commit.create_datetime)}}</div>
                     </div>
                     <div class="collection-item__secondary">
-                        <i class="material-icons clickable">check_circle</i>
-                    </div>
-                </li>
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-								<span class="avatar">
-									<img src="img/ava.jpg">
-								</span>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title">Череззаборногузадерищенский Котейко</div>
-                        <div class="comment">Изменено там что-то</div>
-                        <div class="comment">2 часа назад</div>
-                    </div>
-                    <div class="collection-item__secondary">
-                        <i class="material-icons clickable">check_circle</i>
-                    </div>
-                </li>
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">queue_music</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title">
-                            <a href="#" class="link">Drums Drums</a>
-                        </div>
-                        <div class="comment">Изменено там что-то</div>
-                        <div class="comment">2 часа назад</div>
-                    </div>
-                    <div class="collection-item__secondary">
-                        <i class="material-icons">check</i>
-                    </div>
-                </li>
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">queue_music</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title">Drums</div>
-                    </div>
-                    <div class="collection-item__secondary double">
-                        <i class="material-icons">content_copy</i>
-                        <i class="material-icons">more_vert</i>
+                        <i (click)="showCommit(commit)" class="material-icons clickable">restore</i>
                     </div>
                 </li>
             </ul>
@@ -191,12 +134,18 @@
                             (click)="changeEditorMode(!isEditorMode)"
                     >{{ isEditorMode ? "Выкл. редактор" : "Вкл. редактор"}}</button>
                     <div class="playboard-header__right">
-									<span class="sound">
-										<i class="material-icons clickable">volume_up</i>
-									</span>
-									<span class="edit link link-grey">
-										Edit
-									</span>
+                        <span *ngIf="isEditorMode" class="topbar_icon">
+                            <i (click)="revertComposition()" class="material-icons clickable">settings_backup_restore</i>
+                        </span>
+                        <span *ngIf="isEditorMode" class="topbar_icon">
+                            <i (click)="commitComposition()" class="material-icons clickable">done</i>
+                        </span>
+                        <span class="sound">
+                            <i class="material-icons clickable">volume_up</i>
+                        </span>
+                        <span class="edit link link-grey">
+                            Edit
+                        </span>
                         <div class="switch">
                             <label>
                                 <input type="checkbox">

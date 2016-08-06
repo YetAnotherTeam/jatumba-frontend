@@ -44,6 +44,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private instrumentMapID: any;
     private diffID: number;
     private commits: any;
+    private templateRenderTime;
 
     public bpm: number;
 
@@ -70,6 +71,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.trackListID = [];
         this.havePermissionToEdit = false;
         this.isEditorMode = false;
+        this.templateRenderTime = new Date();
 
         this.instrumentMapID = {};
         this.soundMapID = {};
@@ -138,6 +140,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             // TODO Сделать норм пагинацию
             self.commits = commits.results;
         })
+
     }
 
     ngOnDestroy():any {
@@ -193,7 +196,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
     
     addSound(track: Track, indexSector, indexSound) {
-        console.log('popal')
         if (this.isCanEdit()) {
             let instrument:Instrument = this.activeInstrument;
             if (track.instrument == instrument) {
@@ -399,10 +401,37 @@ export class EditorComponent implements OnInit, OnDestroy {
             })
         });
         this._editorSocketService.commit();
+        this.templateRenderTime = new Date();
+        this._editorService.getCommits(this.id).subscribe(commits => {
+            self.commits = commits.results;
+        })
     }
 
     volumeChange(track: Track) {
         console.log(track);
+    }
+
+    timeSince(timeStamp) {
+        timeStamp = new Date(timeStamp);
+        var secondsPast = (this.templateRenderTime.getTime() - timeStamp.getTime() ) / 1000;
+        if(secondsPast < 10){
+            return 'just now';
+        }
+        if(secondsPast < 60){
+            return Math.floor(secondsPast) + ' seconds ago';
+        }
+        if(secondsPast < 3600){
+            return Math.floor(secondsPast/60) + ' minutes ago';
+        }
+        if(secondsPast <= 86400){
+            return Math.floor(secondsPast/3600) + ' hours ago';
+        }
+        if(secondsPast > 86400){
+            var day = timeStamp.getDate();
+            var month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
+            var year = timeStamp.getFullYear() == this.templateRenderTime.getFullYear() ? "" :  " "+timeStamp.getFullYear();
+            return day + " " + month + year;
+        }
     }
 
     private forkComposition(id: number) {
