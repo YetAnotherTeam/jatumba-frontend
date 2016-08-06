@@ -271,7 +271,7 @@
                         <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
                     </div>
                 </div>
-                <div class="playboard__ruler">
+                <div class="playboard__ruler" *ngIf="isEditorMode && trackList.length">
                     <i class="material-icons clickable" (click)="addSector()">add_circle</i>
                     <i class="material-icons clickable"
                        *ngIf="trackList[0]?.sectorList?.length > 1 && isEditorMode"
