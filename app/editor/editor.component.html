@@ -53,11 +53,16 @@
                 <li *ngFor="#commit of commits" class="collection-item">
                     <div class="collection-item__icon">
                         <span class="avatar">
-                            <img [src]="commit.author.avatar ? commit.author.avatar : '/img/default_avatar.jpg'">
+                            <img
+                                    [src]="commit.author.avatar ? commit.author.avatar : '/img/default_avatar.jpg'"
+                                    [routerLink]="['UserDetail', {'id': member.user.id}]"
+                            >
                         </span>
                     </div>
                     <div class="collection-item__name">
-                        <div class="collection-item__title">{{commit.author.username}}</div>
+                        <div class="collection-item__title" [routerLink]="['UserDetail', {'id': member.user.id}]">
+                            {{commit.author.username}}
+                        </div>
                         <div class="comment">commited {{timeSince(commit.create_datetime)}}</div>
                     </div>
                     <div class="collection-item__secondary">
