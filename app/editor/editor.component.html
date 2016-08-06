@@ -86,19 +86,18 @@
             <div class="card-header">
                 <div class="playboard-header">
                     <div class="playboard-header__left" *ngIf="activeInstrument && composition">
-                        <template [ngIf]="trackList.length">
-                            <span class="play" *ngIf="!isPlay" (click)="play()">
-                                <i class="material-icons">play_circle_filled</i>
-                            </span>
-                            <span class="play" *ngIf="isPlay" (click)="stop()" style="color: black;">
-                                <i class="material-icons">stop</i>
-                            </span>
-                        </template>
-                        <span *ngIf="trackList.length" class="bpm">
+                        <span class="play" *ngIf="!isPlay" [style.visibility]="trackList.length ? 'visible' : 'hidden'" (click)="play()"
+                        >
+                            <i class="material-icons">play_circle_filled</i>
+                        </span>
+                        <span class="play" *ngIf="isPlay" [style.visibility]="trackList.length ? 'visible' : 'hidden'" (click)="stop()" style="color: black;">
+                            <i class="material-icons">stop</i>
+                        </span>
+
+                        <span class="bpm" [style.visibility]="trackList.length ? 'visible' : 'hidden'">
                             <span class="bpm__title">BPM</span>
                             <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
                         </span>
-
                         <div class="icon-add" *ngIf="isEditorMode">
                             <span class="step" *ngFor="#sound of activeInstrument.sounds">
                                 <span class="icon circle"
@@ -189,7 +188,6 @@
                                                           *ngIf="soundIndex < block && soundIndex >= block - 4"
                                                     ></span>
                                                 </template>
-
                                             </div>
                                         </div>
                                     </div>
