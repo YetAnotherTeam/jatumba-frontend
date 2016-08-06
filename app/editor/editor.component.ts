@@ -58,8 +58,11 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _userService: UserService,
                 params: RouteParams) {
         var self = this;
+        console.log('dsad')
         this._authService.isAuth().then(function(isAuth) {
+            console.log('dsadasdsad')
             if (!isAuth) {
+                console.log('d312312')
                 self._router.navigate(['Login']);
             }
         });
@@ -84,8 +87,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         var self = this;
 
         this.bpm = 60;
-
-        $('#modal1').openModal();
 
         let metronomeSoundList = [];
 
@@ -149,7 +150,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     closeModal() {
-        $('#modal1').closeModal();
+        $('#forkModal').closeModal();
     }
     
     changeActiveInstrument(instrument: Instrument) {
@@ -462,10 +463,15 @@ export class EditorComponent implements OnInit, OnDestroy {
             return day + " " + month + year;
         }
     }
+    
+    private openForkDialogue() {
+        $('#forkModal').openModal();
+    }
 
     private forkComposition(id: number) {
         var self = this;
         this._editorService.forkComposition(this.selectedVersion, id).subscribe(response =>{
+            self.closeModal();
             self._router.navigate(['Editor', {id: response.destination_composition.id}])
         })
     }
