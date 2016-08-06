@@ -1,16 +1,17 @@
-import {$WebSocket} from "../editor/websocket";
+import {$WebSocket} from "../../editor/websocket";
 import {Injectable} from "angular2/core";
+import {BaseWebSocketService} from "../../base/base.websocket.service";
 
 
 @Injectable()
-export class ChatSocketService {
-
-    private href = "ws://p30112.lab1.stud.tech-mail.ru/ws/chat/";
-
-    //private href = "http://localhost:8888/api/";
+export class ChatSocketService extends BaseWebSocketService {
+    private href: string;
     private socket;
 
-    constructor() {}
+    constructor() {
+        super();
+        this.href = this.baseWebSocketUrl + 'chat/';
+    }
 
     send(message: string) {
         this.socket.send(message)
@@ -22,7 +23,8 @@ export class ChatSocketService {
 
     start(id: number, f: any, context: any) {
         this.socket = new $WebSocket(this.href + id + '/');
-        while (!this.socket.getReadyState()) {}
+        while (!this.socket.getReadyState()) {
+        }
 
         this.socket.onMessage(f, context);
 
@@ -37,7 +39,7 @@ export class ChatSocketService {
         var data = {
             text: message
         };
-        
+
         this.socket.send(ChatSocketService.createMessage("publish", data));
     }
 

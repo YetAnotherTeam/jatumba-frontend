@@ -1,22 +1,18 @@
-import {Injectable} from 'angular2/core'
-import {Http, Headers} from "angular2/http";
 import {AppComponent} from "../app.component";
+import {Injectable} from "angular2/core";
+import {Http} from "angular2/http";
 import {Band} from "./band";
+import {BaseAPIService} from "../base/base.api.service";
 
 @Injectable()
-export class BandService {
-    private _headers: Headers;
-
-    private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
-
+export class BandService extends BaseAPIService {
     constructor(private _http: Http) {
-        this._headers = new Headers();
-        this._headers.append('Content-Type', 'application/json');
+        super();
         this._headers.append('token', localStorage.getItem('access_token'));
     }
-    
+
     create(name: string, description: string) {
-        return this._http.post(this.href + 'band/', JSON.stringify({
+        return this._http.post(this.baseAPIUrl + 'band/', JSON.stringify({
             name: name,
             description: description
         }), this.getHeaders())
@@ -24,15 +20,15 @@ export class BandService {
     }
 
     list() {
-        return this._http.get(this.href + 'band/', this.getHeaders()).map(res => res.json())
+        return this._http.get(this.baseAPIUrl + 'band/', this.getHeaders()).map(res => res.json())
     }
 
     get(id: number) {
-        return this._http.get(this.href + 'band/' + id + '/', this.getHeaders()).map(res => res.json())
+        return this._http.get(this.baseAPIUrl + 'band/' + id + '/', this.getHeaders()).map(res => res.json())
     }
 
     update(band: Band) {
-        return this._http.put(this.href + 'band/' + band.id + '/', JSON.stringify({
+        return this._http.put(this.baseAPIUrl + 'band/' + band.id + '/', JSON.stringify({
             name: band.name,
             description: band.description
         }), this.getHeaders())
@@ -40,7 +36,7 @@ export class BandService {
     }
 
     join(band_id: number, instrument_id?: number) {
-        return this._http.post(this.href + 'member/', JSON.stringify({
+        return this._http.post(this.baseAPIUrl + 'member/', JSON.stringify({
             band: band_id,
             instrument: instrument_id
         }), this.getHeaders())
@@ -48,14 +44,10 @@ export class BandService {
     }
 
     members_list(band_id: number) {
-        return this._http.get(this.href + 'member/?band=' + band_id, this.getHeaders()).map(res => res.json())
-    }
-    
-    composition_list(band_id: number) {
-        return this._http.get(this.href + 'composition/?band=' + band_id, this.getHeaders()).map(res => res.json());
+        return this._http.get(this.baseAPIUrl + 'member/?band=' + band_id, this.getHeaders()).map(res => res.json())
     }
 
-    private getHeaders() {
-        return {headers: this._headers}
+    composition_list(band_id: number) {
+        return this._http.get(this.baseAPIUrl + 'composition/?band=' + band_id, this.getHeaders()).map(res => res.json());
     }
 }

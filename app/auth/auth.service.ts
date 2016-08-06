@@ -1,129 +1,116 @@
-import {Injectable} from 'angular2/core'
-import {Http, Headers} from "angular2/http";
 import {AppComponent} from "../app.component";
+import {Injectable} from "angular2/core";
+import {Http, Headers} from "angular2/http";
 import {User} from "../user/user";
+import {BaseAPIService} from "../base/base.api.service";
 
 @Injectable()
-export class AuthService {
-
-    private _headers: Headers;
-
-    private href = "http://p30112.lab1.stud.tech-mail.ru/api/";
-
-    //private href = "http://localhost:8888/api/";
+export class AuthService extends BaseAPIService {
     private _auth: boolean = false;
 
-
-
     constructor(private _http: Http) {
-        this._headers = new Headers();
-        this._headers.append('Content-Type', 'application/json');
+        super();
     }
 
-    register(username:string, password:string) {
+    register(username: string, password: string) {
         var register_headers = new Headers();
         register_headers.append('Content-Type', 'multipart/form-data');
         var headers = {headers: register_headers};
-        return this._http.post(this.href + 'user/sign_up/', JSON.stringify({
+        return this._http.post(this.baseAPIUrl + 'user/sign_up/', JSON.stringify({
             username: username,
             password: password
         }), headers)
             .map(res => res.json())
             .do(data => {
-                this._auth = true;
-                localStorage.setItem('access_token', data['session']['access_token']);
-                localStorage.setItem('refresh_token', data['session']['refresh_token']);
-                localStorage.setItem('user', JSON.stringify(data['user']));
-                return data;
-            },
-            error => {
-                return {'error': error['username']}
-            }
-        )
-    }
-
-    login(username:string, password:string) {
-        return this._http.post(this.href + 'user/sign_in/', JSON.stringify({
-                username: username,
-                password: password
-            }), this.getHeaders())
-            .map(res => res.json())
-            .do(data => {
-                console.log('data', data);
-                this._auth = true;
-                localStorage.setItem('access_token', data['session']['access_token']);
-                localStorage.setItem('refresh_token', data['session']['refresh_token']);
-                localStorage.setItem('user', JSON.stringify(data['user']));
-                return data;
-            },
-            error => {
-                return error
-            }
-        )
-    }
-
-    vkAuth(token: string, username?:string) {
-        return this._http.post(this.href + 'sign_up/vk/', JSON.stringify({
-            token: token,
-            username: username
-        }), this.getHeaders())
-            .map(res => res.json())
-            .do(data => {
-                console.log('data', data);
-                this._auth = true;
-                localStorage.setItem('access_token', data['session']['access_token']);
-                localStorage.setItem('refresh_token', data['session']['refresh_token']);
-                localStorage.setItem('user', JSON.stringify(data['user']));
-                return data;
-            }
-        )
-    }
-
-    fbAuth(token: string, username?:string) {
-        return this._http.post(this.href + 'sign_up/fb/', JSON.stringify({
-            token: token,
-            username: username
-        }), this.getHeaders())
-            .map(res => res.json())
-            .do(data => {
-                console.log('data', data);
-                this._auth = true;
-                localStorage.setItem('access_token', data['session']['access_token']);
-                localStorage.setItem('refresh_token', data['session']['refresh_token']);
-                localStorage.setItem('user', JSON.stringify(data['user']));
-                return data;
-            },
+                    this._auth = true;
+                    localStorage.setItem('access_token', data['session']['access_token']);
+                    localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                    localStorage.setItem('user', JSON.stringify(data['user']));
+                    return data;
+                },
                 error => {
-                return error
-            }
-        )
+                    return {'error': error['username']}
+                }
+            )
+    }
+
+    login(username: string, password: string) {
+        return this._http.post(this.baseAPIUrl + 'user/sign_in/', JSON.stringify({
+            username: username,
+            password: password
+        }), this.getHeaders())
+            .map(res => res.json())
+            .do(data => {
+                    console.log('data', data);
+                    this._auth = true;
+                    localStorage.setItem('access_token', data['session']['access_token']);
+                    localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                    localStorage.setItem('user', JSON.stringify(data['user']));
+                    return data;
+                },
+                error => {
+                    return error
+                }
+            )
+    }
+
+    vkAuth(token: string, username?: string) {
+        return this._http.post(this.baseAPIUrl + 'sign_up/vk/', JSON.stringify({
+            token: token,
+            username: username
+        }), this.getHeaders())
+            .map(res => res.json())
+            .do(data => {
+                    console.log('data', data);
+                    this._auth = true;
+                    localStorage.setItem('access_token', data['session']['access_token']);
+                    localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                    localStorage.setItem('user', JSON.stringify(data['user']));
+                    return data;
+                }
+            )
+    }
+
+    fbAuth(token: string, username?: string) {
+        return this._http.post(this.baseAPIUrl + 'sign_up/fb/', JSON.stringify({
+            token: token,
+            username: username
+        }), this.getHeaders())
+            .map(res => res.json())
+            .do(data => {
+                    console.log('data', data);
+                    this._auth = true;
+                    localStorage.setItem('access_token', data['session']['access_token']);
+                    localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                    localStorage.setItem('user', JSON.stringify(data['user']));
+                    return data;
+                },
+                error => {
+                    return error
+                }
+            )
     }
 
     isAuth() {
         var self = this;
-        return new Promise(function(resolve, reject) {
-            self._http.post(self.href + 'user/is_authenticated/', JSON.stringify({
-                    access_token: localStorage.getItem('access_token'),
-                }), self.getHeaders())
+        return new Promise(function (resolve, reject) {
+            self._http.post(self.baseAPIUrl + 'user/is_authenticated/', JSON.stringify({
+                access_token: localStorage.getItem('access_token'),
+            }), self.getHeaders())
                 .map(res => res.json())
                 .do(data => {
                     self._auth = true;
                     localStorage.setItem('user', JSON.stringify(data['user']));
                     return data;
                 })
-                .toPromise().then( res => resolve(self._auth))
+                .toPromise().then(res => resolve(self._auth))
         })
 
     }
 
     getUser(): Promise<User> {
-        return this.isAuth().then(function(){
+        return this.isAuth().then(function () {
             return JSON.parse(localStorage.getItem('user'))
         })
-    }
-
-
-    private getHeaders() {
-        return {headers: this._headers}
     }
 }

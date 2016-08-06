@@ -1,34 +1,52 @@
-<div *ngIf="band">
-<div *ngIf="!isEditMode">
-    <h1>{{band.name}}</h1>
-    <button *ngIf="isLeader" (click)="edit()">Редактировать</button>
-    <main>
-        <div>{{band.description}}</div>
-        <br>
-        <div *ngIf="memberList">
-            <div *ngFor="#member of memberList">
-                <a class="collection-item" [routerLink]="['UserDetail', {'id': member.user.id}]">
-                    <strong>{{member.user.username}}</strong> <br>
-                </a>
-                <p>
-                    {{member.user.first_name}} {{member.user.last_name}} - {{member.instrument}}
-                </p>
+<div class="container" *ngIf="band">
+    <div class="row" style="margin-top: 15px;" *ngIf="!isEditMode">
+        <div class="col s10 offset-s1">
+            <div class="card">
+                <div class="card-image">
+                    <img src="/img/default_band.jpg">
+                    <span class="card-title">{{band.name}}</span>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s7">
+                            <h6 style="margin-bottom: 5px;">
+                               Description
+                            </h6>
+                            <p class="description" >
+                                {{band.description}}
+                            </p>
+                            <h6 style="margin-top: 20px">
+                                Tracks
+                            </h6>
+                            <div *ngIf="compositionList" class="collection">
+                                <a *ngFor="#composition of compositionList" class="collection-item"
+                                   [routerLink]="['Editor', {'id': composition.id}]">
+                                    {{composition.name}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col s4 offset-s1">
+                            <h6 style="margin-bottom: 15px;">
+                                Members
+                            </h6>
+                            <div *ngFor="#member of memberList" class="member">
+                                <img class="avatar user-avatar"
+                                     [src]="member.user.avatar ? member.user.avatar : '/img/default_avatar.jpg'"
+                                     [routerLink]="['UserDetail', {'id': member.user.id}]"
+                                >
+                                <a class="username" [routerLink]="['UserDetail', {'id': member.user.id}]">{{member.user.username}}</a>
+                                <p class="full_name">{{member.user.first_name}} {{member.user.last_name}}</p>
+                            </div>
+                            <div *ngIf="!isJoined" class="member band_join">
+                                <div (click)="onJoinButton()" class="avatar user-avatar band_join_image"></div>
+                                <a (click)="onJoinButton()" class="band_join_text">Join this band</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div *ngIf="!isJoined">
-            <button (click)="onJoinButton()">Присоединиться</button>
-        </div>
-        <div *ngIf="compositionList">
-            <div *ngFor="#composition of compositionList">
-                <a class="collection-item" [routerLink]="['Editor', {'id': composition.id}]">
-                    {{composition.name}}
-                </a>
-            </div>
-        </div>
-
-    </main>
-    <chat-component *ngIf="isJoined" [band]="band"></chat-component>
-</div>
+    </div>
 
 <div *ngIf="isEditMode">
     <div class="form-group">

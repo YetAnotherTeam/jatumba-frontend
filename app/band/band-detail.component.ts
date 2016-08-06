@@ -1,16 +1,17 @@
-import {Component, OnInit, NgZone} from 'angular2/core';
-import {Band} from './band'
-import {Composition} from './composition'
-import {Member} from './member'
+import {Component, OnInit, NgZone} from "angular2/core";
+import {Band} from "./band";
+import {Composition} from "./composition";
+import {Member} from "./member";
 import {BandService} from "./band.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
-import {ChatComponent} from "../components/chat.component";
+import {ChatComponent} from "../components/chat/chat.component";
 
 
 @Component({
     selector: 'band-card',
     templateUrl: `app/band/band-detail.component.html`,
+    styleUrls: ['app/band/band-create.component.css'],
     providers: [BandService],
     directives: [ROUTER_DIRECTIVES, ChatComponent],
 })

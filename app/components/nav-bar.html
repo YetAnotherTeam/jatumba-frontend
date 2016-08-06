@@ -1,10 +1,10 @@
 <nav>
     <div class="nav-wrapper white">
-        <a href="#" class="brand-logo"><i class="material-icons">music_note</i></a>
+        <a href="/" class="brand-logo"><i class="material-icons">music_note</i></a>
         <ul id="nav-mobile" class="right">
             <div class="user-panel">
 				<span class="avatar">
-					<img src="img/default_avatar.jpg">
+					<img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
 				</span>
                 <i class="material-icons clickable">more_vert</i>
             </div>

@@ -7,7 +7,7 @@ import {Track} from "./track.model";
 import * as howler from "howler";
 import {Band} from "../band/band";
 import {Composition} from "../band/composition";
-import {ChatComponent} from "../components/chat.component";
+import {ChatComponent} from "../components/chat/chat.component";
 import {UserService} from "../user/user.service";
 
 @Component({
@@ -174,7 +174,8 @@ export class EditorComponent implements OnInit, OnDestroy {
             this.trackList.push({
                 id: id,
                 instrument: this.activeInstrument,
-                sectorList: sectorList
+                sectorList: sectorList,
+                volume: 100
             });
             this.trackListID.push(sectorListID);
             this.sendTrackDiff('test');
@@ -460,7 +461,8 @@ export class EditorComponent implements OnInit, OnDestroy {
             self.trackList.push({
                 id: self.trackListID.length - 1,
                 instrument: self.instrumentMapID[track.instrument],
-                sectorList: track_list
+                sectorList: track_list,
+                volume: 100
             });
         });
     }

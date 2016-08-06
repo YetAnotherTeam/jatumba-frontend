@@ -1,0 +1,79 @@
+.description {
+    font-size: 12px;
+}
+
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    float: left;
+    cursor: pointer;
+}
+
+.member {
+    margin-bottom: 15px;
+    height: 50px;
+    width: 100%;
+}
+
+.member:last-child {
+    margin-top: 10px;
+}
+
+.full_name {
+    font-size: 12px;
+    color: grey !important;
+}
+
+.username {
+    color: black;
+}
+
+.band-list_card {
+    padding: 30px;
+}
+
+.band_name {
+    margin-bottom: 15px;
+}
+
+.band_name:hover {
+    color: #fb1a51;
+}
+
+.user_counter {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.user_counter:nth-child(2n) {
+    margin-right: 10px;
+}
+
+.band_list_item {
+    margin-bottom: 40px;
+}
+
+.band_list_item:last-child {
+    margin-bottom: 0;
+}
+
+.band_join_image {
+    border: 2px grey dashed;
+    background: url("/img/add.png") no-repeat center;
+}
+
+.band_join {
+    overflow: hidden;
+}
+
+.band_join_text {
+    margin-top: 9px;
+    display: block;
+    color: grey;
+}
+
+.band_join_text:hover {
+    color: grey;
+}

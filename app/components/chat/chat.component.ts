@@ -1,14 +1,15 @@
 import {Component, Input, NgZone} from 'angular2/core';
-import {AuthService} from "../auth/auth.service";
+import {AuthService} from "../../auth/auth.service";
 import {ROUTER_DIRECTIVES} from "angular2/router"
 import {Router} from "angular2/router";
 import {ChatSocketService } from './chat.service'
-import {Band} from "../band/band";
+import {Band} from "../../band/band";
+import {Message} from "./models/message";
 
 @Component({
     selector: 'chat-component',
-    templateUrl: '/app/components/chat.html',
-    styleUrls: ['app/components/chat.component.css'],
+    templateUrl: '/app/components/chat/chat.html',
+    styleUrls: ['app/components/chat/chat.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [AuthService, ChatSocketService]
 })
@@ -40,11 +41,7 @@ export class ChatComponent {
     }
 
     setMessage(message_data: any) {
-        var message = {
-            author: message_data.author.first_name + ' ' + message_data.author.last_name,
-            content: message_data.text,
-            time: this.date.getHours() + ':' + this.date.getMinutes()
-        };
+        var message = new Message(message_data);
         if (this.messages.length > 20) {
             this.messages.shift();
         }
@@ -59,11 +56,7 @@ export class ChatComponent {
     setStartingMessages(data: any) {
         var self = this;
         data.messages.slice(Math.max(data.messages.length - 20, 1)).forEach(function (message_data) {
-                var message = {
-                    author: message_data.author.first_name + ' ' + message_data.author.last_name,
-                    content: message_data.text,
-                    time: self.date.getHours() + ':' + self.date.getMinutes()
-                };
+                var message = new Message(message_data);
                 self.messages.push(message);
         });
     }

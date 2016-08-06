@@ -1,7 +1,6 @@
-import {Component, OnInit, NgZone} from 'angular2/core';
+import {Component, OnInit, NgZone} from "angular2/core";
 import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
-import {AppComponent} from "../app.component";
 @Component({
     selector: 'login',
     templateUrl: '/app/auth/login.component.html',
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     constructor(private _authService: AuthService, private _router: Router, private _ngZone: NgZone) {
         var self = this;
-        this._authService.isAuth().then(function(isAuth) {
+        this._authService.isAuth().then(function (isAuth) {
             if (isAuth) {
                 self._router.navigate(['UserList'])
             }
@@ -60,13 +59,13 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 account => {
                     self._router.navigate(['UserDetail', {id: account.user.id}])
-            },
+                },
                 e => {
-                if (e.status == 400) {
-                    self.toggleSocialInput('vk');
+                    if (e.status == 400) {
+                        self.toggleSocialInput('vk');
+                    }
                 }
-            }
-        )
+            )
     }
 
     onFbAuthButton() {
@@ -84,14 +83,14 @@ export class LoginComponent implements OnInit {
             .fbAuth(token)
             .subscribe(
                 account => {
-                self._router.navigate(['UserDetail', {id: account.user.id}])
-            },
+                    self._router.navigate(['UserDetail', {id: account.user.id}])
+                },
                 e => {
                     if (e.status == 400) {
                         self.toggleSocialInput('fb');
                     }
                 }
-        )
+            )
     }
 
     toggleSocialInput(provider: string) {
@@ -133,13 +132,11 @@ export class LoginComponent implements OnInit {
 
     login() {
         let self = this;
-        this._authService.login(this._login, this._password).subscribe(function(data) {
-            self._router.navigate(['UserDetail', {id: data.user.id}])
-        }, function(error) {
+        this._authService.login(this._login, this._password).subscribe(function (data) {
+                self._router.navigate(['UserDetail', {id: data.user.id}])
+            }, function (error) {
                 this.login_error = error;
             }
         );
     }
-
-
 }
