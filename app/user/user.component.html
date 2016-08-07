@@ -1,90 +1,145 @@
-<div class="col-lg-2 col-sm-2"></div>
-<div class="col-lg-8 col-sm-8" *ngIf="user && !isEditModeOn">
-  <div class="card">
-    <div class="hovercard">
-        <div class="card-background">
-            <img class="card-bkimg" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
-        </div>
-        <div class="useravatar">
-            <img alt="" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
-        </div>
-        <div class="card-info">
-            <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
+<div *ngIf="user" class="row">
+    <div class="col s6 offset-s3">
+        <div class="card" style="padding-bottom: 30px;">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s3">
+                        <img class="avatar" style="width: 100px; height: 100px; float: right" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+                    </div>
+                    <div class="col s8">
+                        <h5 style="color: #fb1a51">@{{user.username}}</h5>
+                        <h6 style="color: #ddd;">{{user.first_name}} {{user.last_name}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s3">
+                    <p style="color: #777; float: right; margin-top: 4px;">Bands</p>
+                </div>
+                <div class="col s8">
+                    <div *ngFor="#member of user.members" class="chip" style="margin-right: 5px; margin-bottom: 5px; cursor: pointer;" [routerLink]="['BandDetail', {'id': member.band.id}]">
+                        {{member.band.name}}
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="user.fb_profile || user.vk_profile" class="row">
+                <div class="col s3">
+                    <p style="color: #777; float: right;">Social</p>
+                </div>
+                <div class="col s8">
+                    <div *ngIf="user.vk_profile">
+                        <a href="https://vk.com/id{{user.vk_profile}}">
+                            vk.com/id{{user.vk_profile}}
+                        </a>
+                    </div>
+                    <div *ngIf="user.fb_profile">
+                        <a href="https://facebook.com/{{user.fb_profile}}">
+                            facebook.com/{{user.fb_profile}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+            <div class="collection">
+                <a class="collection-item" *ngFor="#composition of compositions" [routerLink]="['Editor', {'id': composition.id}]">
+                    {{composition.name}}
+                </a>
+            </div>
+            </div>
         </div>
     </div>
-    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-        <div class="btn-group" role="group">
-            <button (click)="changeTab('info')" type="button" id="stars"
-                    [ngClass]="{btn: true, 'btn-success': tab == 'info'}" href="#tab1"
-                    data-toggle="tab">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <div class="hidden-xs">Информация</div>
-            </button>
-        </div>
-        <div class="btn-group" role="group">
-            <button (click)="changeTab('bands')" type="button" id="favorites"
-                    [ngClass]="{btn: true, 'btn-success': tab == 'bands'}" href="#tab2"
-                    data-toggle="tab">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <div class="hidden-xs">Банды</div>
-            </button>
-        </div>
-        <div class="btn-group" role="group">
-            <button (click)="changeTab('compositions')" type="button" id="following"
-                    [ngClass]="{btn: true, 'btn-success': tab == 'compositions'}" href="#tab3"
-                    data-toggle="tab">
-                <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
-                <div class="hidden-xs">Композиции</div>
-            </button>
-        </div>
-    </div>
+</div>
 
-    <div class="well">
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="tab1">
-                <div><h2>@{{user.username}}</h2></div>
-                <div *ngIf="user.vk_profile">
-                    <a href="http://vk.com/id{{user.vk_profile}}">
-                        <i class="fa fa-vk" aria-hidden="true"></i>
-                        {{user.vk_profile}}
-                    </a>
-                </div>
-                <div *ngIf="user.fb_profile">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                    {{user.fb_profile}}
-                </div>
-            </div>
-            <div class="tab-pane fade in" id="tab2">
-                <div class="list-group">
-                    <a *ngFor="#member of user.members" class="list-group-item"
-                       [routerLink]="['BandDetail', {'id': member.band.id}]">
-                        <strong>{{member.band.name}}</strong> <br>
-                    </a>
-                </div>
-            </div>
-            <div class="tab-pane fade in" id="tab3">
-                <div class="list-group">
-                    <a *ngFor="#composition of compositions" class="list-group-item"
-                       [routerLink]="['Editor', {'id': composition.id}]">
-                        <strong>{{composition.name}}</strong>
-                        <br>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<script type="application/javascript">
-    $(document).ready(function () {
-        $(".btn-pref .btn").click(function () {
-            $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-            // $(".tab").addClass("active"); // instead of this do the below
-            $(this).removeClass("btn-default").addClass("btn-primary");
-        });
-    });
-</script>
-<div class="col-lg-3 col-sm-3"></div>
+
+
+
+<!--<div class="col-lg-2 col-sm-2"></div>-->
+<!--<div class="col-lg-8 col-sm-8" *ngIf="user && !isEditModeOn">-->
+  <!--<div class="card">-->
+    <!--<div class="hovercard">-->
+        <!--<div class="card-background">-->
+            <!--<img class="card-bkimg" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">-->
+        <!--</div>-->
+        <!--<div class="useravatar">-->
+            <!--<img alt="" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">-->
+        <!--</div>-->
+        <!--<div class="card-info">-->
+            <!--<span class="card-title">{{user.first_name}} {{user.last_name}}</span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">-->
+        <!--<div class="btn-group" role="group">-->
+            <!--<button (click)="changeTab('info')" type="button" id="stars"-->
+                    <!--[ngClass]="{btn: true, 'btn-success': tab == 'info'}" href="#tab1"-->
+                    <!--data-toggle="tab">-->
+                <!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>-->
+                <!--<div class="hidden-xs">Информация</div>-->
+            <!--</button>-->
+        <!--</div>-->
+        <!--<div class="btn-group" role="group">-->
+            <!--<button (click)="changeTab('bands')" type="button" id="favorites"-->
+                    <!--[ngClass]="{btn: true, 'btn-success': tab == 'bands'}" href="#tab2"-->
+                    <!--data-toggle="tab">-->
+                <!--<span class="glyphicon glyphicon-user" aria-hidden="true"></span>-->
+                <!--<div class="hidden-xs">Банды</div>-->
+            <!--</button>-->
+        <!--</div>-->
+        <!--<div class="btn-group" role="group">-->
+            <!--<button (click)="changeTab('compositions')" type="button" id="following"-->
+                    <!--[ngClass]="{btn: true, 'btn-success': tab == 'compositions'}" href="#tab3"-->
+                    <!--data-toggle="tab">-->
+                <!--<span class="glyphicon glyphicon-music" aria-hidden="true"></span>-->
+                <!--<div class="hidden-xs">Композиции</div>-->
+            <!--</button>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="well">-->
+        <!--<div class="tab-content">-->
+            <!--<div class="tab-pane fade in active" id="tab1">-->
+                <!--<div><h2>@{{user.username}}</h2></div>-->
+                <!--<div *ngIf="user.vk_profile">-->
+                    <!--<a href="http://vk.com/id{{user.vk_profile}}">-->
+                        <!--<i class="fa fa-vk" aria-hidden="true"></i>-->
+                        <!--{{user.vk_profile}}-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<div *ngIf="user.fb_profile">-->
+                    <!--<i class="fa fa-facebook" aria-hidden="true"></i>-->
+                    <!--{{user.fb_profile}}-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="tab-pane fade in" id="tab2">-->
+                <!--<div class="list-group">-->
+                    <!--<a *ngFor="#member of user.members" class="list-group-item"-->
+                       <!--[routerLink]="['BandDetail', {'id': member.band.id}]">-->
+                        <!--<strong>{{member.band.name}}</strong> <br>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="tab-pane fade in" id="tab3">-->
+                <!--<div class="list-group">-->
+                    <!--<a *ngFor="#composition of compositions" class="list-group-item"-->
+                       <!--[routerLink]="['Editor', {'id': composition.id}]">-->
+                        <!--<strong>{{composition.name}}</strong>-->
+                        <!--<br>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<script type="application/javascript">-->
+    <!--$(document).ready(function () {-->
+        <!--$(".btn-pref .btn").click(function () {-->
+            <!--$(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");-->
+            <!--// $(".tab").addClass("active"); // instead of this do the below-->
+            <!--$(this).removeClass("btn-default").addClass("btn-primary");-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+<!--<div class="col-lg-3 col-sm-3"></div>-->
 
 
 <button *ngIf="!isEditModeOn && isCanEdit" (click)="changeEditMode(true)">
