@@ -60,10 +60,8 @@ export class BandDetailComponent implements OnInit {
                 })
         });
         this._bandService.composition_list(this.id).subscribe((compositionList: any) => {
-            this._ngZone.run(() => {
-                this.compositionList = compositionList.results;
-                this.compositionListPaginationInfo = compositionList
-            })
+            this.compositionList = compositionList.results;
+            this.compositionListPaginationInfo = compositionList
         });
     }
 
