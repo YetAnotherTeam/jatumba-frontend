@@ -547,20 +547,40 @@ export class EditorComponent implements OnInit, OnDestroy {
                 break;
             }
             case 'history_down': {
-                self.diffID = message.data.id;
-                self._parseComposition(message.data.tracks);
+                if (message.status == 200) {
+                    Materialize.toast('Undo', 4000);
+                    self.diffID = message.data.id;
+                    self._parseComposition(message.data.tracks);
+                } else if (message.status == 404) {
+                    Materialize.toast(message.deteail)
+                } else {
+                    Materialize.toast('Oops, something went wrong')
+                }
                 break;
             }
             case 'history_up': {
-                self.diffID = message.data.id;
-                self._parseComposition(message.data.tracks);
+                if (message.status == 200) {
+                    Materialize.toast('Undo', 4000);
+                    self.diffID = message.data.id;
+                    self._parseComposition(message.data.tracks);
+                } else if (message.status == 404) {
+                    Materialize.toast(message.deteail)
+                } else {
+                    Materialize.toast('Oops, something went wrong')
+                }
                 break;
             }
             case 'commit': {
-                self.templateRenderTime = new Date();
-                self._editorService.getCommits(self.id).subscribe(commits => {
-                    self.commits = commits.results;
-                })
+                if (message.status == 201) {
+                    Materialize.toast('Commit successful', 4000);
+                    self.templateRenderTime = new Date();
+                    self._editorService.getCommits(self.id).subscribe(commits => {
+                        self.commits = commits.results;
+                    })
+                } else {
+                    Materializer.toast(message.detail[0])
+                }
+                break;
             }
         }
     }

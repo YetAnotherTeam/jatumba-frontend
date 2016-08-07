@@ -4,7 +4,7 @@
         <div class="card-content">
             <div class="card-header">
                 <span class="card-title activator grey-text text-darken-4">
-                    Инструменты
+                    Instruments
                     <!--<i class="material-icons right">keyboard_arrow_up</i>-->
                 </span>
 
@@ -125,7 +125,7 @@
                                 <i (click)="openForkDialogue()" class="material-icons clickable">call_split</i>
                             </span>
                             <span *ngIf="havePermissionToEdit" class="edit link link-grey" (click)="changeEditorMode(!isEditorMode)">
-                                Режим редактирования
+                                 Edit
                             </span>
                             <div class="switch">
                                 <label *ngIf="havePermissionToEdit">
@@ -209,15 +209,17 @@
     </div>
 </div>
 
-<chat-component *ngIf="composition" [band]="composition.band"></chat-component>
+<chat-component *ngIf="composition && havePermissionToEdit" [band]="composition.band"></chat-component>
 
-<div *ngIf="user" id="forkModal" class="modal modal-fixed-footer">
+<div *ngIf="user && composition" id="forkModal" class="modal modal-fixed-footer">
     <div class="modal-content">
         <h4>Choose band where you want to fork this composition</h4>
         <div class="collection">
-            <a *ngFor="#member of user.members" class="collection-item" (click)="forkComposition(member.band.id)">
+            <template ngFor #member [ngForOf]="user.members">
+            <a *ngIf="member.band.name != composition.band.name" class="collection-item" (click)="forkComposition(member.band.id)">
                 {{member.band.name}}
             </a>
+            </template>
         </div>
     </div>
     <div class="modal-footer">
