@@ -77,3 +77,14 @@
 .band_join_text:hover {
     color: grey;
 }
+
+.add_composition {
+    border: dashed 1px #ddd;
+    margin-top: 0;
+    border-top: hidden;
+    height: 42px;
+}
+
+.add_composition:hover {
+    background-color: #ebebeb;
+}

@@ -547,7 +547,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             }
             case 'history_down': {
                 if (message.status == 200) {
-                    Materialize.toast('Undo', 4000);
+                    Materialize.toast('Redo', 4000);
                     self.diffID = message.data.id;
                     self._parseComposition(message.data.tracks);
                 } else if (message.status == 404) {

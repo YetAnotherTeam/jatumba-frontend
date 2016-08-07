@@ -50,4 +50,12 @@ export class BandService extends BaseAPIService {
     composition_list(band_id: number) {
         return this._http.get(this.baseAPIUrl + 'composition/?band=' + band_id, this.getHeaders()).map(res => res.json());
     }
+
+    composition_create(name: string, band: number) {
+        return this._http.post(this.baseAPIUrl + 'composition/', JSON.stringify({
+            band: band,
+            name: name
+        }), this.getHeaders())
+            .map(res => res.json())
+    }
 }
