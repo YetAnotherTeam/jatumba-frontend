@@ -112,6 +112,11 @@
                     </div>
 
                     <div class="playboard-header__right">
+                            <span class="volume" style="margin-right: 20px;">
+                                <i class="material-icons clickable" style="position: relative; top: 9px;">volume_up</i>
+                                <input type="range" [(ngModel)]="globalVolume" style="width: 100px;"
+                                       (change)="volumeChange()">
+                            </span>
                             <span *ngIf="isEditorMode" class="topbar_icon">
                                 <i (click)="revertComposition()" class="material-icons clickable">settings_backup_restore</i>
                             </span>
