@@ -25,9 +25,12 @@ export class LoginComponent implements OnInit {
 
     constructor(private _authService: AuthService, private _router: Router, private _ngZone: NgZone) {
         var self = this;
-        this._authService.isAuth().then(function (isAuth) {
+        this._authService.isAuth().then((isAuth) => {
             if (isAuth) {
-                self._router.navigate(['UserList'])
+                this._authService.getUser().then((user) => {
+                    this._router.navigate(['UserDetail', {id: user.id}])
+                })
+
             }
         })
     }
