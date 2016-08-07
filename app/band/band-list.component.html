@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     </template>
-                    <div *ngIf="!(bandList?.length) && isListLoaded" style="color: #999">
+                    <div *ngIf="bandList?.length == 0 && isListLoaded" style="color: #999">
                         No bands were found. How about <a (click)="openNewBandDialogue()">adding one</a>?
                     </div>
                 </div>
