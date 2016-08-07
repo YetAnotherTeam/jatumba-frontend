@@ -4,6 +4,7 @@ import {UserService} from "./user.service";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 import {Composition} from "../band/composition";
+import {DatetimeUtils} from "../utils/datetime";
 
 
 @Component({
@@ -11,7 +12,7 @@ import {Composition} from "../band/composition";
     templateUrl: 'app/user/user.component.html',
     styleUrls: ['app/user/user.component.css'],
     directives: [ROUTER_DIRECTIVES],
-    providers: [UserService]
+    providers: [UserService, DatetimeUtils]
 })
 
 export class UserCardComponent implements OnInit {
@@ -23,10 +24,12 @@ export class UserCardComponent implements OnInit {
     private tab: string;
 
     private isEditModeOn = false;
+    private templateRenderTime;
 
     constructor(private _userService: UserService,
                 private _router: Router,
                 private _authService: AuthService,
+                private _datetimeUtils: DatetimeUtils,
                 params: RouteParams,
                 private _ngZone: NgZone) {
         var self = this;
@@ -42,6 +45,7 @@ export class UserCardComponent implements OnInit {
         var system_user = JSON.parse(localStorage.getItem('user'));
         this.isCanEdit = system_user.id == this.id;
         this.tab = 'info';
+        this.templateRenderTime = new Date();
     }
 
     private get_user() {
@@ -83,6 +87,10 @@ export class UserCardComponent implements OnInit {
                 break;
             }
         }
+    }
+
+    timeSince(timeStamp) {
+        return this._datetimeUtils.timeSinceFromTemplateRenderTime(timeStamp, this.templateRenderTime)
     }
 
     ngOnInit(): any {

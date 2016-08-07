@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, NgZone} from 'angular2/core';
+import {Component, OnInit, OnDestroy, NgZone} from "angular2/core";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../auth/auth.service";
 import {Instrument} from "./instrument.model";
@@ -10,14 +10,15 @@ import {Composition} from "../band/composition";
 import {ChatComponent} from "../components/chat/chat.component";
 import {UserService} from "../user/user.service";
 import {BandService} from "../band/band.service";
+import {DatetimeUtils} from "../utils/datetime";
 
 @Component({
     selector: 'editor',
-    providers: [EditorService, EditorSocketService, UserService, BandService],
+    providers: [EditorService, EditorSocketService, UserService, BandService, DatetimeUtils],
     directives: [ChatComponent, ROUTER_DIRECTIVES],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
-    host: { '(window:keydown)': 'onKey($event)' },
+    host: {'(window:keydown)': 'onKey($event)'},
 })
 export class EditorComponent implements OnInit, OnDestroy {
     public isEditorMode: boolean;
@@ -61,8 +62,9 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _ngZone: NgZone,
                 private _userService: UserService,
                 private _bandService: BandService,
+                private _datetimeUtils: DatetimeUtils,
                 params: RouteParams) {
-        
+
         this._authService.isAuth().then((isAuth) => {
             if (!isAuth) {
                 this._router.navigate(['Login']);
@@ -114,39 +116,39 @@ export class EditorComponent implements OnInit, OnDestroy {
         });
 
         this._editorService.loadInstrumentList().subscribe(instrumentList => {
-                self.instrumentList = instrumentList;
-                self.instrumentList[0].active = true;
-                self.instrumentList[0].sounds[0].active = true;
-                self.soundMap = {};
+            self.instrumentList = instrumentList;
+            self.instrumentList[0].active = true;
+            self.instrumentList[0].sounds[0].active = true;
+            self.soundMap = {};
 
-                for (let instrument of self.instrumentList) {
-                    let flag = true;
-                    for (let currentSoundIndex in instrument.sounds) {
-                        let currentSound = instrument.sounds[currentSoundIndex];
-                        // Не работало сравнение currentSoundIndex == 0. Пришлось написать так
-                        currentSound.active = flag;
-                        flag = false;
-                        currentSound.soundName = instrument.name + "-" + currentSound.name;
-                        self.soundMap[currentSound.soundName] = new Howl({urls: [currentSound.file]})
-                    }
+            for (let instrument of self.instrumentList) {
+                let flag = true;
+                for (let currentSoundIndex in instrument.sounds) {
+                    let currentSound = instrument.sounds[currentSoundIndex];
+                    // Не работало сравнение currentSoundIndex == 0. Пришлось написать так
+                    currentSound.active = flag;
+                    flag = false;
+                    currentSound.soundName = instrument.name + "-" + currentSound.name;
+                    self.soundMap[currentSound.soundName] = new Howl({urls: [currentSound.file]})
                 }
-                self.changeActiveInstrument(self.instrumentList[0]);
-                self.trackListID.push([EditorComponent._createEmptyTrackID()]);
-                self._createInstrumentMap();
-                self._createSoundMap();
+            }
+            self.changeActiveInstrument(self.instrumentList[0]);
+            self.trackListID.push([EditorComponent._createEmptyTrackID()]);
+            self._createInstrumentMap();
+            self._createSoundMap();
 
-                self._editorService.get(self.id).subscribe(composition => {
-                    self.havePermissionToEdit = composition.permissions.includes('change_composition');
-                    self._parseComposition(composition.latest_version.tracks);
-                    self.composition = composition;
-                    self.selectedVersion = composition.latest_version.id;
-                    self._bandService.composition_list(self.composition.band.id).subscribe((compositionList: any) => {
-                        self._ngZone.run(() => {
-                            self.compositionList = compositionList.results;
-                            self.compositionListPaginationInfo = compositionList
-                        })
+            self._editorService.get(self.id).subscribe(composition => {
+                self.havePermissionToEdit = composition.permissions.includes('change_composition');
+                self._parseComposition(composition.latest_version.tracks);
+                self.composition = composition;
+                self.selectedVersion = composition.latest_version.id;
+                self._bandService.composition_list(self.composition.band.id).subscribe((compositionList: any) => {
+                    self._ngZone.run(() => {
+                        self.compositionList = compositionList.results;
+                        self.compositionListPaginationInfo = compositionList
                     })
-                });
+                })
+            });
 
 
         });
@@ -159,16 +161,16 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     }
 
-    ngOnDestroy():any {
+    ngOnDestroy(): any {
         this.stop();
     }
 
     closeModal() {
         $('#forkModal').closeModal();
     }
-    
+
     changeActiveInstrument(instrument: Instrument) {
-        for(let instrumentItem of this.instrumentList) {
+        for (let instrumentItem of this.instrumentList) {
             instrumentItem.active = false;
         }
 
@@ -216,7 +218,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     addOrRemoveSound(track: Track, indexSector, indexSound) {
         if (this.isCanEdit()) {
-            let instrument:Instrument = this.activeInstrument;
+            let instrument: Instrument = this.activeInstrument;
             if (track.instrument == instrument) {
                 if (track.sectorList[indexSector].soundList[indexSound].name == 'empty') {
                     this.addSound(track, indexSector, indexSound);
@@ -226,10 +228,10 @@ export class EditorComponent implements OnInit, OnDestroy {
             }
         }
     }
-    
+
     addSound(track: Track, indexSector, indexSound) {
         if (this.isCanEdit()) {
-            let instrument:Instrument = this.activeInstrument;
+            let instrument: Instrument = this.activeInstrument;
             if (track.instrument == instrument) {
                 for (let i in instrument.sounds) {
                     if (instrument.sounds[i].active) {
@@ -246,7 +248,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     removeSound(track: Track, indexSector, indexSound) {
         if (this.isCanEdit()) {
-            let instrument:Instrument = this.activeInstrument;
+            let instrument: Instrument = this.activeInstrument;
 
             if (track.instrument == instrument) {
                 // debugger;
@@ -292,7 +294,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         return mapper[string] ? mapper[string] : 'icon';
     }
 
-    
+
     changeActiveSound(soundName: string) {
         let instrument: Instrument = this.activeInstrument;
         for (let i in instrument.sounds) {
@@ -317,7 +319,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
                 for (let segment in track.sectorList[sectorNum].soundList) { // 32 сегмента
                     if (track.sectorList[sectorNum].soundList[segment].soundName) {
-                        if(!allSoundList[sectorNum][segment]) {
+                        if (!allSoundList[sectorNum][segment]) {
                             allSoundList[sectorNum][segment] = [];
                         }
                         console.log('trackVOlume', track.volume);
@@ -330,7 +332,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 for (let segment in track.sectorList[sectorNum].soundList) { // 32 сегмента
                     if (track.sectorList[sectorNum].soundList[segment].soundName) {
                         for (let soundObject of allSoundList[sectorNum][segment]) {
-                            soundObject.howler.volume((soundObject.soundVolume/100) * (this.globalVolume/100))
+                            soundObject.howler.volume((soundObject.soundVolume / 100) * (this.globalVolume / 100))
                         }
                     }
                 }
@@ -343,7 +345,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         let sizeWavePx = widthSound * 32; // 8px палочка 32 делений
         let sizeWithMultipleSector = (sizeWavePx + 15) * allSoundList.length;
         let self = this;
-        let speed = (((sizeWavePx/4 * (this.bpm / 60))/1000)*tickTime);
+        let speed = (((sizeWavePx / 4 * (this.bpm / 60)) / 1000) * tickTime);
 
         let start = Date.now();
 
@@ -354,9 +356,9 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         var instance = function () {
             self._setLinePosition((self._linePositionNumber + speed) % sizeWithMultipleSector);
-            let exit = Math.floor(self._linePositionNumber/widthSound);
+            let exit = Math.floor(self._linePositionNumber / widthSound);
             for (let num = Math.floor((self._linePositionNumber - speed) / widthSound); num < exit; num += 1) {
-                var sectorPosition = Math.floor(num/32);
+                var sectorPosition = Math.floor(num / 32);
                 var soundPosition = num % 32;
                 var flag = sectorPosition != -1; //По неведомым мне причинам иногда soundPosition и sectorPosition == -1
 
@@ -410,7 +412,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     _setLinePosition(number) {
         this._linePositionNumber = number;
-        this.linePosition = 'translateX('+ (this._linePositionNumber) + 'px)';
+        this.linePosition = 'translateX(' + (this._linePositionNumber) + 'px)';
     }
 
     onKey(event: KeyboardEvent) {
@@ -457,40 +459,21 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     timeSince(timeStamp) {
-        timeStamp = new Date(timeStamp);
-        var secondsPast = (this.templateRenderTime.getTime() - timeStamp.getTime() ) / 1000;
-        if(secondsPast < 10) {
-            return 'just now';
-        }
-        if(secondsPast < 60) {
-            return Math.floor(secondsPast) + ' seconds ago';
-        }
-        if(secondsPast < 3600) {
-            return Math.floor(secondsPast / 60) + ' minutes ago';
-        }
-        if(secondsPast <= 86400) {
-            return Math.floor(secondsPast / 3600) + ' hours ago';
-        }
-        if(secondsPast > 86400) {
-            var day = timeStamp.getDate();
-            var month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
-            var year = timeStamp.getFullYear() == this.templateRenderTime.getFullYear() ? "" :  " "+timeStamp.getFullYear();
-            return day + " " + month + year;
-        }
+        return this._datetimeUtils.timeSinceFromTemplateRenderTime(timeStamp, this.templateRenderTime)
     }
-    
+
     private openForkDialogue() {
         $('#forkModal').openModal();
     }
 
     private forkComposition(id: number) {
         var self = this;
-        this._editorService.forkComposition(this.selectedVersion, id).subscribe(response =>{
+        this._editorService.forkComposition(this.selectedVersion, id).subscribe(response => {
             self.closeModal();
             self._router.navigate(['Editor', {id: response.destination_composition.id}])
         })
     }
-    
+
     private revertComposition() {
         this._parseComposition(this.composition.latest_version.tracks);
         this.sendTrackDiff('');
@@ -499,7 +482,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private showCommit(commit: any) {
         this._parseComposition(commit.tracks);
     }
-    
+
     private sendTrackDiff(tracks: any) {
         var self = this;
         var data = {
@@ -535,7 +518,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                         });
                     }
                 });
-                track_list.push({soundList:sector_list});
+                track_list.push({soundList: sector_list});
             });
             self.trackList.push({
                 id: self.trackListID.length - 1,
@@ -545,7 +528,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             });
         });
     }
-    
+
     private _onSocketMessageHandler(event: MessageEvent, context: any) {
         var self = context;
         var message = JSON.parse(event.data);
@@ -620,7 +603,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         return emptyIDList;
     }
-    
+
     private _createSoundMap() {
         var self = this;
         this.instrumentList.forEach(function (instrument) {
