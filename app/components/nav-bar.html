@@ -1,19 +1,19 @@
 <nav>
     <div class="nav-wrapper white">
-        <a href="/" class="brand-logo"><i class="material-icons">music_note</i></a>
+        <a [routerLink]="['UserDetail', {'id': user.id}]" class="brand-logo"><i class="material-icons">music_note</i></a>
         <ul id="nav-mobile" class="right">
             <div class="user-panel">
-				<span class="avatar">
-					<img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+				<span class="avatar avatar_hover">
+					<img [routerLink]="['UserDetail', {'id': user.id}]" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
 				</span>
                 <span (click)="openBurger()">
                     <i class="material-icons clickable" >more_vert</i>
                 </span>
-                <ul class='dropdown-content' style="opacity: 1; display: block; top: 64px; right: 0;" *ngIf="burgerIsOpen">
-                    <li><a href="">Раздел 1</a></li>
-                    <li><a href="">Раздел 2</a></li>
+                <ul class='dropdown-content' style="opacity: 1; display: block; top: 64px; right: 10px;" *ngIf="burgerIsOpen">
+                    <li><a [routerLink]="['UserDetail', {'id': user.id}]">Profile</a></li>
+                    <li><a [routerLink]="['BandList']">Bands</a></li>
                     <li class="divider"></li>
-                    <li><a href="">Выйти</a></li>
+                    <li><a (click)="logout()">Logout</a></li>
                 </ul>
             </div>
         </ul>

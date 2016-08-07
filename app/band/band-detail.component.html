@@ -18,12 +18,15 @@
                             <h6 *ngIf="compositionList?.length" style="margin-top: 20px">
                                 Tracks
                             </h6>
-                            <div *ngIf="compositionList?.length" class="collection">
+                            <div *ngIf="compositionList?.length" class="collection" style="margin-bottom: 0">
                                 <a *ngFor="#composition of compositionList" class="collection-item"
                                    [routerLink]="['Editor', {'id': composition.id}]">
                                     {{composition.name}}
                                 </a>
                             </div>
+                            <a (click)="openNewCompositionDialogue()" class="collection-item add_composition">
+                                <i class="material-icons clickable" style="color: grey; width: 20px; margin: 8px auto 0;">playlist_add</i>
+                            </a>
                         </div>
                         <div class="col s4 offset-s1">
                             <h6 style="margin-bottom: 15px;">
@@ -49,17 +52,17 @@
     </div>
     <chat-component *ngIf="isJoined" [band]="band"></chat-component>
 
-<div *ngIf="isEditMode">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" required id="name"
-               [(ngModel)]="band.name" >
-        <label for="description">Description</label>
-        <input type="text" class="form-control" required id="description"
-               [(ngModel)]="band.description" >
+    <div class="modal" id="composition_create_modal">
+        <div class="modal-content">
+            <h4>Come up with your composition name:</h4>
+            <div class="input-field col s12">
+                <input id="composition_name" type="text" class="validate" [(ngModel)]="new_composition_name">
+                <label for="composition_name">Name</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a (click)="create_composition()" class=" modal-action modal-close waves-effect waves-green btn-flat">Create</a>
+            <a (click)="closeNewCompositionDialogue()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
     </div>
-    <button (click)="update()">
-        Сохранить
-    </button>
-</div>
 </div>

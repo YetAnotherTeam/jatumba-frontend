@@ -56,4 +56,6 @@ export class NavBarComponent {
         localStorage.removeItem('user');
         this._router.navigate(['Login']);
     }
+    
+    private pro
 }

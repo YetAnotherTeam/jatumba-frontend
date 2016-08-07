@@ -25,6 +25,7 @@ export class BandDetailComponent implements OnInit {
     memberList: Member[];
     isJoined: boolean;
     public memberListPaginationInfo : any;
+    new_composition_name: string;
 
     compositionList: Composition[];
     compositionListPaginationInfo: any;
@@ -84,6 +85,21 @@ export class BandDetailComponent implements OnInit {
             this.isJoined = band.user_joined;
             this.band = band;
         }))
+    }
+    
+    private openNewCompositionDialogue() {
+        $('#composition_create_modal').openModal();
+    }
+
+    private closeNewCompositionDialogue() {
+        $('#composition_create_modal').closeModal();
+    }
+    
+    private create_composition() {
+        this._bandService.composition_create(this.new_composition_name, this.band.id).subscribe(composition => {
+            $('#composition_create_modal').closeModal();
+            this._router.navigate(['Editor', {'id': composition.id}])
+        })
     }
 
     public visible = false;
