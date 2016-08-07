@@ -19,6 +19,7 @@ export class BandListComponent implements OnInit {
     private new_band_name: string;
     private new_band_description: string;
     private searchInput: string;
+    private isListLoaded: boolean;
 
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService) {
         var self = this;
@@ -35,6 +36,7 @@ export class BandListComponent implements OnInit {
         this._bandService.list().subscribe((bandList: any) => {
             this.bandList = bandList.results;
             this.paginationInfo = bandList;
+            this.isListLoaded = true;
         })
     }
 
@@ -57,6 +59,7 @@ export class BandListComponent implements OnInit {
     }
 
     ngOnInit():any {
+        this.isListLoaded = false;
         this.list();
     }
 

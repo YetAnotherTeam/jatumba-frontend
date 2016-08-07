@@ -53,7 +53,7 @@
                 </div>
                 <div class="col s8">
                     <div *ngFor="#composition of compositions">
-                        <a>{{composition.name}}</a> <p style="display: inline-block; color: #ddd; font-size: 10px;">edited 2h ago</p>
+                        <a [routerLink]="['Editor', {'id': composition.id}]">{{composition.name}}</a> <p style="display: inline-block; color: #ddd; font-size: 10px;">edited 2h ago</p>
                     </div>
                 </div>
             </div>
