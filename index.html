@@ -1,5 +1,5 @@
 <html>
-  <head>
+<head>
     <title>JaTumba</title>
     <script>document.write('<base href="/" />');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,20 +7,23 @@
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="libs/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="libs/materialize.css" media="screen,projection"/>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
-      <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link rel="stylesheet" href="libs/sb-admin.css">
-      <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700&subset=latin,cyrillic'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="libs/sb-admin.css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet'
+          type='text/css'>
 
     <link rel="stylesheet/less" type="text/css" href="libs/less/style.less">
-      <script src="libs/less.js"></script>
-      <script src="libs/jquery.js"></script>
-      <!--<script src="libs/bootstrap.min.js"></script>-->
-      <script src="libs/materialize.min.js"></script>
-      <script src="libs/howler.js"></script>
+    <script src="libs/less.js"></script>
+    <script src="libs/jquery.js"></script>
+    <!--<script src="libs/bootstrap.min.js"></script>-->
+    <script src="libs/materialize.min.js"></script>
+    <script src="libs/howler.js"></script>
     <!-- IE required polyfills, in this exact order -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
     <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
@@ -33,22 +36,22 @@
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     <!-- 2. Configure SystemJS -->
     <script>
-      System.config({
-        packages: {        
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
-      });
-      System.import('app/main')
-            .then(null, console.error.bind(console));
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/main')
+                .then(null, console.error.bind(console));
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hellojs/1.12.0/hello.all.min.js"></script>
-  </head>
-  <base href="/">
-  <!-- 3. Display the application -->
-  <body>
-    <my-app>Loading...</my-app>
-  </body>
+</head>
+<base href="/">
+<!-- 3. Display the application -->
+<body>
+<my-app>Loading...</my-app>
+</body>
 </html>
