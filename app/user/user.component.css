@@ -72,3 +72,22 @@
 .is_fork {
     background-color: #f0e09a;
 }
+
+.user_property {
+    color: #777; float: right;
+}
+
+.list_avatar {
+    min-height: 84px;
+    position: relative;
+}
+
+.list_avatar_circle {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}

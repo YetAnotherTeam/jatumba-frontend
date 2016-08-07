@@ -14,7 +14,7 @@
             </div>
             <div class="row">
                 <div class="col s3">
-                    <p style="color: #777; float: right; margin-top: 4px;">Bands</p>
+                    <p class="user_property" style="margin-top: 4px;">Bands</p>
                 </div>
                 <div class="col s8">
                     <div *ngFor="#member of user.members" class="chip" style="margin-right: 5px; margin-bottom: 5px; cursor: pointer;" [routerLink]="['BandDetail', {'id': member.band.id}]">
@@ -24,7 +24,7 @@
             </div>
             <div *ngIf="user.fb_profile || user.vk_profile" class="row">
                 <div class="col s3">
-                    <p style="color: #777; float: right;">Social</p>
+                    <p class="user_property">Social</p>
                 </div>
                 <div class="col s8">
                     <div *ngIf="user.vk_profile">
@@ -39,13 +39,19 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-            <div class="collection">
-                <a class="collection-item" *ngFor="#composition of compositions" [routerLink]="['Editor', {'id': composition.id}]">
-                    {{composition.name}}
-                </a>
+            <div class="row">
+                <div class="col s3">
+                    <p class="user_property">
+                        Latest tracks
+                    </p>
+                </div>
+                <div class="col s8">
+                    <div *ngFor="#composition of compositions">
+                        <a>{{composition.name}}</a> <p style="display: inline-block; color: #ddd; font-size: 10px;">edited 2h ago</p>
+                    </div>
+                </div>
             </div>
-            </div>
+
         </div>
     </div>
 </div>
