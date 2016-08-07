@@ -12,13 +12,19 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="compositions?.length || isCanEdit">
                 <div class="col s3">
                     <p class="user_property" style="margin-top: 4px;">Bands</p>
                 </div>
                 <div class="col s8">
+                    <template [ngIf]="compositions?.length">
                     <div *ngFor="#member of user.members" class="chip" style="margin-right: 5px; margin-bottom: 5px; cursor: pointer;" [routerLink]="['BandDetail', {'id': member.band.id}]">
                         {{member.band.name}}
+                    </div>
+                    </template>
+                    <div *ngIf="!compositions?.length" class="chip" style="cursor: pointer" [routerLink]="['BandList']">
+                        Find yourself a band
+                        <i class="close material-icons">add</i>
                     </div>
                 </div>
             </div>
@@ -39,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="compositions?.length">
                 <div class="col s3">
                     <p class="user_property">
                         Latest tracks

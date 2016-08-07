@@ -32,6 +32,7 @@
 
 .band-list_card {
     padding: 30px;
+    padding-top: 0px;
 }
 
 .band_name {
@@ -85,6 +86,21 @@
     height: 42px;
 }
 
+.add_composition_one {
+    margin-top: 20px;
+    border: dashed 1px #ddd;
+    height: 42px;
+}
+
 .add_composition:hover {
     background-color: #ebebeb;
+}
+
+.add_composition_one:hover {
+    background-color: #ebebeb;
+}
+
+.band_list_navigation {
+    min-height: 50px;
+    background-color: #F6F6F6;
 }

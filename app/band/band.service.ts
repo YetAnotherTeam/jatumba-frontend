@@ -23,6 +23,14 @@ export class BandService extends BaseAPIService {
         return this._http.get(this.baseAPIUrl + 'band/', this.getHeaders()).map(res => res.json())
     }
 
+    search(query: string) {
+        if (query == '' || !query) {
+            return this.list()
+        } else {
+            return this._http.get(this.baseAPIUrl + 'band/?search=' + query, this.getHeaders()).map(res => res.json())
+        }
+    }
+
     get(id: number) {
         return this._http.get(this.baseAPIUrl + 'band/' + id + '/', this.getHeaders()).map(res => res.json())
     }
