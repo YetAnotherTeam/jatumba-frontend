@@ -1,31 +1,31 @@
 <div class="pen-title">
-    <h1>JaTumba</h1>
+    <h1><a [routerLink]="['Login']" style="color: black">JaTumba</a></h1><span>Special for <a href='http://tech-mail.ru'>Технопарк@Mail.ru</a></span>
 </div>
 <div class="container">
     <div class="card"></div>
     <div class="card">
-        <h1 class="title">Регистрация</h1>
+        <h1 class="title">Registration</h1>
         <form>
             <div class="input-container">
                 <input type="text" id="Username" [(ngModel)]="_login" required="required"/>
-                <label for="Username">Имя пользователя</label>
-                <div class="bar"></div>
+                <label for="Username">Username</label>
+                <!--<div class="bar"></div>-->
                 {{username_error}}
             </div>
             <div class="input-container">
                 <input type="password" id="Password" [(ngModel)]="_password" required="required"/>
-                <label for="Password">Пароль</label>
-                <div class="bar"></div>
+                <label for="Password">Password</label>
+                <!--<div class="bar"></div>-->
             </div>
             <div class="input-container">
                 <input type="password" id="RepeatPassword" required="required"/>
-                <label for="RepeatPassword">Повторите пароль</label>
-                <div class="bar"></div>
+                <label for="RepeatPassword">Repeat password</label>
+                <!--<div class="bar"></div>-->
             </div>
             <div class="button-container">
-                <button (click)="register()"><span>Зарегаться</span></button>
+                <button (click)="register()"><span>Register</span></button>
             </div>
-            <div class="footer"><a [routerLink]="['Login']">Назад</a></div>
+            <div class="footer"><a [routerLink]="['Login']">Back</a></div>
         </form>
     </div>
 </div>

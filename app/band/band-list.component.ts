@@ -19,11 +19,13 @@ export class BandListComponent implements OnInit {
 
     constructor(private _bandService: BandService, private _router: Router, private _authService: AuthService) {
         var self = this;
-        this._authService.isAuth().then(function(isAuth) {
+        this._authService.isAuth().then((isAuth) => {
             if (!isAuth) {
-                self._router.navigate(['Login']);
+                this._router.navigate(['Login']);
             }
-        })
+        }).catch((err) => {
+            this._router.navigate(['Login']);
+        });
     }
 
     list() {

@@ -103,7 +103,10 @@ export class AuthService extends BaseAPIService {
                     localStorage.setItem('user', JSON.stringify(data['user']));
                     return data;
                 })
-                .toPromise().then(res => resolve(self._auth))
+                .subscribe(
+                    (res) => resolve(res),
+                    (err) => reject(err)
+                )
         })
 
     }

@@ -57,14 +57,13 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _ngZone: NgZone,
                 private _userService: UserService,
                 params: RouteParams) {
-        var self = this;
-        console.log('dsad')
-        this._authService.isAuth().then(function(isAuth) {
-            console.log('dsadasdsad')
+        
+        this._authService.isAuth().then((isAuth) => {
             if (!isAuth) {
-                console.log('d312312')
-                self._router.navigate(['Login']);
+                this._router.navigate(['Login']);
             }
+        }).catch((err) => {
+            this._router.navigate(['Login']);
         });
         this.id = +params.get('id');
         this._setLinePosition(0);
@@ -306,7 +305,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                         if(!allSoundList[sectorNum][segment]) {
                             allSoundList[sectorNum][segment] = [];
                         }
-
+                        console.log('trackVOlume', track.volume);
                         allSoundList[sectorNum][segment].push({
                             soundVolume: track.volume,
                             howler: this.soundMap[track.sectorList[sectorNum].soundList[segment].soundName]
@@ -437,7 +436,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     private restartPlay() {
         if (this.isPlay) {
             this.stop();
-            this.play();
+            setTimeout(() => {
+                this.play();
+            });
         }
     }
 

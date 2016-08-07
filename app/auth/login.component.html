@@ -1,41 +1,41 @@
 <div class="pen-title">
-    <h1>JaTumba</h1><span>Специально для  <a href='http://tech-mail.ru'>Технопарк@Mail.ru</a></span>
+    <h1>JaTumba</h1><span>Special for <a href='http://tech-mail.ru'>Технопарк@Mail.ru</a></span>
 </div>
 <div class="container">
     <div class="card"></div>
     <div class="card" [hidden]="login_controller.hide_login">
-        <h1 class="title">Авторизация</h1>
+        <h1 class="title">Authorization</h1>
         <form>
             <div class="input-container">
                 <input type="text" id="Username" [(ngModel)]="_login" required="required"/>
-                <label for="Username">Имя пользователя</label>
-                <div class="bar"></div>
+                <label for="Username">Username</label>
+                <!--<div class="bar"></div>-->
             </div>
             <div class="input-container">
                 <input type="password" id="Password" [(ngModel)]="_password" required="required"/>
-                <label for="Password">Пароль</label>
-                <div class="bar"></div>
+                <label for="Password">Password</label>
+                <!--<div class="bar"></div>-->
             </div>
             <div>
                 {{login_error}}
             </div>
             <div class="button-container">
-                <button (click)="login()"><span>Поехали</span></button>
+                <button (click)="login()"><span>Let's go</span></button>
             </div>
-            <div class="footer"><a [routerLink]="['Register']">Регистрация</a></div>
-            <div class="footer"><a style="cursor: pointer;"  (click)="onVkAuthButton()">Вход через VK</a></div>
-            <div class="footer"><a style="cursor: pointer;"  (click)="onFbAuthButton()">Вход через FB</a></div>
+            <div class="footer"><a [routerLink]="['Register']">Register</a></div>
+            <div class="footer"><a style="cursor: pointer;"  (click)="onVkAuthButton()">Login with VK</a></div>
+            <div class="footer"><a style="cursor: pointer;"  (click)="onFbAuthButton()">Login with FB</a></div>
         </form>
     </div>
     <div class="card" [hidden]="!login_controller.hide_login">
-        <h3 class="title">Введите желаемое имя пользователя</h3>
+        <h3 class="title">Type your new username</h3>
         <div class="input-container">
             <input [(ngModel)]="social_username" id="social_username" required="required"/>
-            <label for="social_username">Имя пользователя</label>
-            <div class="bar"></div>
+            <label for="social_username">Username</label>
+            <!--<div class="bar"></div>-->
         </div>
-        <div class="button-container" style="cursor: pointer;" [hidden]="!login_controller.show_vk_register"><button (click)="onVkRegisterButton()" type="button" class="btn btn-primary"><span>Вход</span></button></div>
-        <div class="button-container" style="cursor: pointer;" [hidden]="!login_controller.show_fb_register"><button (click)="onFbRegisterButton()" type="button" class="btn btn-primary"><span>Вход</span></button></div>
+        <div class="button-container" style="cursor: pointer;" [hidden]="!login_controller.show_vk_register"><button (click)="onVkRegisterButton()" type="button" class="btn btn-primary"><span>Login</span></button></div>
+        <div class="button-container" style="cursor: pointer;" [hidden]="!login_controller.show_fb_register"><button (click)="onFbRegisterButton()" type="button" class="btn btn-primary"><span>Login</span></button></div>
     </div>
     <!--<div class="card alt">-->
         <!--<div class="toggle"></div>-->

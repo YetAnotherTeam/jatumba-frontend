@@ -20,12 +20,15 @@ export class UserListComponent implements OnInit {
     constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, private _ngZone: NgZone) {
         var self = this;
         this._ngZone.run(() => {
-            this._authService.isAuth().then(function (isAuth) {
+            this._authService.isAuth().then((isAuth) => {
                 if (!isAuth) {
-                    self._router.navigate(['Login']);
+                    this._router.navigate(['Login']);
+                } else {
+                    this.list();
                 }
-                self.list()
-            })
+            }).catch((err) => {
+                this._router.navigate(['Login']);
+            });
         })
     }
 
