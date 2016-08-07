@@ -6,7 +6,7 @@
 				<span class="avatar">
 					<img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
 				</span>
-                <span (click)="burgerIsOpen = !burgerIsOpen">
+                <span (click)="openBurger()">
                     <i class="material-icons clickable" >more_vert</i>
                 </span>
                 <ul class='dropdown-content' style="opacity: 1; display: block; top: 64px; right: 0;" *ngIf="burgerIsOpen">

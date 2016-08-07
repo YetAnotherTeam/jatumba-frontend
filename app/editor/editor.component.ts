@@ -438,7 +438,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             this.stop();
             setTimeout(() => {
                 this.play();
-            });
+            }, 0);
         }
     }
 

@@ -19,16 +19,18 @@ export class NavBarComponent {
     public user = {};
 
     @HostListener('document:click', ['$event']) handleClick(event) {
-        let clickedComponent: Node = event.target as Node;
+        let clickedComponent:Node = event.target as Node;
         let inside = false;
-        do {
-            if (clickedComponent === this.elementRef.nativeElement) {
-                inside = true;
+        if (this.burgerIsOpen) {
+            // do {
+            //     if (clickedComponent === this.elementRef.nativeElement) {
+            //         inside = true;
+            //     }
+            //     clickedComponent = clickedComponent.parentNode;
+            // } while (clickedComponent);
+            if (!inside) {
+                this.burgerIsOpen = false;
             }
-            clickedComponent = clickedComponent.parentNode;
-        } while (clickedComponent);
-        if (!inside) {
-            this.burgerIsOpen = false;
         }
     };
 
@@ -39,6 +41,13 @@ export class NavBarComponent {
         this._authService.getUser().then(function (user) {
             self.user = user;
         })
+    }
+
+    openBurger() {
+        setTimeout(() => {
+            this.burgerIsOpen = !this.burgerIsOpen
+        }, 0);
+
     }
     
     private logout() {
