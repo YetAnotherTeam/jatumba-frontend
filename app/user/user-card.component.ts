@@ -1,9 +1,10 @@
-import {Component, OnInit, NgZone} from "angular2/core";
+import {Component, OnInit, NgZone} from "@angular/core";
 import {User} from "./user";
 import {UserService} from "./user.service";
-import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
 import {Composition} from "../band/composition";
+import {Router, RouteParams} from "@angular/router-deprecated";
 
 
 @Component({

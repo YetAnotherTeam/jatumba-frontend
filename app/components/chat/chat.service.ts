@@ -1,5 +1,5 @@
 import {$WebSocket} from "../../editor/websocket";
-import {Injectable} from "angular2/core";
+import {Injectable} from "@angular/core";
 import {BaseWebSocketService} from "../../base/base.websocket.service";
 
 

@@ -1,8 +1,8 @@
-import {Component, OnInit} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
 import 'rxjs/Rx';
-import {Http, ConnectionBackend} from "angular2/http";
+import {Component, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
+import {Router} from "@angular/router-deprecated";
 @Component({
     selector: 'login',
     templateUrl: '/app/auth/register.component.html',
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
         var self = this;
         this._authService.isAuth().then(function(isAuth) {
             if (isAuth) {
-                self._router.navigate(['UserList'])
+                self._router.navigate(['/users'])
             }
         })
     }
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     register() {
         let self = this;
         this._authService.register(this._login, this._password).subscribe(function() {
-            self._router.navigate(['UserList'])
+            self._router.navigate(['/users'])
         }, function(error) {
             this.username_error = error;
         });

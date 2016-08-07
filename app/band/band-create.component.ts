@@ -1,8 +1,9 @@
-import {OnInit, Component} from "angular2/core";
-import {ROUTER_DIRECTIVES, Router, RouteParams} from "angular2/router";
+import {OnInit, Component} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {BandService} from "./band.service";
 import {Band} from "./band";
 import {AuthService} from "../auth/auth.service";
+import {Router, RouteParams} from "@angular/router-deprecated";
 
 @Component({
     templateUrl: '/app/band/band-create.component.html',

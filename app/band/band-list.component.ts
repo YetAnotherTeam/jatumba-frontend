@@ -1,9 +1,9 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from "@angular/core";
 import {BandService} from "./band.service";
 import {Band} from "./band";
-import {Router, ROUTER_DIRECTIVES} from "angular2/router";
-import {AppComponent} from "../app.component";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router-deprecated";
 
 @Component({
     selector: 'band-list',

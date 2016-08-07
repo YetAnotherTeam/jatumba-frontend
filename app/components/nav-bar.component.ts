@@ -1,6 +1,6 @@
-import {Component, HostListener, ElementRef} from "angular2/core";
+import {Component, HostListener, ElementRef} from "@angular/core";
 import {AuthService} from "../auth/auth.service";
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 
 @Component({
     selector: 'nav-bar',

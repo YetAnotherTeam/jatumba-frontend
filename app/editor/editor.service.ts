@@ -1,8 +1,8 @@
-import {Injectable} from "angular2/core";
-import {Http} from "angular2/http";
 import {$WebSocket} from "./websocket";
 import {BaseAPIService} from "../base/base.api.service";
 import {BaseWebSocketService} from "../base/base.websocket.service";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class EditorService extends BaseAPIService {

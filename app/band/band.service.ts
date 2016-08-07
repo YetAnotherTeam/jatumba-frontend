@@ -1,6 +1,5 @@
-import {AppComponent} from "../app.component";
-import {Injectable} from "angular2/core";
-import {Http} from "angular2/http";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 import {Band} from "./band";
 import {BaseAPIService} from "../base/base.api.service";
 

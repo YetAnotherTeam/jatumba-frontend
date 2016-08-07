@@ -1,9 +1,10 @@
-import {Component, OnInit, NgZone} from "angular2/core";
 import {UserCardComponent} from "../user-card.component";
 import {UserService} from "../user.service";
 import {User} from "../user";
-import {Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../../auth/auth.service";
+import {Component, OnInit, NgZone} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
+import {Router} from "@angular/router-deprecated";
 
 @Component({
     selector: 'user-list',

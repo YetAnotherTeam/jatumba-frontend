@@ -1,8 +1,7 @@
-import {AppComponent} from "../app.component";
-import {Injectable} from "angular2/core";
-import {Http, Headers} from "angular2/http";
 import {User} from "../user/user";
 import {BaseAPIService} from "../base/base.api.service";
+import {Injectable} from "@angular/core";
+import {Http, Headers} from "@angular/http";
 
 @Injectable()
 export class AuthService extends BaseAPIService {

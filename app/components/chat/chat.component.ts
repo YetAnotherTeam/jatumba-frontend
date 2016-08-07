@@ -1,10 +1,10 @@
-import {Component, Input, NgZone} from 'angular2/core';
+import {Component, Input, NgZone} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
-import {ROUTER_DIRECTIVES} from "angular2/router"
-import {Router} from "angular2/router";
+import {ROUTER_DIRECTIVES} from "@angular/router"
 import {ChatSocketService } from './chat.service'
 import {Band} from "../../band/band";
 import {Message} from "./models/message";
+import {Router} from "@angular/router-deprecated";
 
 @Component({
     selector: 'chat-component',

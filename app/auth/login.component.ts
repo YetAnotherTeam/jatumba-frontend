@@ -1,6 +1,7 @@
-import {Component, OnInit, NgZone} from "angular2/core";
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
 import {AuthService} from "./auth.service";
+import {Component, NgZone, OnInit} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 @Component({
     selector: 'login',
     templateUrl: '/app/auth/login.component.html',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
         var self = this;
         this._authService.isAuth().then(function (isAuth) {
             if (isAuth) {
-                self._router.navigate(['UserList'])
+                self._router.navigate(['/users'])
             }
         })
     }
@@ -110,7 +111,7 @@ export class LoginComponent implements OnInit {
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.vk.access_token;
         console.log('after');
-        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
+        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['/users']), e => {
             this.login_error = 'Ошибка при авторизации';
             if (e.status == 400) {
                 self.login_error = "Имя пользователя уже занято";
@@ -122,7 +123,7 @@ export class LoginComponent implements OnInit {
         let self = this;
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.facebook.access_token;
-        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
+        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['/users']), e => {
             this.login_error = 'Ошибка при авторизации';
             if (e.status == 400) {
                 self.login_error = "Имя пользователя уже занято";

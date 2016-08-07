@@ -23,8 +23,7 @@
     "@angular/upgrade": "2.0.0-rc.4",
     "angular2-notifications": "^0.2.6",
     "angular2-websocket": "^0.6.2",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.35.0",
+
     "systemjs": "0.19.27",
     "core-js": "^2.4.0",
     "reflect-metadata": "^0.1.3",
