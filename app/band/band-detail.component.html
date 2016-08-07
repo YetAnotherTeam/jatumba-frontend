@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <chat-component [band]="band"></chat-component>
+    <chat-component *ngIf="isJoined" [band]="band"></chat-component>
 
 <div *ngIf="isEditMode">
     <div class="form-group">

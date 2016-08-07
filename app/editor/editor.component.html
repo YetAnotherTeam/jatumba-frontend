@@ -209,7 +209,7 @@
     </div>
 </div>
 
-<chat-component *ngIf="composition" [band]="composition.band"></chat-component>
+<chat-component *ngIf="composition && havePermissionToEdit" [band]="composition.band"></chat-component>
 
 <div *ngIf="user && composition" id="forkModal" class="modal modal-fixed-footer">
     <div class="modal-content">
