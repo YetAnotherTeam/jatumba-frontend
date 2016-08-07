@@ -9,10 +9,11 @@ import {Band} from "../band/band";
 import {Composition} from "../band/composition";
 import {ChatComponent} from "../components/chat/chat.component";
 import {UserService} from "../user/user.service";
+import {BandService} from "../band/band.service";
 
 @Component({
     selector: 'editor',
-    providers: [EditorService, EditorSocketService, UserService],
+    providers: [EditorService, EditorSocketService, UserService, BandService],
     directives: [ChatComponent, ROUTER_DIRECTIVES],
     templateUrl: '/app/editor/editor.component.html',
     styleUrls: ['app/editor/editor.component.css', 'app/editor/material-indigo-pink.css'],
@@ -45,6 +46,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     private commits: any;
     private templateRenderTime;
 
+    compositionList: Composition[];
+    compositionListPaginationInfo: any;
+
     public bpm: number;
     public globalVolume: number;
 
@@ -56,6 +60,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private _editorSocketService: EditorSocketService,
                 private _ngZone: NgZone,
                 private _userService: UserService,
+                private _bandService: BandService,
                 params: RouteParams) {
         
         this._authService.isAuth().then((isAuth) => {
@@ -129,19 +134,29 @@ export class EditorComponent implements OnInit, OnDestroy {
                 self.trackListID.push([EditorComponent._createEmptyTrackID()]);
                 self._createInstrumentMap();
                 self._createSoundMap();
-            });
 
-            self._editorService.get(self.id).subscribe(composition => {
-                self.havePermissionToEdit = composition.permissions.includes('change_composition');
-                self._parseComposition(composition.latest_version.tracks);
-                self.composition = composition;
-                self.selectedVersion = composition.latest_version.id;
-            });
+                self._editorService.get(self.id).subscribe(composition => {
+                    self.havePermissionToEdit = composition.permissions.includes('change_composition');
+                    self._parseComposition(composition.latest_version.tracks);
+                    self.composition = composition;
+                    self.selectedVersion = composition.latest_version.id;
+                    self._bandService.composition_list(self.composition.band.id).subscribe((compositionList: any) => {
+                        self._ngZone.run(() => {
+                            self.compositionList = compositionList.results;
+                            self.compositionListPaginationInfo = compositionList
+                        })
+                    })
+                });
 
-            self._editorService.getCommits(self.id).subscribe(commits => {
-                // TODO Сделать норм пагинацию
-                self.commits = commits.results;
-            });
+
+        });
+
+        self._editorService.getCommits(self.id).subscribe(commits => {
+            // TODO Сделать норм пагинацию
+            self.commits = commits.results;
+        });
+
+
     }
 
     ngOnDestroy():any {

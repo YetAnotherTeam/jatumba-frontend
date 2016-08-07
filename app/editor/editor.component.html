@@ -29,7 +29,7 @@
                     <div class="collection-item__icon">
                         <i class="material-icons">queue_music</i>
                     </div>
-                    <div class="collection-item__name" (click)="changeActiveInstrument(instrument)"
+                    <div class="collection-item__name" style="margin-top: 4px" (click)="changeActiveInstrument(instrument)"
                          [attr.data-instrument-id]="instrument.id">
                         <div class="collection-item__title">
                             <span class="link">{{instrument.name}}</span>
@@ -37,47 +37,6 @@
                     </div>
                     <div class="collection-item__secondary double">
                         <i class="material-icons clickable" (click)="changeActiveInstrument(instrument); createTrack()" *ngIf="isEditorMode">add</i>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card silver">
-        <div class="card-content">
-            <div class="card-header">
-                <span class="card-title activator grey-text text-darken-4">Composition list</span>
-
-            </div>
-            <ul class="collection no-margin silver collection__special">
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">label</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title" style="line-height: 1.8em;">
-                            <span class="link">Composition 1</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="collection-item collection-item_active">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">label</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title" style="line-height: 1.8em;">
-                            <span class="link">Composition 2</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="collection-item">
-                    <div class="collection-item__icon">
-                        <i class="material-icons">label</i>
-                    </div>
-                    <div class="collection-item__name">
-                        <div class="collection-item__title" style="line-height: 1.8em;">
-                            <span class="link">Composition 3</span>
-                        </div>
                     </div>
                 </li>
             </ul>
@@ -108,6 +67,27 @@
                     </div>
                     <div class="collection-item__secondary">
                         <i (click)="showCommit(commit)" class="material-icons clickable">restore</i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card silver" *ngIf="compositionList?.length">
+        <div class="card-content">
+            <div class="card-header">
+                <span class="card-title activator grey-text text-darken-4">Composition list</span>
+
+            </div>
+            <ul class="collection no-margin silver collection__special">
+                <li *ngFor="#band_track of compositionList" class="collection-item" [ngClass]="{'collection-item_active': composition.id == band_track.id}">
+                    <div class="collection-item__icon">
+                        <i class="material-icons">label</i>
+                    </div>
+                    <div class="collection-item__name">
+                        <div class="collection-item__title" style="line-height: 1.8em;">
+                            <span class="link" [routerLink]="['Editor', {'id': band_track.id}]">{{band_track.name}}</span>
+                        </div>
                     </div>
                 </li>
             </ul>
