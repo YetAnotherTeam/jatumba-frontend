@@ -24,10 +24,9 @@
                                     {{composition.name}}
                                 </a>
                             </div>
-                            <a *ngIf="isJoined && compositionList?.length" (click)="openNewCompositionDialogue()" class="collection-item add_composition">
-                                <i class="material-icons clickable" style="color: grey; width: 20px; margin: 8px auto 0;">playlist_add</i>
-                            </a>
-                            <a *ngIf="isJoined && !compositionList?.length" (click)="openNewCompositionDialogue()" class="collection-item add_composition_one">
+                            <a *ngIf="isJoined" (click)="openNewCompositionDialogue()" class="collection-item add_composition"
+                               [ngClass]="{'add_composition': compositionList?.length, 'add_composition_one': !compositionList?.length}"
+                            >
                                 <i class="material-icons clickable" style="color: grey; width: 20px; margin: 8px auto 0;">playlist_add</i>
                             </a>
                         </div>
