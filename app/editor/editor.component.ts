@@ -326,7 +326,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         let tickTime = 10;
         let widthSound = 15; // 15px палочка
         let sizeWavePx = widthSound * 32; // 8px палочка 32 делений
-        let sizeWithMultipleSector = sizeWavePx * allSoundList.length;
+        let sizeWithMultipleSector = (sizeWavePx + 15) * allSoundList.length;
         let self = this;
         let speed = (((sizeWavePx/4 * (this.bpm / 60))/1000)*tickTime);
 
@@ -340,7 +340,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         var instance = function () {
             self._setLinePosition((self._linePositionNumber + speed) % sizeWithMultipleSector);
             let exit = Math.floor(self._linePositionNumber/widthSound);
-            let num = 1;
             for (let num = Math.floor((self._linePositionNumber - speed) / widthSound); num < exit; num += 1) {
                 var sectorPosition = Math.floor(num/32);
                 var soundPosition = num % 32;
@@ -377,7 +376,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     changeEditorMode(state: boolean) {
         this.isEditorMode = state;
         var self = this;
-        
+        this.stop();
         if (this.isEditorMode) {
             this._editorSocketService.start(this.composition.id, this._onSocketMessageHandler, this);
         } else {
