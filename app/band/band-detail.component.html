@@ -15,7 +15,7 @@
                             <p class="description" >
                                 {{band.description}}
                             </p>
-                            <h6 *ngIf="compositionList?.length" style="margin-top: 20px">
+                            <h6 *ngIf="compositionList?.length || isJoined" style="margin-top: 20px">
                                 Tracks
                             </h6>
                             <div *ngIf="compositionList?.length" class="collection" style="margin-bottom: 0">
@@ -25,7 +25,7 @@
                                 </a>
                             </div>
                             <a *ngIf="isJoined" (click)="openNewCompositionDialogue()" class="collection-item add_composition"
-                               [ngClass]="{'add_composition': compositionList?.length, 'add_composition_one': !compositionList?.length}"
+                               [ngClass]="{'add_composition': compositionList?.length, 'add_composition_one': compositionList?.length == 0}"
                             >
                                 <i class="material-icons clickable" style="color: grey; width: 20px; margin: 8px auto 0;">playlist_add</i>
                             </a>
