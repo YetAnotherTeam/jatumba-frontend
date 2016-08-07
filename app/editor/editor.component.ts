@@ -445,19 +445,19 @@ export class EditorComponent implements OnInit, OnDestroy {
     timeSince(timeStamp) {
         timeStamp = new Date(timeStamp);
         var secondsPast = (this.templateRenderTime.getTime() - timeStamp.getTime() ) / 1000;
-        if(secondsPast < 10){
+        if(secondsPast < 10) {
             return 'just now';
         }
-        if(secondsPast < 60){
+        if(secondsPast < 60) {
             return Math.floor(secondsPast) + ' seconds ago';
         }
-        if(secondsPast < 3600){
-            return Math.floor(secondsPast/60) + ' minutes ago';
+        if(secondsPast < 3600) {
+            return Math.floor(secondsPast / 60) + ' minutes ago';
         }
-        if(secondsPast <= 86400){
-            return Math.floor(secondsPast/3600) + ' hours ago';
+        if(secondsPast <= 86400) {
+            return Math.floor(secondsPast / 3600) + ' hours ago';
         }
-        if(secondsPast > 86400){
+        if(secondsPast > 86400) {
             var day = timeStamp.getDate();
             var month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
             var year = timeStamp.getFullYear() == this.templateRenderTime.getFullYear() ? "" :  " "+timeStamp.getFullYear();
