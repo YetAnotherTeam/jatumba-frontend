@@ -70,7 +70,7 @@
     right: 24px;
     position: fixed;
     width: 300px;
-    z-index: 5;
+    z-index: 100;
 }
 
 #live-chat header {
