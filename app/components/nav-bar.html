@@ -2,6 +2,11 @@
     <div class="nav-wrapper white">
         <a [routerLink]="['UserDetail', {'id': user.id}]" class="brand-logo"><i class="material-icons">music_note</i></a>
         <ul id="nav-mobile" class="right">
+            <li>
+               <a class="black-text" style="margin-right: 15px" [routerLink]="['BandList']">
+                   Bands
+               </a>
+            </li>
             <div class="user-panel">
 				<span class="avatar avatar_hover">
 					<img [routerLink]="['UserDetail', {'id': user.id}]" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">

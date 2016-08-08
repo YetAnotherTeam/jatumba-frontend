@@ -3,7 +3,7 @@ import {Headers} from "angular2/http";
 export class BaseService {
     protected _headers: Headers;
     protected scheme: string;
-    protected host = "p30112.lab1.stud.tech-mail.ru";
+    protected host = "jatumba.ml";
 
     constructor() {
         this._headers = new Headers();
