@@ -86,7 +86,7 @@
                     </div>
                     <div class="collection-item__name">
                         <div class="collection-item__title" style="line-height: 1.8em;">
-                            <span class="link" [routerLink]="['Editor', {'id': band_track.id}]">{{band_track.name}}</span>
+                            <span class="link" (click)="changeComposition(band_track.id)">{{band_track.name}}</span>
                         </div>
                     </div>
                 </li>

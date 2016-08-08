@@ -163,6 +163,30 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): any {
         this.stop();
+
+    }
+
+    changeComposition(id: number) {
+        this.id = id;
+        var self = this;
+
+        self._editorService.get(self.id).subscribe(composition => {
+            self.havePermissionToEdit = composition.permissions.includes('change_composition');
+            self._parseComposition(composition.latest_version.tracks);
+            self.composition = composition;
+            self.selectedVersion = composition.latest_version.id;
+            self._bandService.composition_list(self.composition.band.id).subscribe((compositionList: any) => {
+                self._ngZone.run(() => {
+                    self.compositionList = compositionList.results;
+                    self.compositionListPaginationInfo = compositionList
+                })
+            })
+        });
+
+        self._editorService.getCommits(self.id).subscribe(commits => {
+            // TODO Сделать норм пагинацию
+            self.commits = commits.results;
+        });
     }
 
     closeModal() {
