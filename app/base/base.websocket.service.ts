@@ -4,7 +4,7 @@ export class BaseWebSocketService extends BaseService {
 
     constructor() {
         super();
-        this.scheme = 'ws://';
+        this.scheme = 'wss://';
         this.baseWebSocketUrl = this.scheme + this.host + '/ws/';
     }
 }
