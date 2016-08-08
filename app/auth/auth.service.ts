@@ -12,26 +12,46 @@ export class AuthService extends BaseAPIService {
         super();
     }
 
-    register(username: string, password: string) {
+    register(username: string, password: string, callback) {
         var register_headers = new Headers();
         register_headers.append('Content-Type', 'multipart/form-data');
         var headers = {headers: register_headers};
-        return this._http.post(this.baseAPIUrl + 'user/sign_up/', JSON.stringify({
-            username: username,
-            password: password
-        }), headers)
-            .map(res => res.json())
-            .do(data => {
-                    this._auth = true;
-                    localStorage.setItem('access_token', data['session']['access_token']);
-                    localStorage.setItem('refresh_token', data['session']['refresh_token']);
-                    localStorage.setItem('user', JSON.stringify(data['user']));
-                    return data;
-                },
-                error => {
-                    return {'error': error['username']}
-                }
-            )
+        let formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        console.log('popal');
+        $.ajax({
+            url: this.baseAPIUrl + 'user/sign_up/',
+            data: formData,
+            cache: false,
+            contentType: 'multipart/form-data',
+            processData: false,
+            type: 'POST',
+            success: (data) => {
+                console.log('data', data);
+                this._auth = true;
+                localStorage.setItem('access_token', data['session']['access_token']);
+                localStorage.setItem('refresh_token', data['session']['refresh_token']);
+                localStorage.setItem('user', JSON.stringify(data['user']));
+                callback(data);
+            }
+        });
+        // return this._http.post(this.baseAPIUrl + 'user/sign_up/', JSON.stringify({
+        //     username: username,
+        //     password: password
+        // }), headers)
+        //     .map(res => res.json())
+        //     .do(data => {
+        //             this._auth = true;
+        //             localStorage.setItem('access_token', data['session']['access_token']);
+        //             localStorage.setItem('refresh_token', data['session']['refresh_token']);
+        //             localStorage.setItem('user', JSON.stringify(data['user']));
+        //             return data;
+        //         },
+        //         error => {
+        //             return {'error': error['username']}
+        //         }
+        //     )
     }
 
     login(username: string, password: string) {
