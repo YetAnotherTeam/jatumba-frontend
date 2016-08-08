@@ -4,7 +4,7 @@ export class BaseAPIService extends BaseService {
 
     constructor() {
         super();
-        this.scheme = 'http://';
+        this.scheme = 'https://';
         this.baseAPIUrl = this.scheme + this.host + '/api/';
     }
 }
