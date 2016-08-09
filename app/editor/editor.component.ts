@@ -573,7 +573,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                     self.diffID = message.data.id;
                     self._parseComposition(message.data.tracks);
                 } else if (message.status == 404) {
-                    Materialize.toast(message.deteail)
+                    Materialize.toast(message.data.detail)
                 } else {
                     Materialize.toast('Oops, something went wrong')
                 }
@@ -585,7 +585,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                     self.diffID = message.data.id;
                     self._parseComposition(message.data.tracks);
                 } else if (message.status == 404) {
-                    Materialize.toast(message.deteail)
+                    Materialize.toast(message.data.detail)
                 } else {
                     Materialize.toast('Oops, something went wrong')
                 }
@@ -599,7 +599,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                         self.commits = commits.results;
                     })
                 } else {
-                    Materialize.toast(message.detail[0])
+                    Materialize.toast(message.data.detail[0])
                 }
                 break;
             }
