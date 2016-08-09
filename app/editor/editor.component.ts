@@ -599,7 +599,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                         self.commits = commits.results;
                     })
                 } else {
-                    Materializer.toast(message.detail[0])
+                    Materialize.toast(message.detail[0])
                 }
                 break;
             }
