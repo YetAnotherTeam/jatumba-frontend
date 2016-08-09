@@ -24,7 +24,7 @@ export class AuthService extends BaseAPIService {
             url: this.baseAPIUrl + 'user/sign_up/',
             data: formData,
             cache: false,
-            contentType: 'multipart/form-data',
+            contentType: false,
             processData: false,
             type: 'POST',
             success: (data) => {
