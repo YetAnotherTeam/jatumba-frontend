@@ -4,7 +4,7 @@ import {Band} from "./band";
 export interface Composition {
     id: number
     name: string
-    band: number
+    band: Band
     genres: string[]
     latest_version: any
 }
