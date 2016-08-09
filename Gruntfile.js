@@ -4,9 +4,10 @@ module.exports = function (grunt) {
             build: {
                 separator: ';\n',
                 src: [
+                    "libs/less.js",
+                    "libs/jquery.js",
                     "libs/materialize.min.js",
                     "libs/howler.js",
-                    <!-- IE required polyfills, in this exact order -->
                     "node_modules/es6-shim/es6-shim.min.js",
                     "node_modules/systemjs/dist/system-polyfills.js",
                     "node_modules/angular2/es6/dev/src/testing/shims_for_IE.js",
