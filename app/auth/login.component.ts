@@ -30,9 +30,8 @@ export class LoginComponent implements OnInit {
                 this._authService.getUser().then((user) => {
                     this._router.navigate(['UserDetail', {id: user.id}])
                 })
-
             }
-        })
+        }).catch((err) => {});
     }
 
     ngOnInit() {
@@ -113,7 +112,7 @@ export class LoginComponent implements OnInit {
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.vk.access_token;
         console.log('after');
-        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
+        this._authService.vkAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserDetail', account.user.id]), e => {
             this.login_error = 'Ошибка при авторизации';
             if (e.status == 400) {
                 self.login_error = "Имя пользователя уже занято";
@@ -125,7 +124,7 @@ export class LoginComponent implements OnInit {
         let self = this;
         var hello_object = JSON.parse(localStorage.getItem('hello'));
         var token = hello_object.facebook.access_token;
-        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserList']), e => {
+        this._authService.fbAuth(token, this.social_username).subscribe(account => self._router.navigate(['UserDetail', account.user.id]), e => {
             this.login_error = 'Ошибка при авторизации';
             if (e.status == 400) {
                 self.login_error = "Имя пользователя уже занято";
