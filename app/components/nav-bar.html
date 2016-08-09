@@ -1,22 +1,26 @@
 <nav>
     <div class="nav-wrapper white">
-        <a [routerLink]="['UserDetail', {'id': user.id}]" class="brand-logo"><i class="material-icons">music_note</i></a>
+        <a [routerLink]="['UserDetail', {'id': user.id}]" class="brand-logo"><i
+                class="material-icons">music_note</i></a>
         <ul id="nav-mobile" class="right">
             <li>
-               <a class="black-text" style="margin-right: 15px" [routerLink]="['BandList']">
-                   Bands
-               </a>
+                <a class="black-text" style="margin-right: 15px" [routerLink]="['UserList']">
+                    Users
+                </a>
+                <a class="black-text" style="margin-right: 15px" [routerLink]="['BandList']">
+                    Bands
+                </a>
             </li>
             <div class="user-panel">
 				<span class="avatar avatar_hover">
-					<img [routerLink]="['UserDetail', {'id': user.id}]" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+					<img [routerLink]="['UserDetail', {'id': user.id}]"
+                         [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
 				</span>
                 <span (click)="openBurger()">
-                    <i class="material-icons clickable" >more_vert</i>
+                    <i class="material-icons clickable">more_vert</i>
                 </span>
                 <ul class='dropdown-content' style="opacity: 1; display: block; top: 64px; right: 10px;" *ngIf="burgerIsOpen">
                     <li><a [routerLink]="['UserDetail', {'id': user.id}]">Profile</a></li>
-                    <li><a [routerLink]="['BandList']">Bands</a></li>
                     <li class="divider"></li>
                     <li><a (click)="logout()">Logout</a></li>
                 </ul>
