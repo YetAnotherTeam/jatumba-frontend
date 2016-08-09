@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
 
     public paginationInfo: any;
     public selectedUser = "";
+    private searchInput: string;
 
     constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, private _ngZone: NgZone) {
         var self = this;
@@ -45,6 +46,13 @@ export class UserListComponent implements OnInit {
                 })
             }
         )
+    }
+
+    searchUser(event: any) {
+        this._userService.search(this.searchInput).subscribe((userList: any) => {
+            this.userList = userList.results;
+            this.paginationInfo = userList;
+        });
     }
 
     ngOnInit(): any {

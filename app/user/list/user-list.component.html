@@ -1,6 +1,12 @@
 <div class="container">
     <div class="row">
         <h1>Users</h1>
+        <div class="row band_list_navigation" (keyup.enter)="searchUser($event)">
+            <div class="input-field col s6" style="margin-top: 0">
+                <i class="material-icons prefix" style="margin-top: 13px;">search</i>
+                <input placeholder="User name" id="user_name" type="text" class="validate" [(ngModel)]="searchInput">
+            </div>
+        </div>
         <div class="collection">
             <div>
                 <div *ngFor="#user of userList">
