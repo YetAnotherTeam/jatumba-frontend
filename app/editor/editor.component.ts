@@ -569,37 +569,37 @@ export class EditorComponent implements OnInit, OnDestroy {
             }
             case 'history_down': {
                 if (message.status == 200) {
-                    Materialize.toast('Redo', 4000);
+                    Materialize.toast('Redo', 1500);
                     self.diffID = message.data.id;
                     self._parseComposition(message.data.tracks);
                 } else if (message.status == 404) {
-                    Materialize.toast(message.deteail)
+                    Materialize.toast(message.data.detail, 1500)
                 } else {
-                    Materialize.toast('Oops, something went wrong')
+                    Materialize.toast('Oops, something went wrong', 1500)
                 }
                 break;
             }
             case 'history_up': {
                 if (message.status == 200) {
-                    Materialize.toast('Undo', 4000);
+                    Materialize.toast('Undo', 1500);
                     self.diffID = message.data.id;
                     self._parseComposition(message.data.tracks);
                 } else if (message.status == 404) {
-                    Materialize.toast(message.deteail)
+                    Materialize.toast(message.data.detail, 1500)
                 } else {
-                    Materialize.toast('Oops, something went wrong')
+                    Materialize.toast('Oops, something went wrong', 1500)
                 }
                 break;
             }
             case 'commit': {
                 if (message.status == 201) {
-                    Materialize.toast('Commit successful', 4000);
+                    Materialize.toast('Commit successful', 1500);
                     self.templateRenderTime = new Date();
                     self._editorService.getCommits(self.id).subscribe(commits => {
                         self.commits = commits.results;
                     })
                 } else {
-                    Materializer.toast(message.detail[0])
+                    Materialize.toast(message.data.detail[0], 1500)
                 }
                 break;
             }
