@@ -27,10 +27,26 @@ module.exports = function (grunt) {
                     'build/build.min.js': ['build/build.concat.js']
                 }
             }
+        },
+        cssmin: {
+            options: {
+                shorthandCompacting: false,
+                roundingPrecision: -1
+            },
+            target: {
+                files: {
+                    'build/build.min.css': [
+                        'libs/materialize.css',
+                        'libs/font-awesome/css/font-awesome.min.css',
+                        'libs/sb-admin.css'
+                    ]
+                }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.registerTask('build', ['concat:build', 'uglify:build']);
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.registerTask('build', ['concat:build', 'uglify:build', 'cssmin']);
     grunt.registerTask('default', ['build']);
 };
