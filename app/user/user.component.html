@@ -8,7 +8,7 @@
                     </div>
                     <div class="col s8">
                         <h5 style="color: #fb1a51">@{{user.username}}</h5>
-                        <h6 style="color: #ddd;">{{user.first_name}} {{user.last_name}}</h6>
+                        <h6 class="secondary_text">{{user.first_name}} {{user.last_name}}</h6>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col s8">
                     <div *ngFor="#composition of compositions">
-                        <a [routerLink]="['Editor', {'id': composition.id}]">{{composition.name}}</a> <p style="display: inline-block; color: #ddd; font-size: 10px;">edited {{timeSince(composition.latest_version.create_datetime)}}</p>
+                        <a [routerLink]="['Editor', {'id': composition.id}]">{{composition.name}}</a> <p style="display: inline-block; font-size: 10px;" class="secondary_text">edited {{timeSince(composition.latest_version.create_datetime)}}</p>
                     </div>
                 </div>
             </div>

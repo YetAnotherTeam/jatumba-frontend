@@ -91,3 +91,7 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+.secondary_text {
+    color: #808080
+}
