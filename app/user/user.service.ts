@@ -18,6 +18,14 @@ export class UserService extends BaseAPIService {
         return this._http.get(url, this.getHeaders()).map(res => res.json())
     }
 
+    search(query: string) {
+        if (query == '' || !query) {
+            return this.list()
+        } else {
+            return this._http.get(this.baseAPIUrl + 'user/?search=' + query, this.getHeaders()).map(res => res.json())
+        }
+    }
+
     get(id: number) {
         return this._http.get(this.baseAPIUrl + 'user/' + id + '/', this.getHeaders()).map(res => res.json())
     }

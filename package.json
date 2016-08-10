@@ -15,6 +15,7 @@
     "angular2-websocket": "^0.6.2",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
+    "hellojs": "1.12",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "systemjs": "0.19.24",
@@ -28,6 +29,7 @@
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
     "lite-server": "^2.1.0",
+    "masonry-layout": "4.0.0",
     "typescript": "^1.8.9",
     "typings": "^0.7.9"
   }

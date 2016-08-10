@@ -4,11 +4,13 @@ import {UserService} from "../user.service";
 import {User} from "../user";
 import {Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../../auth/auth.service";
+import {MasonryItemDirective, MasonryDirective} from "../../directives/masonry";
 
 @Component({
     selector: 'user-list',
     templateUrl: '/app/user/list/user-list.component.html',
-    directives: [UserCardComponent, ROUTER_DIRECTIVES],
+    styleUrls: ['app/user/list/user-list.component.css'],
+    directives: [UserCardComponent, ROUTER_DIRECTIVES, MasonryDirective, MasonryItemDirective],
     providers: [UserService]
 })
 export class UserListComponent implements OnInit {
@@ -16,6 +18,7 @@ export class UserListComponent implements OnInit {
 
     public paginationInfo: any;
     public selectedUser = "";
+    private searchInput: string;
 
     constructor(private _userService: UserService, private _router: Router, private _authService: AuthService, private _ngZone: NgZone) {
         var self = this;
@@ -41,10 +44,17 @@ export class UserListComponent implements OnInit {
         this._userService.list().subscribe((userList: any) => {
                 self._ngZone.run(() => {
                     self.userList = userList.results;
-                    self.paginationInfo = userList
-                })
+                    self.paginationInfo = userList;
+                });
             }
         )
+    }
+
+    searchUser(event: any) {
+        this._userService.search(this.searchInput).subscribe((userList: any) => {
+            this.userList = userList.results;
+            this.paginationInfo = userList;
+        });
     }
 
     ngOnInit(): any {

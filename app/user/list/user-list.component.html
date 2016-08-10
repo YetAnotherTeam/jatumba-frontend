@@ -1,38 +1,33 @@
-<h1>Пользователи</h1>
-<main>
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m9 l10">
-                <div class="collection">
-                    <div>
-                        <div *ngFor="#user of userList">
-                            <div class="col s12 m7">
-                                <h2 class="header">{{user.first_name}} {{user.last_name}}</h2>
-                                <div class="card horizontal">
-                                    <div class="card-image">
-                                        <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
-                                    </div>
-                                    <div class="card-stacked">
-                                        <div class="card-content">
-                                            <div *ngIf="user.vk_profile">
-                                                <p>
-                                                    <a href="http://vk.com/id{{user.vk_profile}}">Вконтакте</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="card-action">
-                                            <a class="collection-item"
-                                               [routerLink]="['UserDetail', {'id': user.id}]">
-                                                <strong>{{user.username}}</strong> <br>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div class="container">
+    <h1>Users</h1>
+    <div class="row band_list_navigation" (keyup.enter)="searchUser($event)">
+        <div class="input-field col s6" style="margin-top: 0">
+            <i class="material-icons prefix" style="margin-top: 13px;">search</i>
+            <input placeholder="User name" id="user_name" type="text" class="validate"
+                   [(ngModel)]="searchInput">
+        </div>
+    </div>
+    <div class="row">
+        <div class="collection collection_no-border" masonry>
+            <div class="col user-profile-card" *ngFor="#user of userList" masonryItem>
+                <div class="card">
+                    <div class="card-image">
+                        <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+                        <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
+                    </div>
+                    <div *ngIf="user.vk_profile">
+                        <div class="card-content">
+                            <p>
+                                <a href="http://vk.com/id{{user.vk_profile}}">Вконтакте</a>
+                            </p>
                         </div>
+                    </div>
+                    <div class="card-action">
+                        <a class="collection-item"
+                           [routerLink]="['UserDetail', {'id': user.id}]">{{user.username}}</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
