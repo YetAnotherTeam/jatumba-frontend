@@ -4,30 +4,27 @@
         <div class="row band_list_navigation" (keyup.enter)="searchUser($event)">
             <div class="input-field col s6" style="margin-top: 0">
                 <i class="material-icons prefix" style="margin-top: 13px;">search</i>
-                <input placeholder="User name" id="user_name" type="text" class="validate" [(ngModel)]="searchInput">
+                <input placeholder="User name" id="user_name" type="text" class="validate"
+                       [(ngModel)]="searchInput">
             </div>
         </div>
-        <div class="collection">
-            <div>
-                <div *ngFor="#user of userList">
-                    <div class="col s12 m6 l4">
-                        <div class="card medium">
-                            <div class="card-image">
-                                <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
-                                <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
-                            </div>
-                            <div class="card-content">
-                                <div *ngIf="user.vk_profile">
-                                    <p>
-                                        <a href="http://vk.com/id{{user.vk_profile}}">Вконтакте</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card-action">
-                                <a class="collection-item"
-                                   [routerLink]="['UserDetail', {'id': user.id}]">{{user.username}}</a>
-                            </div>
+        <div class="collection cards-container">
+            <div class="col s12" *ngFor="#user of userList">
+                <div class="card">
+                    <div class="card-image">
+                        <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+                        <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
+                    </div>
+                    <div *ngIf="user.vk_profile">
+                        <div class="card-content">
+                            <p>
+                                <a href="http://vk.com/id{{user.vk_profile}}">Вконтакте</a>
+                            </p>
                         </div>
+                    </div>
+                    <div class="card-action">
+                        <a class="collection-item"
+                           [routerLink]="['UserDetail', {'id': user.id}]">{{user.username}}</a>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import {AuthService} from "../../auth/auth.service";
 @Component({
     selector: 'user-list',
     templateUrl: '/app/user/list/user-list.component.html',
+    styleUrls: ['app/user/list/user-list.component.css'],
     directives: [UserCardComponent, ROUTER_DIRECTIVES],
     providers: [UserService]
 })
