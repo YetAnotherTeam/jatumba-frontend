@@ -15,6 +15,10 @@ export class RegisterComponent implements OnInit {
     private _login = "";
 
     private _password = "";
+    
+    private _first_name = "";
+    
+    private _last_name = "";
 
     private username_error;
 
@@ -34,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
     register() {
         let self = this;
-        this._authService.register(this._login, this._password, () => {
+        this._authService.register(this._login, this._first_name, this._last_name, this._password, () => {
             this._authService.getUser().then((user) => {
                 this._router.navigate(['UserDetail', {id: user.id}])
             })

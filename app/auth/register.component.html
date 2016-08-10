@@ -13,6 +13,16 @@
                 {{username_error}}
             </div>
             <div class="input-container">
+                <input type="text" id="FirstName" [(ngModel)]="_first_name" required="required"/>
+                <label for="Username">First Name</label>
+                <!--<div class="bar"></div>-->
+            </div>
+            <div class="input-container">
+                <input type="text" id="LastName" [(ngModel)]="_last_name" required="required"/>
+                <label for="Username">Last Name</label>
+                <!--<div class="bar"></div>-->
+            </div>
+            <div class="input-container">
                 <input type="password" id="Password" [(ngModel)]="_password" required="required"/>
                 <label for="Password">Password</label>
                 <!--<div class="bar"></div>-->

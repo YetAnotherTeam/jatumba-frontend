@@ -12,13 +12,15 @@ export class AuthService extends BaseAPIService {
         super();
     }
 
-    register(username: string, password: string, callback) {
+    register(username: string, first_name: string, last_name: string, password: string, callback) {
         var register_headers = new Headers();
         register_headers.append('Content-Type', 'multipart/form-data');
         var headers = {headers: register_headers};
         let formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
+        formData.append('first_name', first_name);
+        formData.append('last_name', last_name);
         console.log('popal');
         $.ajax({
             url: this.baseAPIUrl + 'user/sign_up/',
