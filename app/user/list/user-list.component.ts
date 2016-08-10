@@ -44,8 +44,8 @@ export class UserListComponent implements OnInit {
         this._userService.list().subscribe((userList: any) => {
                 self._ngZone.run(() => {
                     self.userList = userList.results;
-                    self.paginationInfo = userList
-                })
+                    self.paginationInfo = userList;
+                });
             }
         )
     }

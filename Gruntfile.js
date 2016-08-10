@@ -17,7 +17,8 @@ module.exports = function (grunt) {
                     "node_modules/angular2/bundles/angular2.dev.js",
                     "node_modules/angular2/bundles/http.dev.js",
                     "node_modules/angular2/bundles/router.dev.js",
-                    "node_modules/masonry-layout/dist/masonry.pkgd.js"
+                    "node_modules/masonry-layout/dist/masonry.pkgd.js",
+                    "node_modules/hellojs/hello.all.min.js"
                 ],
                 dest: 'build/build.concat.js'
             }
