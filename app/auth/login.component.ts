@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
                 facebook: '214029838968901'
             },
             {
-                redirect_uri: 'https://jatumba.ml/',
+                redirect_uri: location.origin,
                 force: true
             });
     }
