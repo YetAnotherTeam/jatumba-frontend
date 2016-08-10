@@ -1,3 +1,7 @@
 .user-profile-card {
-    width: 330px;
+    width: 325px;
+}
+
+.collection_no-border {
+    border: none;
 }
