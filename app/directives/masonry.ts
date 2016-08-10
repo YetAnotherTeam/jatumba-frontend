@@ -24,11 +24,18 @@ export class MasonryDirective implements AfterViewInit {
         this.initMasonry();
         this.items.changes.subscribe(() => {
             this.initMasonry();
-
-            // Fix heights
             setTimeout(() => {
                 this._msnry.layout();
-            }, 100);
+            }, 500);
+            setTimeout(() => {
+                this._msnry.layout();
+            }, 1000);
+            setTimeout(() => {
+                this._msnry.layout();
+            }, 2000);
+            setTimeout(() => {
+                this._msnry.layout();
+            }, 5000);
         });
     }
 
