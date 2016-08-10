@@ -8,21 +8,21 @@
     <!--Import Google Icon Font-->
     <!--Import materialize.css-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="libs/materialize.css" media="screen,projection"/>
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700&subset=latin,cyrillic'
           rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="libs/sb-admin.css">
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet'
-          type='text/css'>
+    <link href="libs/materialize.css" rel="stylesheet" type="text/css" media="screen,projection"/>
+    <link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="libs/sb-admin.css" rel="stylesheet" >
+    <link href="/libs/less/style.less" rel="stylesheet/less" type="text/css">
 
-    <link rel="stylesheet/less" type="text/css" href="/libs/less/style.less">
     <script src="/libs/less.js"></script>
     <script src="/libs/jquery.js"></script>
     <!--<script src="libs/bootstrap.min.js"></script>-->
     <script src="/libs/materialize.min.js"></script>
     <script src="/libs/howler.js"></script>
+    <script src="/node_modules/masonry-layout/dist/masonry.pkgd.js"></script>
+    <script src="/node_modules/hellojs/dist/hello.all.min.js"></script>
     <!-- IE required polyfills, in this exact order -->
     <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
     <script src="/node_modules/systemjs/dist/system-polyfills.js"></script>
@@ -46,7 +46,6 @@
         System.import('app/main')
                 .then(null, console.error.bind(console));
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hellojs/1.12.0/hello.all.min.js"></script>
 </head>
 <base href="/">
 <!-- 3. Display the application -->

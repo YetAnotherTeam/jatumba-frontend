@@ -3,13 +3,14 @@ module.exports = function (grunt) {
         concat: {
             build: {
                 separator: ';\n',
+
                 src: [
                     "libs/less.js",
                     "libs/jquery.js",
                     "libs/materialize.min.js",
                     "libs/howler.js",
                     "node_modules/masonry-layout/dist/masonry.pkgd.js",
-                    "node_modules/hellojs/hello.all.min.js",
+                    "node_modules/hellojs/dist/hello.all.min.js",
                     "node_modules/es6-shim/es6-shim.min.js",
                     "node_modules/systemjs/dist/system-polyfills.js",
                     "node_modules/angular2/es6/dev/src/testing/shims_for_IE.js",
