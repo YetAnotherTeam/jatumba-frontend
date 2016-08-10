@@ -8,8 +8,8 @@
                        [(ngModel)]="searchInput">
             </div>
         </div>
-        <div class="collection cards-container">
-            <div class="col s12" *ngFor="#user of userList">
+        <div class="collection" masonry>
+            <div class="col user-profile-card" *ngFor="#user of userList" masonryItem>
                 <div class="card">
                     <div class="card-image">
                         <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">

@@ -4,12 +4,13 @@ import {UserService} from "../user.service";
 import {User} from "../user";
 import {Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../../auth/auth.service";
+import {MasonryItemDirective, MasonryDirective} from "../../directives/masonry";
 
 @Component({
     selector: 'user-list',
     templateUrl: '/app/user/list/user-list.component.html',
     styleUrls: ['app/user/list/user-list.component.css'],
-    directives: [UserCardComponent, ROUTER_DIRECTIVES],
+    directives: [UserCardComponent, ROUTER_DIRECTIVES, MasonryDirective, MasonryItemDirective],
     providers: [UserService]
 })
 export class UserListComponent implements OnInit {
