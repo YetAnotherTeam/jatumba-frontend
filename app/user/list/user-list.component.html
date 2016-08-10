@@ -1,6 +1,5 @@
 <div class="container">
-    <h1>Users</h1>
-    <div class="row band_list_navigation" (keyup.enter)="searchUser($event)">
+    <div class="row band_list_navigation" (keyup.enter)="searchUser($event)" style="margin-top: 30px;">
         <div class="input-field col s6" style="margin-top: 0">
             <i class="material-icons prefix" style="margin-top: 13px;">search</i>
             <input placeholder="User name" id="user_name" type="text" class="validate"
@@ -27,6 +26,13 @@
                            [routerLink]="['UserDetail', {'id': user.id}]">{{user.username}}</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="additional_loader" (click)="loadNextPage()">
+            <div style="width: 100px; margin: auto;">
+                <i class="material-icons clickable grey-text" style="margin-top: 12px;">loop</i>
             </div>
         </div>
     </div>

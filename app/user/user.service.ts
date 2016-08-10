@@ -17,6 +17,10 @@ export class UserService extends BaseAPIService {
         }
         return this._http.get(url, this.getHeaders()).map(res => res.json())
     }
+    
+    listNextPage(url: string) {
+        return this._http.get(url, this.getHeaders()).map(res => res.json())
+    } 
 
     search(query: string) {
         if (query == '' || !query) {

@@ -57,6 +57,17 @@ export class UserListComponent implements OnInit {
         });
     }
 
+    loadNextPage() {
+        var self = this;
+        this._userService.listNextPage(this.paginationInfo.next).subscribe((userList: any) => {
+                self._ngZone.run(() => {
+                    self.userList = self.userList.concat(userList.results);
+                    self.paginationInfo = userList;
+                });
+            }
+        )
+    }
+
     ngOnInit(): any {
         this.list();
     }
