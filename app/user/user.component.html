@@ -1,63 +1,80 @@
 <div *ngIf="user" class="row">
-    <div class="col s6 offset-s3">
-        <div class="card" style="padding-bottom: 30px;">
+    <div class="col s8 offset-s2">
+        <div class="card">
             <div class="card-content">
-                <div class="row">
+                <div class="row" style="margin-bottom: 0">
                     <div class="col s3">
-                        <img class="avatar" style="width: 100px; height: 100px; float: right" [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
+                        <img style="width: 100%"
+                             [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
                     </div>
-                    <div class="col s8">
-                        <h5 style="color: #fb1a51">@{{user.username}}</h5>
-                        <h6 class="secondary_text">{{user.first_name}} {{user.last_name}}</h6>
+                    <div class="col s9">
+                        <div class="row" style="border-bottom: 2px solid #d7d7d7">
+                            <h4 class="light" style="display: inline-block;">I'm</h4> &nbsp;
+                            <h4 style="font-weight: 500; display: inline-block">
+                                {{user.username}}</h4>
+                            <h6 class="secondary_text light" style="padding-bottom: 15px">
+                                {{user.first_name}}
+                                {{user.last_name}}</h6>
+                        </div>
+                        <div class="row" style="margin-bottom: 0">
+                            <div *ngIf="user.fb_profile || user.vk_profile" class="row">
+                                <div class="col s3" style="padding-left:0">
+                                    <p class="user_property light">Social</p>
+                                </div>
+                                <div class="col s9">
+                                    <div *ngIf="user.vk_profile">
+                                        <a href="https://vk.com/id{{user.vk_profile}}">
+                                            vk.com/id{{user.vk_profile}}
+                                        </a>
+                                    </div>
+                                    <div *ngIf="user.fb_profile">
+                                        <a href="https://facebook.com/{{user.fb_profile}}">
+                                            facebook.com/{{user.fb_profile}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="compositions?.length || isCanEdit">
+                                <div class="col s3" style="padding-left:0">
+                                    <p class="user_property strong" style="margin-top: 4px;">
+                                        Bands</p>
+                                </div>
+                                <div class="col s9">
+                                    <template [ngIf]="user.members?.length">
+                                        <div *ngFor="#member of user.members" class="chip"
+                                             style="margin-right: 5px; margin-bottom: 5px; cursor: pointer;"
+                                             [routerLink]="['BandDetail', {'id': member.band.id}]">
+                                            {{member.band.name}}
+                                        </div>
+                                    </template>
+                                    <div *ngIf="user.members?.length == 0" class="chip"
+                                         style="cursor: pointer"
+                                         [routerLink]="['BandList']">
+                                        Find band
+                                        <i class="close material-icons">add</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="compositions?.length || isCanEdit">
-                <div class="col s3">
-                    <p class="user_property" style="margin-top: 4px;">Bands</p>
-                </div>
-                <div class="col s8">
-                    <template [ngIf]="user.members?.length">
-                    <div *ngFor="#member of user.members" class="chip" style="margin-right: 5px; margin-bottom: 5px; cursor: pointer;" [routerLink]="['BandDetail', {'id': member.band.id}]">
-                        {{member.band.name}}
-                    </div>
-                    </template>
-                    <div *ngIf="user.members?.length == 0" class="chip" style="cursor: pointer" [routerLink]="['BandList']">
-                        Find band
-                        <i class="close material-icons">add</i>
-                    </div>
-                </div>
+        </div>
+        <div *ngIf="compositions?.length">
+            <h3>Tracks</h3>
+            <div class="card">
+                <ul class="collection">
+                    <li class="collection-item avatar" *ngFor="#composition of compositions">
+                        <i class="material-icons circle" style="background-color: #fb1a51">music_note</i>
+                        <a class="title" [routerLink]="['Editor', {'id': composition.id}]">{{composition.name}}</a>
+                        <p *ngIf="composition.as_destination_fork" class="composition__fork-text">Forked from band
+                            <a class="title" class="composition__fork-text"
+                               [routerLink]="['BandDetail', {'id': composition.as_destination_fork.source_composition.band.id}]">{{composition.as_destination_fork.source_composition.band.name}}</a>
+                        </p>
+                        <p class="composition__edit-time">edited {{timeSince(composition.latest_version.create_datetime)}}</p>
+                    </li>
+                </ul>
             </div>
-            <div *ngIf="user.fb_profile || user.vk_profile" class="row">
-                <div class="col s3">
-                    <p class="user_property">Social</p>
-                </div>
-                <div class="col s8">
-                    <div *ngIf="user.vk_profile">
-                        <a href="https://vk.com/id{{user.vk_profile}}">
-                            vk.com/id{{user.vk_profile}}
-                        </a>
-                    </div>
-                    <div *ngIf="user.fb_profile">
-                        <a href="https://facebook.com/{{user.fb_profile}}">
-                            facebook.com/{{user.fb_profile}}
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row" *ngIf="compositions?.length">
-                <div class="col s3">
-                    <p class="user_property">
-                        Latest tracks
-                    </p>
-                </div>
-                <div class="col s8">
-                    <div *ngFor="#composition of compositions">
-                        <a [routerLink]="['Editor', {'id': composition.id}]">{{composition.name}}</a> <p style="display: inline-block; font-size: 10px;" class="secondary_text">edited {{timeSince(composition.latest_version.create_datetime)}}</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

@@ -35,7 +35,7 @@
                                 Members
                             </h6>
                             <div *ngFor="#member of memberList" class="member">
-                                <img class="avatar user-avatar"
+                                <img class="avatar user-avatar user_avatar"
                                      [src]="member.user.avatar ? member.user.avatar : '/img/default_avatar.jpg'"
                                      [routerLink]="['UserDetail', {'id': member.user.id}]"
                                 >
@@ -43,7 +43,7 @@
                                 <p class="full_name">{{member.user.first_name}} {{member.user.last_name}}</p>
                             </div>
                             <div *ngIf="!isJoined" class="member band_join">
-                                <div (click)="onJoinButton()" class="avatar user-avatar band_join_image"></div>
+                                <div (click)="onJoinButton()" class="avatar user-avatar user_avatar band_join_image"></div>
                                 <a (click)="onJoinButton()" class="band_join_text">Join this band</a>
                             </div>
                         </div>

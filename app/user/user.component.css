@@ -74,7 +74,9 @@
 }
 
 .user_property {
-    color: #777; float: right;
+    color: #777 !important;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 .list_avatar {
@@ -93,5 +95,20 @@
 }
 
 .secondary_text {
-    color: #808080
+    color: #808080;
 }
+
+.collection-item {
+    /* Костыль, чтобы избавиться от flex */
+    display: block;
+}
+
+.composition__fork-text {
+    font-size: 14px;
+}
+
+.composition__edit-time {
+    color: #808080;
+    font-size: 13px;
+}
+
