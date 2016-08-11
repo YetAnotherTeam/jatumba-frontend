@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
         show_vk_register: false
     };
 
+
     constructor(private _authService: AuthService, private _router: Router, private _ngZone: NgZone) {
         var self = this;
         this._authService.isAuth().then((isAuth) => {
@@ -136,8 +137,9 @@ export class LoginComponent implements OnInit {
         let self = this;
         this._authService.login(this._login, this._password).subscribe(function (data) {
                 self._router.navigate(['UserDetail', {id: data.user.id}])
-            }, function (error) {
-                this.login_error = error;
+            }, (error) => {
+                console.log('errorMSG', error);
+                this.login_error = error.error;
             }
         );
     }

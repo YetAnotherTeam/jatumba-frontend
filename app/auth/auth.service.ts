@@ -3,6 +3,7 @@ import {Injectable} from "angular2/core";
 import {Http, Headers} from "angular2/http";
 import {User} from "../user/user";
 import {BaseAPIService} from "../base/base.api.service";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class AuthService extends BaseAPIService {
@@ -71,9 +72,12 @@ export class AuthService extends BaseAPIService {
                     return data;
                 },
                 error => {
-                    return error
+                    return error.json();
                 }
-            )
+            ).catch(error => {
+                let errorObject = JSON.parse(error._body);
+                return Observable.throw(errorObject);
+            });
     }
 
     vkAuth(token: string, username?: string) {
