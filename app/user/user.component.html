@@ -68,10 +68,10 @@
                         <i class="material-icons circle" style="background-color: #fb1a51">music_note</i>
                         <a class="title" [routerLink]="['Editor', {'id': composition.id}]">{{composition.name}}</a>
                         <p *ngIf="composition.as_destination_fork" class="composition__fork-text">Forked from band
-                            <a class="title" class="composition__fork-text"
+                            <a class="title composition__fork-text"
                                [routerLink]="['BandDetail', {'id': composition.as_destination_fork.source_composition.band.id}]">{{composition.as_destination_fork.source_composition.band.name}}</a>
                         </p>
-                        <p class="composition__edit-time">edited {{timeSince(composition.latest_version.create_datetime)}}</p>
+                        <p class="composition__edit-time">edited {{timeSince(composition.latest_version.create_datetime)}} {{composition.latest_version.author.username}}</p>
                     </li>
                 </ul>
             </div>
