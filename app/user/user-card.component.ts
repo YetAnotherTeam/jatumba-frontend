@@ -33,18 +33,13 @@ export class UserCardComponent implements OnInit {
                 params: RouteParams,
                 private _ngZone: NgZone) {
         var self = this;
-        console.log('1');
         this._authService.isAuth().then((isAuth) => {
-            console.log('2');
             if (!isAuth) {
-                console.log('3');
                 this._router.navigate(['Login']);
             }
         }).catch((err) => {
-            console.log('4');
             this._router.navigate(['Login']);
         });
-        console.log('5');
         this.id = +params.get('id');
 
         var system_user = JSON.parse(localStorage.getItem('user'));
