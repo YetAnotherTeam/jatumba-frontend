@@ -46,6 +46,7 @@ export class UserCardComponent implements OnInit {
         this.isCanEdit = system_user.id == this.id;
         this.tab = 'info';
         this.templateRenderTime = new Date();
+        this.get_user();
     }
 
     private get_user() {
