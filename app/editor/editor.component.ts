@@ -367,7 +367,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         let tickTime = 10;
         let widthSound = 15; // 15px палочка
         let sizeWavePx = widthSound * 32; // 8px палочка 32 делений
-        let sizeWithMultipleSector = (sizeWavePx + 15) * allSoundList.length;
+        let sizeWithMultipleSector = (sizeWavePx) * allSoundList.length;
         let self = this;
         let speed = (((sizeWavePx / 4 * (this.bpm / 60)) / 1000) * tickTime);
 
