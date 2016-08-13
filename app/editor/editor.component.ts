@@ -312,7 +312,13 @@ export class EditorComponent implements OnInit, OnDestroy {
         let mapper = {
             hi: 'icon circle fill', // black circle
             mid: 'icon circle', //white circle
-            lo: 'icon triangle fill' // triangle
+            lo: 'icon triangle fill', // triangle
+            'caixa-hi': 'icon circle fill', // black circle
+            'caixa-mid': 'icon circle', //white circle
+            'caixa-lo': 'icon triangle fill', // triangle
+            'caixa-bas-hi': 'icon circle fill', // black circle
+            'caixa-bas': 'icon circle', //white circle
+            'caixa-bas-lo': 'icon triangle fill' // triangle
         };
 
         return mapper[string] ? mapper[string] : 'icon';
