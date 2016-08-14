@@ -8,6 +8,7 @@ export class BaseService {
     constructor() {
         this._headers = new Headers();
         this._headers.append('Content-Type', 'application/json');
+        this._headers.append('Accept', '*/*');
     }
 
     protected getHeaders() {

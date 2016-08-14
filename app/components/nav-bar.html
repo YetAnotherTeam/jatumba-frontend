@@ -11,12 +11,12 @@
                     Bands
                 </a>
             </li>
-            <div class="user-panel">
+            <div class="user-panel" style="display:block; float:right;">
 				<span class="avatar avatar_hover">
 					<img [routerLink]="['UserDetail', {'id': user.id}]"
                          [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
 				</span>
-                <span (click)="openBurger()">
+                <span (click)="openBurger()" style="display:inline-block;">
                     <i class="material-icons clickable">more_vert</i>
                 </span>
                 <ul class='dropdown-content' style="opacity: 1; display: block; top: 64px; right: 10px;" *ngIf="burgerIsOpen">

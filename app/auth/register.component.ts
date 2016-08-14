@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
                     this._router.navigate(['UserDetail', {id: user.id}])
                 })
             }
-        })
+        }).catch(()=>{})
     }
 
     register() {
