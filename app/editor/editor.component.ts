@@ -138,7 +138,13 @@ export class EditorComponent implements OnInit, OnDestroy {
             self._createSoundMap();
 
             self._editorService.get(self.id).subscribe(composition => {
-                self.havePermissionToEdit = composition.permissions.includes('change_composition');
+                self.havePermissionToEdit = false;
+                for (let perm of composition.permissions) {
+                    if (perm == 'change_composition') {
+                        self.havePermissionToEdit = true;
+                    }
+                }
+
                 self._parseComposition(composition.latest_version.tracks);
                 self.composition = composition;
                 self.selectedVersion = composition.latest_version.id;
@@ -171,7 +177,13 @@ export class EditorComponent implements OnInit, OnDestroy {
         var self = this;
 
         self._editorService.get(self.id).subscribe(composition => {
-            self.havePermissionToEdit = composition.permissions.includes('change_composition');
+            self.havePermissionToEdit = false;
+            for (let perm of composition.permissions) {
+                if (perm == 'change_composition') {
+                    self.havePermissionToEdit = true;
+                }
+            }
+
             self._parseComposition(composition.latest_version.tracks);
             self.composition = composition;
             self.selectedVersion = composition.latest_version.id;
