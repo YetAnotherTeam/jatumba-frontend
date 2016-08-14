@@ -1,5 +1,6 @@
 <div class="container">
-    <div class="row band_list_navigation" (keyup.enter)="searchUser($event)" style="margin-top: 30px;">
+    <div class="row band_list_navigation" (keyup.enter)="searchUser($event)"
+         style="margin-top: 30px;">
         <div class="input-field col s6" style="margin-top: 0">
             <i class="material-icons prefix" style="margin-top: 13px;">search</i>
             <input placeholder="User name" id="user_name" type="text" class="validate"
@@ -14,12 +15,11 @@
                         <img [src]="user.avatar ? user.avatar : '/img/default_avatar.jpg'">
                         <span class="card-title">{{user.first_name}} {{user.last_name}}</span>
                     </div>
-                    <div *ngIf="user.vk_profile">
-                        <div class="card-content">
-                            <p>
-                                <a href="http://vk.com/id{{user.vk_profile}}">Вконтакте</a>
-                            </p>
-                        </div>
+                    <div class="card-content" *ngIf="user.vk_profile || user.fb_profile">
+                        <p>
+                            <a href="http://vk.com/id{{user.vk_profile}}" *ngIf="user.vk_profile">VK</a>
+                            <a href="https://facebook.com/{{user.fb_profile}}" *ngIf="user.fb_profile">FB</a>
+                        </p>
                     </div>
                     <div class="card-action">
                         <a class="collection-item"
