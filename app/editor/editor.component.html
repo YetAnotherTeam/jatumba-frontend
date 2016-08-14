@@ -9,17 +9,17 @@
                 </span>
 
             </div>
-    <!--<a class="mdl-navigation__link"
-       *ngFor="#instrument of instrumentList"
-       [ngClass]="{
-           'mdl-navigation__link--current': instrument.active
-       }"
-       "
-       [attr.data-instrument-id]="instrument.id"
-    >{{instrument.name}}</a>
-    <br/>
-    <button class="btn btn-success" (click)="createTrack()" *ngIf="isEditorMode">Создать дорожку</button>
-    -->
+            <!--<a class="mdl-navigation__link"
+               *ngFor="#instrument of instrumentList"
+               [ngClass]="{
+                   'mdl-navigation__link--current': instrument.active
+               }"
+               "
+               [attr.data-instrument-id]="instrument.id"
+            >{{instrument.name}}</a>
+            <br/>
+            <button class="btn btn-success" (click)="createTrack()" *ngIf="isEditorMode">Создать дорожку</button>
+            -->
             <ul class="collection no-margin silver collection__special">
                 <li class="collection-item"
                     *ngFor="#instrument of instrumentList"
@@ -29,14 +29,17 @@
                     <div class="collection-item__icon">
                         <i class="material-icons">queue_music</i>
                     </div>
-                    <div class="collection-item__name" style="margin-top: 4px" (click)="changeActiveInstrument(instrument)"
+                    <div class="collection-item__name" style="margin-top: 4px"
+                         (click)="changeActiveInstrument(instrument)"
                          [attr.data-instrument-id]="instrument.id">
                         <div class="collection-item__title">
                             <span class="link">{{instrument.name}}</span>
                         </div>
                     </div>
                     <div class="collection-item__secondary double">
-                        <i class="material-icons clickable" (click)="changeActiveInstrument(instrument); createTrack()" *ngIf="isEditorMode">add</i>
+                        <i class="material-icons clickable"
+                           (click)="changeActiveInstrument(instrument); createTrack()"
+                           *ngIf="isEditorMode">add</i>
                     </div>
                 </li>
             </ul>
@@ -60,7 +63,8 @@
                         </span>
                     </div>
                     <div class="collection-item__name">
-                        <div class="collection-item__title user_hover" [routerLink]="['UserDetail', {'id': commit.author.id}]">
+                        <div class="collection-item__title user_hover"
+                             [routerLink]="['UserDetail', {'id': commit.author.id}]">
                             {{commit.author.username}}
                         </div>
                         <div class="comment">commited {{timeSince(commit.create_datetime)}}</div>
@@ -80,7 +84,8 @@
 
             </div>
             <ul class="collection no-margin silver collection__special">
-                <li *ngFor="#band_track of compositionList" class="collection-item" [ngClass]="{'collection-item_active': composition.id == band_track.id}">
+                <li *ngFor="#band_track of compositionList" class="collection-item"
+                    [ngClass]="{'collection-item_active': composition.id == band_track.id}">
                     <div class="collection-item__icon">
                         <i class="material-icons">label</i>
                     </div>
@@ -95,30 +100,39 @@
     </div>
 
 
-
-
 </div>
 <div class="col xl10 l9 m9 s9 col-board">
 
     <div class="card silver" style="min-height: 495px;">
-        <div *ngIf="!trackList.length && havePermissionToEdit" style="position: absolute; width: 390px; top: 250px; right: 0; margin: 0 auto; left: 0;">Here is nothing yet, try to go to edit mode and add track.
-.</div>
-        <div *ngIf="!trackList.length && !havePermissionToEdit" style="position: absolute; width: 400px; top: 250px; right: 0; margin: 0 auto; left: 0;">Here is nothing yet, but soon the band will start its work.</div>
+        <div *ngIf="!trackList.length && havePermissionToEdit"
+             style="position: absolute; width: 390px; top: 250px; right: 0; margin: 0 auto; left: 0;">
+            Here is nothing yet, try to go to edit mode and add track.
+        </div>
+        <div *ngIf="!trackList.length && !havePermissionToEdit"
+             style="position: absolute; width: 400px; top: 250px; right: 0; margin: 0 auto; left: 0;">
+            Here is nothing yet, but soon the band will start its work.
+        </div>
         <div class="card-content">
             <div class="card-header">
                 <div class="playboard-header">
                     <div class="playboard-header__left" *ngIf="activeInstrument && composition">
-                        <span class="play" *ngIf="!isPlay" [style.visibility]="trackList.length ? 'visible' : 'hidden'" (click)="play()"
+                        <span class="play" *ngIf="!isPlay"
+                              [style.visibility]="trackList.length ? 'visible' : 'hidden'"
+                              (click)="play()"
                         >
                             <i class="material-icons">play_circle_filled</i>
                         </span>
-                        <span class="play" *ngIf="isPlay" [style.visibility]="trackList.length ? 'visible' : 'hidden'" (click)="stop()" style="color: black;">
+                        <span class="play" *ngIf="isPlay"
+                              [style.visibility]="trackList.length ? 'visible' : 'hidden'"
+                              (click)="stop()" style="color: black;">
                             <i class="material-icons">stop</i>
                         </span>
 
-                        <span class="bpm" [style.visibility]="trackList.length ? 'visible' : 'hidden'">
+                        <span class="bpm"
+                              [style.visibility]="trackList.length ? 'visible' : 'hidden'">
                             <span class="bpm__title">BPM</span>
-                            <span class="bpm__beat"><input type="text" class="inp-underlined" value="120" [(ngModel)]="bpm"></span>
+                            <span class="bpm__beat"><input type="text" class="inp-underlined"
+                                                           value="120" [(ngModel)]="bpm"></span>
                         </span>
                         <div class="icon-add" *ngIf="isEditorMode">
                             <span class="step" *ngFor="#sound of activeInstrument.sounds">
@@ -135,31 +149,34 @@
 
                     <div class="playboard-header__right">
                             <span class="volume" style="margin-right: 20px;">
-                                <i class="material-icons clickable" style="position: relative; top: 9px;">volume_up</i>
+                                <i class="material-icons clickable"
+                                   style="position: relative; top: 9px;">volume_up</i>
                                 <input type="range" [(ngModel)]="globalVolume" style="width: 100px;"
                                        (change)="volumeChange()">
                             </span>
-                            <span *ngIf="isEditorMode" class="topbar_icon">
+                        <span *ngIf="isEditorMode" class="topbar_icon">
                                 <i (click)="revertComposition()" class="material-icons clickable">settings_backup_restore</i>
                             </span>
-                            <span *ngIf="isEditorMode" class="topbar_icon">
+                        <span *ngIf="isEditorMode" class="topbar_icon">
                                 <i (click)="commitComposition()" class="material-icons clickable">done</i>
                             </span>
-                            <!--<span class="sound">-->
-                                <!--<i class="material-icons clickable">volume_up</i>-->
-                            <!--</span>-->
-                            <span *ngIf="!isEditorMode" class="topbar_icon">
+                        <!--<span class="sound">-->
+                        <!--<i class="material-icons clickable">volume_up</i>-->
+                        <!--</span>-->
+                        <span *ngIf="!isEditorMode" class="topbar_icon">
                                 <i (click)="openForkDialogue()" class="material-icons clickable">call_split</i>
                             </span>
-                            <span *ngIf="havePermissionToEdit" class="edit link link-grey" (click)="changeEditorMode(!isEditorMode)">
+                        <span *ngIf="havePermissionToEdit" class="edit link link-grey"
+                              (click)="changeEditorMode(!isEditorMode)">
                                  Edit
                             </span>
-                            <div class="switch">
-                                <label *ngIf="havePermissionToEdit">
-                                    <input type="checkbox" [checked]="isEditorMode" (change)="changeEditorMode(!isEditorMode)">
-                                    <span class="lever"></span>
-                                </label>
-                            </div>
+                        <div class="switch">
+                            <label *ngIf="havePermissionToEdit">
+                                <input type="checkbox" [checked]="isEditorMode"
+                                       (change)="changeEditorMode(!isEditorMode)">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,10 +203,12 @@
                                         <div class="avatar"><img src="img/default_avatar.jpg"></div>
                                     </div>
                                     <div class="playboard-track__ruler" style="position: relative;">
-                                        <div class="name"><span class="link">{{track.instrument.name}}</span></div>
-                                        <span class="rotate45" style="position: absolute; right: 0; top: 0;"
-                                             *ngIf="isEditorMode"
-                                            (click)="removeTrackByIndex(trackIndex)">
+                                        <div class="name"><span class="link">{{track.instrument.name}}</span>
+                                        </div>
+                                        <span class="rotate45"
+                                              style="position: absolute; right: 0; top: 0;"
+                                              *ngIf="isEditorMode"
+                                              (click)="removeTrackByIndex(trackIndex)">
                                             <i class="material-icons clickable">add</i>
                                         </span>
                                         <div class="volume">
@@ -205,14 +224,15 @@
                                          *ngFor="#sector of track.sectorList; #sectorIndex = index">
                                         <div class="track__block"
                                              *ngFor="#block of [4,8,12,16,20,24,28,32]"
-                                            [attr.data-num]="block % 8 == 0 ? block / 8 : ''">
+                                             [attr.data-num]="block % 8 == 0 ? block / 8 : ''">
                                             <div class="track-brd">
                                                 <!--Баг ангуляра, костыль-->
-                                                <template ngFor #sound [ngForOf]="sector.soundList" #soundIndex="index">
+                                                <template ngFor #sound [ngForOf]="sector.soundList"
+                                                          #soundIndex="index">
                                                     <span
-                                                          (click)="addOrRemoveSound(track,sectorIndex, soundIndex)"
-                                                          [class]="mappingSoundNameToType(sound.name)"
-                                                          *ngIf="soundIndex < block && soundIndex >= block - 4"
+                                                            (click)="addOrRemoveSound(track,sectorIndex, soundIndex)"
+                                                            [class]="mappingSoundNameToType(sound.name)"
+                                                            *ngIf="soundIndex < block && soundIndex >= block - 4"
                                                     ></span>
                                                 </template>
                                             </div>
@@ -221,7 +241,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="playhead" [style.transform]="linePosition" style="left:180px;"></div>
+                        <div class="playhead" [style.transform]="linePosition"
+                             style="left:180px;"></div>
                     </div>
                 </div>
                 <div class="playboard__ruler" *ngIf="isEditorMode && trackList.length">
@@ -236,21 +257,24 @@
     </div>
 </div>
 
-<chat-component *ngIf="composition && havePermissionToEdit" [band]="composition.band"></chat-component>
+<chat-component *ngIf="composition && havePermissionToEdit"
+                [band]="composition.band"></chat-component>
 
 <div *ngIf="user && composition" id="forkModal" class="modal modal-fixed-footer">
     <div class="modal-content">
         <h4>Choose band where you want to fork this composition</h4>
         <div class="collection">
             <template ngFor #member [ngForOf]="user.members">
-            <a *ngIf="member.band.name != composition.band.name" class="collection-item" (click)="forkComposition(member.band.id)">
-                {{member.band.name}}
-            </a>
+                <a *ngIf="member.band.name != composition.band.name" class="collection-item"
+                   (click)="forkComposition(member.band.id)">
+                    {{member.band.name}}
+                </a>
             </template>
         </div>
     </div>
     <div class="modal-footer">
-        <a (click)="closeModal();" class=" modal-action modal-close waves-effect waves-green btn-flat">No, thanks</a>
+        <a (click)="closeModal();"
+           class=" modal-action modal-close waves-effect waves-green btn-flat">No, thanks</a>
     </div>
 </div>
 §
