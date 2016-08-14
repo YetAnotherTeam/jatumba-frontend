@@ -1,4 +1,4 @@
-import {Headers} from "angular2/http";
+import {Headers, RequestOptions} from "angular2/http";
 
 export class BaseService {
     protected _headers: Headers;
@@ -11,6 +11,6 @@ export class BaseService {
     }
 
     protected getHeaders() {
-        return {headers: this._headers}
+        return new RequestOptions({ headers: this._headers });
     }
 }
