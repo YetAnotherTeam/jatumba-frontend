@@ -104,11 +104,10 @@
 }
 
 .composition__fork-text {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .composition__edit-time {
     color: #808080;
     font-size: 13px;
 }
-
