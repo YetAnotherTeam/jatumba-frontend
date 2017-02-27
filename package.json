@@ -12,9 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "angular2": "2.0.0-beta.16",
-    "angular2-websocket": "^0.6.2",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.35.0",
+    "angular2-websocket": "0.6.3",
+    "es6-promise": "3.3.1",
+    "es6-shim": "0.35.1",
     "hellojs": "1.12",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
@@ -22,15 +22,15 @@
     "zone.js": "0.6.12"
   },
   "devDependencies": {
-    "concurrently": "^2.0.0",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-uglify": "^2.0.0",
-    "lite-server": "^2.1.0",
+    "concurrently": "2.2.0",
+    "grunt": "1.0.1",
+    "grunt-cli": "1.2.0",
+    "grunt-contrib-concat": "1.0.1",
+    "grunt-contrib-cssmin": "1.0.2",
+    "grunt-contrib-uglify": "2.0.0",
+    "lite-server": "2.2.2",
     "masonry-layout": "4.0.0",
-    "typescript": "^1.8.9",
-    "typings": "^0.7.9"
+    "typescript": "1.8.10",
+    "typings": "0.7.12"
   }
 }
