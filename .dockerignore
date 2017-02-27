@@ -62,3 +62,7 @@ typings/
 .git
 
 .DS_Store
+
+app/**/*.js
+app/**/*.js.map
+build
