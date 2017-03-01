@@ -4,3 +4,6 @@ typings/
 app/**/*.js
 app/**/*.js.map
 build
+
+.DS_Store
+npm-debug.log
