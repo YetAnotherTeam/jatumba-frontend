@@ -4,7 +4,11 @@ export class BaseWebSocketService extends BaseService {
 
     constructor() {
         super();
-        this.scheme = 'wss://';
+        let scheme = 'wss://';
+        if (location.protocol === 'http:') {
+            scheme = 'ws://'
+        }
+        this.scheme = scheme;
         this.baseWebSocketUrl = this.scheme + this.host + '/ws/';
     }
 }
