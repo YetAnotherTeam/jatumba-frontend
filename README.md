@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/YetAnotherTeam/jatumba-frontend.svg?branch=master)](https://travis-ci.org/YetAnotherTeam/jatumba-frontend)
 
 ### Start development
 
