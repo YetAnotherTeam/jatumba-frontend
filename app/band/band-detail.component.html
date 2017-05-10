@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col s7">
                             <h6 style="margin-bottom: 5px;">
-                               Description
+                               Описание
                             </h6>
                             <p class="description" >
                                 {{band.description}}
@@ -44,7 +44,7 @@
                             </div>
                             <div *ngIf="!isJoined" class="member band_join">
                                 <div (click)="onJoinButton()" class="avatar user-avatar user_avatar band_join_image"></div>
-                                <a (click)="onJoinButton()" class="band_join_text">Join this band</a>
+                                <a (click)="onJoinButton()" class="band_join_text">Присоединиться</a>
                             </div>
                         </div>
                     </div>
@@ -56,15 +56,15 @@
 
     <div class="modal modal-fixed-footer" id="composition_create_modal">
         <div class="modal-content">
-            <h4>Come up with your composition name:</h4>
+            <h4>Придумайте название композиции:</h4>
             <div class="input-field col s6">
                 <input id="composition_name" type="text" class="validate" [(ngModel)]="new_composition_name">
-                <label for="composition_name">Name</label>
+                <label for="composition_name">Название</label>
             </div>
         </div>
         <div class="modal-footer">
-            <a (click)="create_composition()" class=" modal-action modal-close waves-effect waves-green btn-flat">Create</a>
-            <a (click)="closeNewCompositionDialogue()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a (click)="create_composition()" class=" modal-action modal-close waves-effect waves-green btn-flat">Создать</a>
+            <a (click)="closeNewCompositionDialogue()" class=" modal-action modal-close waves-effect waves-green btn-flat">Отмена</a>
         </div>
     </div>
 </div>

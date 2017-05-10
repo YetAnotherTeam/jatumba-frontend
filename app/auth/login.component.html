@@ -1,37 +1,35 @@
 <div class="pen-title">
-    <h1>JaTumba</h1><span>Special for <a href='http://tech-mail.ru'>Технопарк@Mail.ru</a></span>
+    <h1>JaTumba</h1>
 </div>
 <div class="container">
     <div class="card"></div>
     <div class="card" [hidden]="login_controller.hide_login">
-        <h1 class="title">Authorization</h1>
+        <h1 class="title">Авторизация</h1>
         <form>
             <div class="input-container">
                 <input type="text" id="Username" [(ngModel)]="_login" required="required"/>
-                <label for="Username">Username</label>
+                <label for="Username">Логин</label>
                 <!--<div class="bar"></div>-->
             </div>
             <div class="input-container">
                 <input type="password" id="Password" [(ngModel)]="_password" required="required"/>
-                <label for="Password">Password</label>
+                <label for="Password">Пароль</label>
                 <!--<div class="bar"></div>-->
             </div>
             <div style="position: relative; top: -50px; color: #cc0000; left: 60px;">
                 {{login_error}}
             </div>
             <div class="button-container">
-                <button (click)="login()"><span>Let's go</span></button>
+                <button (click)="login()"><span>Войти</span></button>
             </div>
-            <div class="footer"><a [routerLink]="['Register']">Register</a></div>
-            <div class="footer"><a style="cursor: pointer;"  (click)="onVkAuthButton()">Login with VK</a></div>
-            <div class="footer"><a style="cursor: pointer;"  (click)="onFbAuthButton()">Login with FB</a></div>
+            <div class="footer"><a [routerLink]="['Register']">Зарегистрировать</a></div>
         </form>
     </div>
     <div class="card" [hidden]="!login_controller.hide_login">
-        <h3 class="title">Type your new username</h3>
+        <h3 class="title">Придумайте логин</h3>
         <div class="input-container">
             <input [(ngModel)]="social_username" id="social_username" required="required"/>
-            <label for="social_username">Username</label>
+            <label for="social_username">Логин</label>
             <!--<div class="bar"></div>-->
         </div>
         <div class="button-container" style="cursor: pointer;" [hidden]="!login_controller.show_vk_register"><button (click)="onVkRegisterButton()" type="button" class="btn btn-primary" style="height:60px;"><span>Login</span></button></div>

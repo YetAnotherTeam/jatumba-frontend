@@ -1,39 +1,39 @@
 <div class="pen-title">
-    <h1><a [routerLink]="['Login']" style="color: black">JaTumba</a></h1><span>Special for <a href='http://tech-mail.ru'>Технопарк@Mail.ru</a></span>
+    <h1><a [routerLink]="['Login']" style="color: black">JaTumba</a></h1>
 </div>
 <div class="container">
     <div class="card"></div>
     <div class="card">
-        <h1 class="title">Registration</h1>
+        <h1 class="title">Регистрация</h1>
         <form>
             <div class="input-container">
                 <input type="text" id="Username" [(ngModel)]="_login" required="required"/>
-                <label for="Username">Username</label>
+                <label for="Username">Логин</label>
                 <!--<div class="bar"></div>-->
                 <span style="color: #cc0000;">{{username_error}}</span>
             </div>
             <div class="input-container">
                 <input type="text" id="FirstName" [(ngModel)]="_first_name" required="required"/>
-                <label for="Username">First Name</label>
+                <label for="Username">Имя</label>
                 <!--<div class="bar"></div>-->
             </div>
             <div class="input-container">
                 <input type="text" id="LastName" [(ngModel)]="_last_name" required="required"/>
-                <label for="Username">Last Name</label>
+                <label for="Username">Фамилия</label>
                 <!--<div class="bar"></div>-->
             </div>
             <div class="input-container">
                 <input type="password" id="Password" [(ngModel)]="_password" required="required"/>
-                <label for="Password">Password</label>
+                <label for="Password">Пароль</label>
                 <!--<div class="bar"></div>-->
             </div>
             <div class="input-container">
                 <input type="password" id="RepeatPassword" required="required"/>
-                <label for="RepeatPassword">Repeat password</label>
+                <label for="RepeatPassword">Повторите пароль</label>
                 <!--<div class="bar"></div>-->
             </div>
             <div class="button-container">
-                <button (click)="register()"><span>Register</span></button>
+                <button (click)="register()"><span>Зарегистрироваться</span></button>
             </div>
             <div class="footer"><a [routerLink]="['Login']">Back</a></div>
         </form>

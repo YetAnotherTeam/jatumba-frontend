@@ -5,10 +5,10 @@
         <ul id="nav-mobile" class="right">
             <li>
                 <a class="black-text" style="margin-right: 15px" [routerLink]="['UserList']">
-                    Users
+                    Пользователи
                 </a>
                 <a class="black-text" style="margin-right: 15px" [routerLink]="['BandList']">
-                    Bands
+                    Коллективы
                 </a>
             </li>
             <div class="user-panel">
@@ -20,9 +20,9 @@
                     <i class="material-icons clickable">more_vert</i>
                 </span>
                 <ul class='dropdown-content' style="opacity: 1; display: block; top: 64px; right: 10px;" *ngIf="burgerIsOpen">
-                    <li><a [routerLink]="['UserDetail', {'id': user.id}]">Profile</a></li>
+                    <li><a [routerLink]="['UserDetail', {'id': user.id}]">Профиль</a></li>
                     <li class="divider"></li>
-                    <li><a (click)="logout()">Logout</a></li>
+                    <li><a (click)="logout()">Выйти</a></li>
                 </ul>
             </div>
         </ul>
